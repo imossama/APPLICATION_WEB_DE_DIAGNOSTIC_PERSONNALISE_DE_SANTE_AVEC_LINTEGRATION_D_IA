@@ -1,2 +1,2 @@
-### Brainmap : A web-based platform for mental health evaluation
+### MENTALHERE : A web-based platform for mental health evaluation
 This web-based platform is designed to serve as a comprehensive tool for individuals seeking to understand their mental health better. It offers a suite of interactive assessments, rooted in clinically recognized questionnaires and tests, to help users evaluate various aspects of their psychological well-being. The platform aims to bridge the gap between initial self-recognition of potential mental health issues and seeking professional care.
