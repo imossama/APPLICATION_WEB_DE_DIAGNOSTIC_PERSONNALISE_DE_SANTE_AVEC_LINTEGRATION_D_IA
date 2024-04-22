@@ -1483,7 +1483,7 @@ tools
 
 .our-tools:before {
   content: '';
-  background-image: url(../images/tools-right-dec.jpg);
+  /* background-image: url(../images/tools-right-dec.jpg); */
   background-repeat: no-repeat;
   position: absolute;
   right: 0;
@@ -1495,7 +1495,7 @@ tools
 
 .our-tools:after {
   content: '';
-  background-image: url(../images/tools-left-dec.jpg);
+  /* background-image: url(../images/tools-left-dec.jpg); */
   background-repeat: no-repeat;
   position: absolute;
   left: 0;

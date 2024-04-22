@@ -13,6 +13,7 @@ import image_service_3 from "../assets/images/service-3.png";
 import image_service_4 from "../assets/images/service-4.png";
 import image_tool_1 from "../assets/images/google-gemini.jpeg";
 import image_tool_2 from "../assets/images/health-data.jpg";
+import image_contact from "../assets/images/contact.png";
 import image_contact_1 from "../assets/images/phone-icon.png";
 import image_contact_2 from "../assets/images/email-icon.png";
 import image_contact_3 from "../assets/images/location-icon.png";
@@ -560,7 +561,7 @@ function Home() {
               >
                 <h6>CONTACTEZ-NOUS</h6>
                 <h4>
-                ENTREZ EN CONTACT AVEC NOUS <em>MAINTENANT</em>
+                  ENTREZ EN CONTACT AVEC NOUS <em>MAINTENANT</em>
                 </h4>
                 <div className="line-dec"></div>
               </div>
@@ -574,7 +575,7 @@ function Home() {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="contact-dec">
-                      <img src="assets/images/contact-dec-v3.png" alt="" />
+                      <img src={image_contact} alt="" />
                     </div>
                   </div>
                   <div className="col-lg-5">
@@ -584,7 +585,7 @@ function Home() {
                         "
                         width="100%"
                         height="636px"
-                        style={{border:0}}
+                        style={{ border: 0 }}
                         allowFullScreen
                       ></iframe>
                     </div>
@@ -611,10 +612,7 @@ function Home() {
                         <div className="col-lg-4">
                           <div className="info-post">
                             <div className="icon">
-                              <img
-                                src={image_contact_3}
-                                alt=""
-                              />
+                              <img src={image_contact_3} alt="" />
                               <a href="#">Technopark</a>
                             </div>
                           </div>
