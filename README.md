@@ -1,4 +1,4 @@
-### SantéInstant : Application Web pour l'Évaluation et le Suivi de la Santé avec IA
+### santéia : Application Web pour l'Évaluation et le Suivi de la Santé avec IA
 
 ---
 
@@ -10,8 +10,7 @@
 4. [Fonctionnalités Clés](#4-fonctionnalités-clés)
 5. [Contraintes et Normes](#5-contraintes-et-normes)
 6. [Livrables](#6-livrables)
-7. [Planning](#7-planning)
-8. [Conclusion](#8-conclusion)
+7. [Conclusion](#7-conclusion)
 
 ---
 
@@ -55,13 +54,6 @@
 - **Documentation technique** : Guide d'installation, d'utilisation et documentation de l'API.
 - **Rapports de tests** : Couverture de test, résultats des tests unitaires et d'intégration.
 
-#### 7. Planning <a name="7-planning"></a>
-
-- **Phase de formation et de conception** : 1 semaine
-- **Développement** : 5 semaines
-- **Phase de test** : 1 semaine
-- **Déploiement** : 1 semaine
-
-#### 8. Conclusion <a name="8-conclusion"></a>
+#### 7. Conclusion <a name="8-conclusion"></a>
 
 Ce cahier des charges établit les fondements nécessaires pour le développement de l'application SantéInstant, en définissant les attentes, les fonctionnalités clés, et les spécifications techniques. Le projet vise à offrir un outil précieux pour l'évaluation et le suivi de la santé mentale et physique des utilisateurs, en utilisant les capacités avancées de l'IA.
