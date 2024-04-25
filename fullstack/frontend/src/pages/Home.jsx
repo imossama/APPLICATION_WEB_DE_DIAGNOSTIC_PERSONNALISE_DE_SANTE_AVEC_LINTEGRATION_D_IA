@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
+
 import Loading from "../components/Loading/Loading";
 
 // Image importations
@@ -29,12 +30,7 @@ function Home() {
       <Loading />
       <UpperContact />
       <Navbar />
-      <div
-        className="main-banner wow fadeIn"
-        id="top"
-        data-wow-duration="1s"
-        data-wow-delay="0.5s"
-      >
+      <div className="main-banner wow fadeIn" id="top">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -59,7 +55,7 @@ function Home() {
                       </div>
                       <div className="col-lg-12">
                         <div className="border-first-button scroll-to-section">
-                          <a href="#contact">Au diagnostic</a>
+                          <a href="">Au diagnostic</a>
                         </div>
                       </div>
                     </div>

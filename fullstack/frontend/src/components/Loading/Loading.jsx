@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
+import $ from "jquery";
 
-export default function Loading() {
-  const [isVisible, setIsVisible] = useState(true);
-
-  // Hide the loading component after 3 seconds
+function Loading() {
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsVisible(false);
-    }, 3000);
+    // Show loading component
+    $("#js-preloader").removeClass("loaded");
 
-    // Clear the timeout when the component unmounts
+    // Hide loading component after 2 seconds
+    const timeout = setTimeout(() => {
+      $("#js-preloader").addClass("loaded");
+    }, 1000); // 2 seconds
+
+    // Clear the timeout when the component unmounts or when 2 seconds elapsed
     return () => clearTimeout(timeout);
   }, []);
 
-  return isVisible ? (
+  return (
     <div id="js-preloader" className="js-preloader">
       <div className="preloader-inner">
         <span className="dot"></span>
@@ -24,5 +26,7 @@ export default function Loading() {
         </div>
       </div>
     </div>
-  ) : null;
+  );
 }
+
+export default Loading;
