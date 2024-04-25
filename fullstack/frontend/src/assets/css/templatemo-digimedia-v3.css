@@ -1991,7 +1991,6 @@ form#contact textarea::placeholder {
 
 form#contact button,
 form#question button,
-form#result button,
 form#medical button {
   display: inline-block;
   background-color: #fff;
@@ -2009,13 +2008,8 @@ form#medical button {
   outline: none;
 }
 
-form#result button {
-  margin-top: 0;
-}
-
 form#contact button:hover,
 form#question button:hover,
-form#result button:hover,
 form#medical button:hover {
   background-color: #4da6e7 !important;
   color: #fff !important;
@@ -2212,11 +2206,6 @@ form#question .col:has(input[type="radio"]) {
     align-items: center;
     justify-content: flex-end;
   }
-
-  form#result button:first-child {
-    margin-bottom: 20px;
-  }
-
   .col:has(label) {
     display: flex;
     padding-left: 5px;
