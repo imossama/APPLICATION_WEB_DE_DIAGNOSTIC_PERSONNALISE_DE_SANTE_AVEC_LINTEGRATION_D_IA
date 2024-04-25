@@ -66,7 +66,7 @@ function App() {
           <Route path="details/:id" element={<Details />} />
 
           {/* Profile Setting Page Route */}
-          <Route path="settings" element={<ProfileSettings/>}/>
+          <Route path="settings" element={<ProfileSettings />} />
 
           {/* Fallback route for 404 */}
           <Route path="*" element={<NotFound />} />

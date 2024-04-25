@@ -78,7 +78,7 @@ function Home() {
                     <img src={iamge_2} alt="" />
                   </div>
                 </div>
-                <div className="col-lg-6 align-self-center Right">
+                <div className="col-lg-6 align-self-center">
                   <div className="about-right-content">
                     <div className="section-heading">
                       <h6>À PROPOS DE NOUS</h6>
@@ -450,7 +450,7 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-5">
-              <div className="section-headingLeft">
+              <div className="section-heading" >
                 <h6>NOS OUTILS IA</h6>
                 <h4>
                   NOUS DÉPENDONS DE NOMBREUX MODÈLES <em>D'IA</em>

@@ -1,0 +1,58 @@
+[
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Annual Checkup",
+      "date": "2024-04-25",
+      "qr_code": "path/to/qr_code_image1.png",
+      "description": "Routine annual checkup. All vitals within normal range.",
+      "symptoms": ["None"],
+      "advice": "Continue healthy lifestyle practices.",
+      "medicines": []
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "title": "Flu Diagnosis",
+      "date": "2024-03-10",
+      "qr_code": "path/to/qr_code_image2.png",
+      "description": "Diagnosed with influenza. Prescribed rest and hydration.",
+      "symptoms": ["Fever", "Cough", "Body aches"],
+      "advice": "Get plenty of rest and drink fluids. Seek medical attention if symptoms worsen.",
+      "medicines": [
+        {
+          "name": "Tamiflu",
+          "link": "https://example.com/tamiflu",
+          "image": "path/to/tamiflu_image.png"
+        },
+        {
+          "name": "Ibuprofen",
+          "link": "https://example.com/ibuprofen",
+          "image": "path/to/ibuprofen_image.png"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "title": "Allergy Diagnosis",
+      "date": "2024-02-15",
+      "qr_code": "path/to/qr_code_image3.png",
+      "description": "Diagnosed with seasonal allergies. Advised to avoid allergens.",
+      "symptoms": ["Runny nose", "Sneezing", "Itchy eyes"],
+      "advice": "Avoid exposure to allergens whenever possible. Consider allergy medication.",
+      "medicines": [
+        {
+          "name": "Claritin",
+          "link": "https://example.com/claritin",
+          "image": "path/to/claritin_image.png"
+        },
+        {
+          "name": "Benadryl",
+          "link": "https://example.com/benadryl",
+          "image": "path/to/benadryl_image.png"
+        }
+      ]
+    }
+  ]
+  

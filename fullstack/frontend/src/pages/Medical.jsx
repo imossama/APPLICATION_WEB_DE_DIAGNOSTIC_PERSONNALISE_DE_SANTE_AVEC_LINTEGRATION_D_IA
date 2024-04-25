@@ -35,7 +35,7 @@ export default function Medical() {
               </div>
 
               <div className="right-image mt-5">
-                <form id="contact" action="" method="post">
+                <form id="medical" action="" method="post">
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="fill-form">

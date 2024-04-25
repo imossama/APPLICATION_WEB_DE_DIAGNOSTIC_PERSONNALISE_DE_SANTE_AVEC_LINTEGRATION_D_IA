@@ -1833,7 +1833,8 @@ contact
   margin-bottom: 80px;
 }
 
-form#contact:before {
+form#contact:before,
+form#medical::before {
   background-image: url(../images/contact-top-right-v3.png);
   position: absolute;
   right: 0;
@@ -1852,7 +1853,8 @@ form#contact:before {
   top: -242px;
 }
 
-form#contact:after {
+form#contact:after,
+form#medical::after {
   background-image: url(../images/contact-bottom-right-v3.png);
   position: absolute;
   right: 0;
@@ -1864,7 +1866,8 @@ form#contact:after {
   z-index: 1;
 }
 
-form#contact {
+form#contact,
+form#medical {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   background-color: #fff;
@@ -1937,6 +1940,7 @@ form#contact #map iframe {
 form#contact input:not([type="radio"]),
 form#contact input:not([type="checkbox"]),
 form#contact select,
+form#medical select,
 form#question input:not([type="radio"]) {
   width: 100%;
   height: 46px;
@@ -1987,7 +1991,8 @@ form#contact textarea::placeholder {
 
 form#contact button,
 form#question button,
-form#result button {
+form#result button,
+form#medical button {
   display: inline-block;
   background-color: #fff;
   font-size: 15px;
@@ -2010,7 +2015,8 @@ form#result button {
 
 form#contact button:hover,
 form#question button:hover,
-form#result button:hover {
+form#result button:hover,
+form#medical button:hover {
   background-color: #4da6e7 !important;
   color: #fff !important;
 }
@@ -2048,8 +2054,7 @@ responsive
 
 /* Added CSS */
 .col:has(label) {
-  display: flex;
-  margin-left: -20px;
+  display: flex !important;
 }
 
 .col-lg-4:has(select) select {
@@ -2101,7 +2106,6 @@ form#question .col:has(input[type="radio"]) {
     align-items: center;
     justify-content: flex-start;
   }
-
   .col:has(label) {
     display: flex;
     padding-left: 5px;
@@ -2132,7 +2136,8 @@ form#question .col:has(input[type="radio"]) {
 
 @media (max-width: 992px) {
   form#contact,
-  form#question {
+  form#question,
+  form#medical {
     overflow: hidden;
   }
   .header-area .main-nav .logo h4 {
@@ -2196,7 +2201,8 @@ form#question .col:has(input[type="radio"]) {
     margin-top: 60px;
   }
   form#contact,
-  form#question {
+  form#question,
+  form#medical {
     padding: 45px;
   }
 
@@ -2310,7 +2316,8 @@ form#question .col:has(input[type="radio"]) {
     margin-top: 15px;
   }
   form#contact,
-  form#question {
+  form#question,
+  form#medical {
     padding: 30px;
   }
 
@@ -2336,7 +2343,8 @@ input[type="radio"] {
 
 fieldset .row .col-lg-6,
 form#question .col:has(input[type="radio"]),
-form#question .col:has(label) {
+form#question .col:has(label),
+form#medical .col:has(label) {
   color: #8e8e8e;
 }
 

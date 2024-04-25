@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "userId": 1,
+      "pre_existing_conditions": 1,
+      "allergies": 1,
+      "prior_surgeries_hospitalizations": 0,
+      "illness_history": 1,
+      "physical_symptoms": "Headache",
+      "mental_health_symptoms": "Anxiety"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "pre_existing_conditions": 1,
+      "allergies": 1,
+      "prior_surgeries_hospitalizations": 0,
+      "illness_history": 1,
+      "physical_symptoms": "Cough",
+      "mental_health_symptoms": "Stress"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "pre_existing_conditions": 0,
+      "allergies": 0,
+      "prior_surgeries_hospitalizations": 1,
+      "illness_history": 1,
+      "physical_symptoms": "Joint pain",
+      "mental_health_symptoms": ""
+    }
+  ]
+  
