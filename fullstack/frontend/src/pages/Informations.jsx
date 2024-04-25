@@ -68,7 +68,7 @@ export default function Informations() {
                                 name="date"
                                 id="date"
                                 placeholder="Date de naissance"
-                                required=""
+                                required
                               />
                             </fieldset>
                             <fieldset>

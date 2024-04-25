@@ -20,7 +20,7 @@ export default function DiagnosisResult(props) {
                 <div className="left-content show-up header-text">
                   <div className="row">
                     <div className="col-lg-12">
-                      <h6>Les résultats du diagnostic sont en</h6>
+                      <h6>dd/mm/yyyy</h6>
                       <h2>{result.title}</h2>
                       <p>
                         Vous pouvez partager le diagnostic avec votre famille ou

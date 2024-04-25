@@ -1706,10 +1706,13 @@ Blog
 }
 
 .blog-post .down-content {
-  border-bottom-right-radius: 23px;
-  border-bottom-left-radius: 23px;
+  /* new css */
+  border-radius: 23px;
+  /* border-bottom-right-radius: 23px;
+  border-bottom-left-radius: 23px; */
   background-color: #fff;
   padding: 30px;
+  min-height: 300px !important;
 }
 
 .blog-post .down-content span.category {
@@ -1932,6 +1935,7 @@ form#contact #map iframe {
 }
 
 form#contact input:not([type="radio"]),
+form#contact input:not([type="checkbox"]),
 form#contact select,
 form#question input:not([type="radio"]) {
   width: 100%;
@@ -1953,6 +1957,7 @@ form#question input:not([type="radio"]) {
 }
 
 form#contact input::placeholder:not([type="radio"]),
+form#contact input::placeholder:not([type="checkbox"]),
 form#contact select::placeholder,
 form#question input::placeholder:not([type="radio"]) {
   color: #aaa;
@@ -2061,6 +2066,23 @@ form#question .col:has(input[type="radio"]) {
   margin-right: 10px;
 }
 
+.pr-checkbox .col-lg-8 {
+  color: #8e8e8e;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.pr-checkbox .left-content {
+  display: flex;
+  align-items: flex-start !important;
+}
+
+.pr-checkbox .left-content input[type="checkbox"] {
+  width: 15px !important;
+  margin: 0 !important;
+}
+
 @media (max-width: 1200px) {
   .header-area .main-nav .logo h4 {
     font-size: 24px;
@@ -2073,6 +2095,7 @@ form#question .col:has(input[type="radio"]) {
     padding-left: 20px;
   }
 
+  /* Added CSS */
   .col:has(input[type="radio"]) {
     display: flex;
     align-items: center;
@@ -2088,6 +2111,22 @@ form#question .col:has(input[type="radio"]) {
   form#question .col:has(input[type="radio"]) {
     margin-top: 5px;
     margin-right: 20px;
+  }
+
+  .blog-post {
+    text-align: left;
+  }
+
+  .pr-checkbox .col:has(input[type="checkbox"]) {
+    margin-top: 10px;
+  }
+
+  .pr-checkbox .left-content {
+    display: block;
+  }
+
+  .pr-checkbox .col-lg-8 {
+    justify-content: center;
   }
 }
 

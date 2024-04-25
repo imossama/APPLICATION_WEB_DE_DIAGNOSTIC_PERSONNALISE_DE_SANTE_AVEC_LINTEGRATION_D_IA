@@ -30,17 +30,13 @@ function Home() {
       <Loading />
       <UpperContact />
       <Navbar />
-      <div className="main-banner wow fadeIn" id="top">
+      <div className="main-banner" id="top">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="row">
                 <div className="col-lg-6 align-self-center">
-                  <div
-                    className="left-content show-up header-text wow fadeInLeft"
-                    data-wow-duration="1s"
-                    data-wow-delay="1s"
-                  >
+                  <div className="left-content show-up header-text">
                     <div className="row">
                       <div className="col-lg-12">
                         <h6>Application de diagnostic de santé avec l'IA</h6>
@@ -62,11 +58,7 @@ function Home() {
                   </div>
                 </div>
                 <div className="col-lg-6">
-                  <div
-                    className="right-image wow fadeInRight"
-                    data-wow-duration="1s"
-                    data-wow-delay="0.5s"
-                  >
+                  <div className="right-image">
                     <img src={image_1} alt="" />
                   </div>
                 </div>
@@ -82,19 +74,11 @@ function Home() {
             <div className="col-lg-12">
               <div className="row">
                 <div className="col-lg-6">
-                  <div
-                    className="about-left-image  wow fadeInLeft"
-                    data-wow-duration="1s"
-                    data-wow-delay="0.5s"
-                  >
+                  <div className="about-left-image">
                     <img src={iamge_2} alt="" />
                   </div>
                 </div>
-                <div
-                  className="col-lg-6 align-self-center  wow fadeInRight"
-                  data-wow-duration="1s"
-                  data-wow-delay="0.5s"
-                >
+                <div className="col-lg-6 align-self-center Right">
                   <div className="about-right-content">
                     <div className="section-heading">
                       <h6>À PROPOS DE NOUS</h6>
@@ -114,11 +98,7 @@ function Home() {
                     </p>
                     <div className="row">
                       <div className="col-lg-4 col-sm-4">
-                        <div
-                          className="skill-item first-skill-item wow fadeIn"
-                          data-wow-duration="1s"
-                          data-wow-delay="0s"
-                        >
+                        <div className="skill-item first-skill-item">
                           <div className="progress" data-percentage="90">
                             <span className="progress-left">
                               <span className="progress-bar"></span>
@@ -137,11 +117,7 @@ function Home() {
                         </div>
                       </div>
                       <div className="col-lg-4 col-sm-4">
-                        <div
-                          className="skill-item second-skill-item wow fadeIn"
-                          data-wow-duration="1s"
-                          data-wow-delay="0s"
-                        >
+                        <div className="skill-item second-skill-item">
                           <div className="progress" data-percentage="80">
                             <span className="progress-left">
                               <span className="progress-bar"></span>
@@ -160,11 +136,7 @@ function Home() {
                         </div>
                       </div>
                       <div className="col-lg-4 col-sm-4">
-                        <div
-                          className="skill-item third-skill-item wow fadeIn"
-                          data-wow-duration="1s"
-                          data-wow-delay="0s"
-                        >
+                        <div className="skill-item third-skill-item">
                           <div className="progress" data-percentage="80">
                             <span className="progress-left">
                               <span className="progress-bar"></span>
@@ -195,11 +167,7 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div
-                className="section-heading  wow fadeInDown"
-                data-wow-duration="1s"
-                data-wow-delay="0.5s"
-              >
+              <div className="section-heading">
                 <h6>NOS SERVICES</h6>
                 <h4>
                   CE QUE NOTRE APPLICATION <em>FOURNIT</em>
@@ -431,21 +399,13 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-4 offset-lg-4">
-              <div
-                className="section-heading  wow fadeIn"
-                data-wow-duration="1s"
-                data-wow-delay="0.3s"
-              >
+              <div className="section-heading ">
                 <h6>OBTENEZ NOS RECOMMANDATIONS ET</h6>
                 <h4>NOS MISES à JOUR</h4>
                 <div className="line-dec"></div>
               </div>
             </div>
-            <div
-              className="col-lg-8 offset-lg-2  wow fadeIn"
-              data-wow-duration="1s"
-              data-wow-delay="0.8s"
-            >
+            <div className="col-lg-8 offset-lg-2">
               <form id="search" action="#" method="GET">
                 <div className="row">
                   <div className="col-lg-4 col-sm-4">
@@ -490,11 +450,7 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-5">
-              <div
-                className="section-heading wow fadeInLeft"
-                data-wow-duration="1s"
-                data-wow-delay="0.3s"
-              >
+              <div className="section-headingLeft">
                 <h6>NOS OUTILS IA</h6>
                 <h4>
                   NOUS DÉPENDONS DE NOMBREUX MODÈLES <em>D'IA</em>
@@ -504,11 +460,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div
-          className="container-fluid wow fadeIn"
-          data-wow-duration="1s"
-          data-wow-delay="0.7s"
-        >
+        <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12">
               <div className="loop owl-carousel">
@@ -550,11 +502,7 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
-              <div
-                className="section-heading wow fadeIn"
-                data-wow-duration="1s"
-                data-wow-delay="0.5s"
-              >
+              <div className="section-heading">
                 <h6>CONTACTEZ-NOUS</h6>
                 <h4>
                   ENTREZ EN CONTACT AVEC NOUS <em>MAINTENANT</em>
@@ -562,11 +510,7 @@ function Home() {
                 <div className="line-dec"></div>
               </div>
             </div>
-            <div
-              className="col-lg-12 wow fadeInUp"
-              data-wow-duration="0.5s"
-              data-wow-delay="0.25s"
-            >
+            <div className="col-lg-12">
               <form id="contact" action="" method="post">
                 <div className="row">
                   <div className="col-lg-12">
@@ -631,7 +575,7 @@ function Home() {
                               id="email"
                               pattern="[^ @]*@[^ @]*"
                               placeholder="Votre e-mail"
-                              required=""
+                              required
                             />
                           </fieldset>
                           <fieldset>
@@ -652,7 +596,7 @@ function Home() {
                               className="form-control"
                               id="message"
                               placeholder="Message"
-                              required=""
+                              required
                             ></textarea>
                           </fieldset>
                         </div>

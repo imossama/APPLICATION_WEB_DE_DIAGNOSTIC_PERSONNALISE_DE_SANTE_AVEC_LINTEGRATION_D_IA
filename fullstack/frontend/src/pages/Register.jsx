@@ -15,10 +15,10 @@ export default function Register() {
 
   return (
     <div style={{ overflow: "hidden" }}>
-      <Loading/>
+      <Loading />
       <UpperContact />
       <Navbar />
-      <div className="main-banner wow fadeIn">
+      <div className="main-banner">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -26,7 +26,7 @@ export default function Register() {
                 <div className="col-lg-5 align-self-center">
                   {" "}
                   {/* Modify here - align-self-center*/}
-                  <div className="left-content show-up header-text wow fadeInLeft">
+                  <div className="left-content show-up header-text">
                     <div className="row">
                       <div className="col-lg-12">
                         <h6>Welcome to our application</h6>
@@ -46,7 +46,7 @@ export default function Register() {
                 </div>
 
                 <div className="col-lg-7">
-                  <div className="right-image wow fadeInRight">
+                  <div className="right-image">
                     <form id="contact" action="" method="post">
                       <div className="row">
                         <div className="col-lg-12">
@@ -63,7 +63,7 @@ export default function Register() {
                                     id="email"
                                     pattern="[^ @]*@[^ @]*"
                                     placeholder="Votre e-mail"
-                                    required=""
+                                    required
                                   />
                                 </fieldset>
                                 <fieldset>
@@ -72,7 +72,7 @@ export default function Register() {
                                     name="password"
                                     id="password"
                                     placeholder="Votre mot de passe"
-                                    required=""
+                                    required
                                   />
                                 </fieldset>
                                 <fieldset>
@@ -81,7 +81,7 @@ export default function Register() {
                                     name="password"
                                     id="password"
                                     placeholder="Récrire le mot de passe"
-                                    required=""
+                                    required
                                   />
                                 </fieldset>
                               </div>

@@ -18,7 +18,7 @@ export default function History() {
       <UpperContact />
       <Navbar />
 
-      <div className="main-banner wow fadeIn" id="top">
+      <div className="main-banner" id="top">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
