@@ -276,22 +276,6 @@ body {
   background-color: #4da6e7;
 }
 
-.border-first-button a {
-  display: inline-block !important;
-  padding: 10px 20px !important;
-  color: #4da6e7 !important;
-  border: 1px solid #4da6e7 !important;
-  border-radius: 23px;
-  font-weight: 500 !important;
-  letter-spacing: 0.3px !important;
-  transition: all 0.5s;
-}
-
-.border-first-button a:hover {
-  background-color: #4da6e7;
-  color: #fff !important;
-}
-
 /* 
 ---------------------------------------------
 header
@@ -399,24 +383,20 @@ header
   left: 0px;
   right: 0px;
   z-index: 999;
-  height: 100px;
-  /* -webkit-transition: all .5s ease 0s;
-  -moz-transition: all .5s ease 0s;
-  -o-transition: all .5s ease 0s;
-  transition: all .5s ease 0s; */
+  height: 80px !important;
 }
 
 .header-area .main-nav {
-  min-height: 80px;
+  /* min-height: 80px; */
   background: transparent;
 }
 
 .header-area .main-nav .logo {
   float: left;
-  -webkit-transition: all 0.3s ease 0s;
+  /* -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s; */
 }
 
 .header-area .main-nav .logo img {
@@ -424,7 +404,7 @@ header
 }
 
 .header-area .main-nav .logo {
-  line-height: 100px;
+  line-height: 70px;
   float: left;
   /* -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
@@ -442,13 +422,13 @@ header
 
 .header-area .main-nav .nav {
   float: right;
-  margin-top: 30px;
+  margin-top: 20px;
   margin-right: 0px;
   background-color: transparent;
-  -webkit-transition: all 0.3s ease 0s;
+  /* -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s; */
   position: relative;
   z-index: 999;
 }
@@ -492,7 +472,7 @@ header
 
 .header-area .main-nav .nav li:hover a,
 .header-area .main-nav .nav li a.active {
-  color: #4da6e7 !important;
+  color: #4da6e7;
 }
 
 .background-header .main-nav .nav li:hover a,
@@ -580,7 +560,7 @@ header
   cursor: pointer;
   display: block;
   position: absolute;
-  top: 33px;
+  top: 25px;
   width: 32px;
   height: 40px;
   text-indent: -9999em;
@@ -695,12 +675,24 @@ header
   min-height: 80px;
 }
 
-.header-area .nav {
-  margin-top: 30px;
-}
-
 .header-area.header-sticky .nav li a.active {
   color: #4da6e7;
+}
+
+.border-first-button a {
+  display: inline-block !important;
+  padding: 10px 20px !important;
+  color: #4da6e7 !important;
+  border: 1px solid #4da6e7 !important;
+  border-radius: 23px;
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.5s;
+}
+
+.border-first-button a:hover {
+  background-color: #4da6e7 !important;
+  color: #fff !important;
 }
 
 @media (max-width: 1200px) {
@@ -736,7 +728,7 @@ header
   }
   .header-area .main-nav .logo {
     color: #1e1e1e;
-    margin-left: 10px;
+    /* margin-left: 10px; */
   }
   .header-area .main-nav .logo img {
     height: 60px;
@@ -761,7 +753,7 @@ header
     padding: 0px;
   }
   .header-area .logo {
-    margin-left: 30px;
+    /* margin-left: 30px; */
   }
   .header-area .menu-trigger {
     display: block !important;
@@ -814,7 +806,7 @@ header
     z-index: 1;
     transform: translateY(0%);
     transition-delay: 0s, 0s, 0.3s;
-    top: 0px;
+    top: -100px;
     width: 100%;
     box-shadow: none;
     height: 0px;
@@ -832,12 +824,16 @@ header
   .header-area .main-nav .nav li.submenu:after {
     color: #3b566e;
     right: 25px;
-    font-size: 14px;
+    font-size: 12px;
     top: 15px;
   }
   .header-area .main-nav .nav li.submenu:hover ul,
   .header-area .main-nav .nav li.submenu:focus ul {
     height: 0px;
+  }
+
+  .header-area .nav {
+    margin-top: 80px !important;
   }
 }
 
@@ -1955,7 +1951,9 @@ form#question input:not([type="radio"]) {
   margin-top: 30px;
 }
 
-/* Added new CSS */
+/* ################### */
+/* ## NEW ADDED CSS ## */
+/* ################### */
 form#question input:not([type="radio"]) {
   width: 100% !important;
 }
@@ -2046,9 +2044,14 @@ responsive
 --------------------------------------------- 
 */
 
-/* Added CSS */
+/* ################### */
+/* ## NEW ADDED CSS ## */
+/* ################### */
+
 .col:has(label) {
   display: flex !important;
+  justify-content: flex-start;
+  padding: 0;
 }
 
 .col-lg-4:has(select) select {
@@ -2083,18 +2086,9 @@ form#question .col:has(input[type="radio"]) {
 }
 
 @media (max-width: 1200px) {
-  .header-area .main-nav .logo h4 {
-    font-size: 24px;
-  }
-  .header-area .main-nav .logo h4 img {
-    max-width: 25px;
-    margin-left: 0px;
-  }
-  .header-area .main-nav .nav li:last-child {
-    padding-left: 20px;
-  }
-
-  /* Added CSS */
+  /* ################### */
+  /* ## NEW ADDED CSS ## */
+  /* ################### */
   .col:has(input[type="radio"]) {
     display: flex;
     align-items: center;
@@ -2134,9 +2128,7 @@ form#question .col:has(input[type="radio"]) {
   form#medical {
     overflow: hidden;
   }
-  .header-area .main-nav .logo h4 {
-    font-size: 20px;
-  }
+
   .main-banner .left-content {
     margin-right: 0px;
   }
@@ -2228,13 +2220,6 @@ form#question .col:has(input[type="radio"]) {
 }
 
 @media (max-width: 767px) {
-  .header-area .main-nav .logo h4 {
-    font-size: 30px;
-  }
-  .header-area .main-nav .logo h4 img {
-    max-width: 30px;
-    margin-left: 5px;
-  }
   .main-banner .info-stat {
     margin-bottom: 15px;
   }
@@ -2324,7 +2309,10 @@ form#question .col:has(input[type="radio"]) {
   }
 }
 
-/* New added CSS */
+/* ################### */
+/* ## NEW ADDED CSS ## */
+/* ################### */
+
 input[type="radio"] {
   /* Increase or decrease the size as needed */
   width: 15px !important;
@@ -2366,4 +2354,26 @@ form#medical .col:has(label) {
 
 #qr_code {
   margin-top: 20px;
+}
+
+li:has(.border-first-button) {
+  padding-left: 0 !important;
+}
+
+li.nav-item-log {
+  padding: 0 !important;
+  margin-right: 20px;
+  margin-left: 50px;
+}
+
+li.nav-item-log:nth-last-child(2) {
+  margin-left: 0 !important;
+}
+
+li.nav-item-log a {
+  color: #4da6e7 !important;
+}
+
+li.nav-item-log a:hover{
+  color: #3b566e !important;
 }

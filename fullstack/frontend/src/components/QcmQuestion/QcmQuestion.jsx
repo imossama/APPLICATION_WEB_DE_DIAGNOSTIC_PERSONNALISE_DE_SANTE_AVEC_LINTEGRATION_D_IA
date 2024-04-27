@@ -9,7 +9,7 @@ export default function QcmQuestion({ question, id_qst }) {
             <label>{question}</label>
           </div>
           <div className="row">
-            <div className="col">Oui</div>
+            <div className="col">Accord</div>
             <div className="col">
               <input type="radio" name={id_qst} id="high-2" required/>
             </div>
@@ -25,7 +25,7 @@ export default function QcmQuestion({ question, id_qst }) {
             <div className="col">
               <input type="radio" name={id_qst} id="low-2" required />
             </div>
-            <div className="col">Non</div>
+            <div className="col">Désaccord</div>
           </div>
         </fieldset>
       </div>

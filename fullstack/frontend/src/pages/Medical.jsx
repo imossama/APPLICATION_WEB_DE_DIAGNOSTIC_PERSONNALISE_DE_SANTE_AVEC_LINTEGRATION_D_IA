@@ -1,18 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
-
 import Loading from "../components/Loading/Loading";
 
 import image_med_data from "../assets/images/medical-data.png";
 
 export default function Medical() {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submissionMessage, setSubmissionMessage] = useState("");
+
   useEffect(() => {
     // Update the document title
     document.title = "SANTÉIA - Informations sur la santé";
   }, []); // This effect runs only once after the initial render
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Perform form submission logic here
+    // For now, just set formSubmitted to true and update submissionMessage
+    setFormSubmitted(true);
+    setSubmissionMessage("Form submitted successfully!");
+
+    // Clear the message after 3 seconds
+    setTimeout(() => {
+      setSubmissionMessage("");
+    }, 3000);
+  };
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -58,9 +73,9 @@ export default function Medical() {
                                     <div className="col">
                                       <input
                                         type="radio"
-                                        id="yes"
                                         name="medical_conditions"
                                         value="yes"
+                                        required
                                       />
                                     </div>
 
@@ -75,9 +90,9 @@ export default function Medical() {
                                     <div className="col">
                                       <input
                                         type="radio"
-                                        id="no"
                                         name="medical_conditions"
                                         value="no"
+                                        required
                                       />
                                     </div>
 
@@ -102,9 +117,9 @@ export default function Medical() {
                                     <div className="col">
                                       <input
                                         type="radio"
-                                        id="yes"
                                         name="allergies"
                                         value="yes"
+                                        required
                                       />
                                     </div>
 
@@ -119,9 +134,9 @@ export default function Medical() {
                                     <div className="col">
                                       <input
                                         type="radio"
-                                        id="no"
                                         name="allergies"
                                         value="no"
+                                        required
                                       />
                                     </div>
 
@@ -148,9 +163,9 @@ export default function Medical() {
                                     <div className="col">
                                       <input
                                         type="radio"
-                                        id="yes"
                                         name="chirurgies"
                                         value="yes"
+                                        required
                                       />
                                     </div>
 
@@ -165,9 +180,9 @@ export default function Medical() {
                                     <div className="col">
                                       <input
                                         type="radio"
-                                        id="no"
                                         name="chirurgies"
                                         value="no"
+                                        required
                                       />
                                     </div>
 
@@ -194,9 +209,9 @@ export default function Medical() {
                                     <div className="col">
                                       <input
                                         type="radio"
-                                        id="yes"
                                         name="histoire"
                                         value="yes"
+                                        required
                                       />
                                     </div>
 
@@ -211,9 +226,9 @@ export default function Medical() {
                                     <div className="col">
                                       <input
                                         type="radio"
-                                        id="no"
                                         name="histoire"
                                         value="no"
+                                        required
                                       />
                                     </div>
 
@@ -279,6 +294,8 @@ export default function Medical() {
                                 </div>
                               </div>
                             </fieldset>
+
+                            {formSubmitted && <p>{submissionMessage}</p>}
                           </div>
 
                           <div className="col-lg-4">

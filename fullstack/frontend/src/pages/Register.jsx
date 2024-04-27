@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
-
 import Loading from "../components/Loading/Loading";
 
 import image_register from "../assets/images/register.png";
@@ -12,6 +13,42 @@ export default function Register() {
     // Update the document title
     document.title = "SANTÉIA - Page d'inscription'";
   }, []); // This effect runs only once after the initial render
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    // Clear errors when user starts typing
+    setErrors({ ...errors, [name]: "" });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform validation
+    const { email, password, confirmPassword } = formData;
+    const errors = {};
+    if (!email || !email.match(/[^@]+@[^@]+\.[^@]+/)) {
+      errors.email = "Email address is invalid";
+    }
+    if (!password || password.length < 6) {
+      errors.password = "Password must be at least 6 characters long";
+    }
+    if (password !== confirmPassword) {
+      errors.confirmPassword = "Passwords do not match";
+    }
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return; // Don't submit if there are errors
+    }
+    // Form submission logic here (e.g., send data to server)
+    console.log("Form submitted:", formData);
+  };
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -38,7 +75,7 @@ export default function Register() {
                       </div>
                       <div className="col-lg-12">
                         <div className="border-first-button scroll-to-section">
-                          <a href="">Se connecter</a>
+                          <Link to="/login">Se connecter</Link>
                         </div>
                       </div>
                     </div>
@@ -47,7 +84,7 @@ export default function Register() {
 
                 <div className="col-lg-7">
                   <div className="right-image">
-                    <form id="contact" action="" method="post">
+                    <form id="contact" onSubmit={handleSubmit}>
                       <div className="row">
                         <div className="col-lg-12">
                           <div className="fill-form">
@@ -61,28 +98,57 @@ export default function Register() {
                                     type="text"
                                     name="email"
                                     id="email"
-                                    pattern="[^ @]*@[^ @]*"
-                                    placeholder="Votre e-mail"
+                                    className={`form-control ${
+                                      errors.email && "is-invalid"
+                                    }`}
+                                    placeholder="Your email"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                     required
                                   />
+                                  {errors.email && (
+                                    <div className="invalid-feedback">
+                                      {errors.email}
+                                    </div>
+                                  )}
                                 </fieldset>
                                 <fieldset>
                                   <input
                                     type="password"
                                     name="password"
                                     id="password"
-                                    placeholder="Votre mot de passe"
+                                    className={`form-control ${
+                                      errors.password && "is-invalid"
+                                    }`}
+                                    placeholder="Your password"
+                                    value={formData.password}
+                                    onChange={handleChange}
                                     required
                                   />
+                                  {errors.password && (
+                                    <div className="invalid-feedback">
+                                      {errors.password}
+                                    </div>
+                                  )}
                                 </fieldset>
                                 <fieldset>
                                   <input
                                     type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="Récrire le mot de passe"
+                                    name="confirmPassword"
+                                    id="confirmPassword"
+                                    className={`form-control ${
+                                      errors.confirmPassword && "is-invalid"
+                                    }`}
+                                    placeholder="Confirm your password"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
                                     required
                                   />
+                                  {errors.confirmPassword && (
+                                    <div className="invalid-feedback">
+                                      {errors.confirmPassword}
+                                    </div>
+                                  )}
                                 </fieldset>
                               </div>
 
@@ -91,9 +157,9 @@ export default function Register() {
                                   <button
                                     type="submit"
                                     id="form-submit"
-                                    className="main-button "
+                                    className="btn btn-primary"
                                   >
-                                    S'inscrire
+                                    Register
                                   </button>
                                 </fieldset>
                               </div>

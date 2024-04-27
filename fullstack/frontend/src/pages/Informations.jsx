@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
@@ -9,10 +9,26 @@ import Loading from "../components/Loading/Loading";
 import image_pers_data from "../assets/images/pers-data.png";
 
 export default function Informations() {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submissionMessage, setSubmissionMessage] = useState("");
+
   useEffect(() => {
     // Update the document title
     document.title = "SANTÉIA - Informations";
   }, []); // This effect runs only once after the initial render
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Perform form submission logic here
+    // For now, just set formSubmitted to true and update submissionMessage
+    setFormSubmitted(true);
+    setSubmissionMessage("Form submitted successfully!");
+
+    // Clear the message after 3 seconds
+    setTimeout(() => {
+      setSubmissionMessage("");
+    }, 3000);
+  };
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -35,7 +51,12 @@ export default function Informations() {
               </div>
 
               <div className="right-image mt-5">
-                <form id="contact" action="" method="post">
+                <form
+                  id="contact"
+                  action=""
+                  method="post"
+                  onSubmit={handleSubmit}
+                >
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="fill-form">
@@ -44,7 +65,7 @@ export default function Informations() {
                             <img src={image_pers_data} alt="" />
                           </div>
                           <div className="col-lg-12">
-                          <fieldset>
+                            <fieldset>
                               <input
                                 type="text"
                                 name="fname"
@@ -64,7 +85,7 @@ export default function Informations() {
                             </fieldset>
                             <fieldset>
                               <input
-                                type="text"
+                                type="date"
                                 name="date"
                                 id="date"
                                 placeholder="Date de naissance"
@@ -102,6 +123,8 @@ export default function Informations() {
                                 required
                               ></textarea>
                             </fieldset>
+
+                            {formSubmitted && <p>{submissionMessage}</p>}
                           </div>
 
                           <div className="col-lg-4">

@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
-
 import Loading from "../components/Loading/Loading";
 
 import image_1 from "../assets/images/question.png";
@@ -14,6 +13,35 @@ export default function Question() {
     document.title = "SANTÉIA - Répondez à la question";
   }, []); // This effect runs only once after the initial render
 
+  const [formData, setFormData] = useState({ question: "", type: "" });
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    // Clear errors when user starts typing
+    setErrors({ ...errors, [name]: "" });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform validation
+    const { question, type } = formData;
+    const errors = {};
+    if (!question) {
+      errors.question = "Please enter your question";
+    }
+    if (!type) {
+      errors.type = "Please select a type";
+    }
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return; // Don't submit if there are errors
+    }
+    // Form submission logic here (e.g., send data to server)
+    console.log("Form submitted:", formData);
+  };
+
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
@@ -21,7 +49,7 @@ export default function Question() {
       <Navbar />
       <div className="main-banner">
         <div className="container">
-          <form id="question" action="" method="post">
+          <form id="question" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-lg-3">
                 <div className="right-image">
@@ -39,8 +67,8 @@ export default function Question() {
                         <h2>Étape 1</h2>
                         <p>
                           Vous devez répondre correctement à la question pour
-                          L'IA pour générer une question à choix multiple (QCM)
-                          pour toi.{" "}
+                          l'IA génère une question à choix multiple (QCM) pour
+                          vous.
                         </p>
                       </div>
                     </div>
@@ -52,9 +80,19 @@ export default function Question() {
                             type="text"
                             name="question"
                             id="question"
+                            className={`form-control ${
+                              errors.question && "is-invalid"
+                            }`}
                             placeholder="Comment vous sentez-vous aujourd'hui?"
+                            value={formData.question}
+                            onChange={handleChange}
                             required
                           />
+                          {errors.question && (
+                            <div className="invalid-feedback">
+                              {errors.question}
+                            </div>
+                          )}
                         </fieldset>
                       </div>
                     </div>
@@ -68,12 +106,13 @@ export default function Question() {
                               id="health"
                               name="type"
                               value="health"
+                              onChange={handleChange}
                               required
                             />
                           </div>
 
                           <div className="col">
-                            <label for="health">Santé</label>
+                            <label htmlFor="health">Santé</label>
                           </div>
                         </div>
                       </div>
@@ -86,12 +125,13 @@ export default function Question() {
                               id="mental-health"
                               name="type"
                               value="mental-health"
+                              onChange={handleChange}
                               required
                             />
                           </div>
 
                           <div className="col">
-                            <label for="mental-health">Santé mentale</label>
+                            <label htmlFor="mental-health">Santé mentale</label>
                           </div>
                         </div>
                       </div>
@@ -104,15 +144,19 @@ export default function Question() {
                               id="idk"
                               name="type"
                               value="idk"
+                              onChange={handleChange}
                               required
                             />
                           </div>
 
                           <div className="col">
-                            <label for="idk">Je ne sais pas</label>
+                            <label htmlFor="idk">Je ne sais pas</label>
                           </div>
                         </div>
                       </div>
+                      {errors.type && (
+                        <div className="invalid-feedback">{errors.type}</div>
+                      )}
                     </div>
 
                     <div className="row mt-5 d-flex justify-content-center">
@@ -121,7 +165,7 @@ export default function Question() {
                           <button
                             type="submit"
                             id="form-submit"
-                            className="main-button "
+                            className="main-button"
                           >
                             Continuer
                           </button>
