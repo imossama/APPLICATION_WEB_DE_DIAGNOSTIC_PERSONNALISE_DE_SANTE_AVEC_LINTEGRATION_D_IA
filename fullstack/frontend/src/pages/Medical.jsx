@@ -7,26 +7,56 @@ import Loading from "../components/Loading/Loading";
 
 import image_med_data from "../assets/images/medical-data.png";
 
-export default function Medical() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [submissionMessage, setSubmissionMessage] = useState("");
+export default function Medical(props) {
+  const { formData } = props;
+
+  const [formError, setFormError] = useState("");
 
   useEffect(() => {
     // Update the document title
     document.title = "SANTÉIA - Informations sur la santé";
   }, []); // This effect runs only once after the initial render
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform form submission logic here
-    // For now, just set formSubmitted to true and update submissionMessage
-    setFormSubmitted(true);
-    setSubmissionMessage("Form submitted successfully!");
+  // Validation function to check if all radio buttons are selected
+  const validateForm = () => {
+    const radioGroups = [
+      "medical_conditions",
+      "allergies",
+      "chirurgies",
+      "histoire",
+    ];
 
-    // Clear the message after 3 seconds
-    setTimeout(() => {
-      setSubmissionMessage("");
-    }, 3000);
+    for (const group of radioGroups) {
+      const radios = document.getElementsByName(group);
+      let checked = false;
+      for (const radio of radios) {
+        if (radio.checked) {
+          checked = true;
+          break;
+        }
+      }
+      if (!checked) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const handleNextClick = () => {
+    if (validateForm()) {
+      const formData = new FormData(document.getElementById("medical"));
+      const formDataObject = {};
+      for (const [key, value] of formData.entries()) {
+        formDataObject[key] = value;
+      }
+
+      props.handleNextStep(formDataObject);
+    } else {
+      setFormError("Veuillez répondre à toutes les questions du formulaire.");
+      setTimeout(() => {
+        setFormError("");
+      }, 3000);
+    }
   };
 
   return (
@@ -42,8 +72,8 @@ export default function Medical() {
                 <div className="left-content show-up header-text">
                   <div className="row">
                     <div className="col-lg-12">
-                      <h6>Remplissez le formulaire avec votre</h6>
-                      <h2>Informations sur votre santé</h2>
+                      <h6>Informations sur votre santé</h6>
+                      <h2>Étape 2</h2>
                     </div>
                   </div>
                 </div>
@@ -63,7 +93,7 @@ export default function Medical() {
                             <fieldset>
                               <div className="row d-flex justify-content-center">
                                 <div className="col-lg-6 d-flex justify-content-lg-start">
-                                  <label for="medical_conditions">
+                                  <label htmlFor="medical_conditions">
                                     Conditions médicales préexistantes
                                   </label>
                                 </div>
@@ -72,15 +102,20 @@ export default function Medical() {
                                   <div className="row">
                                     <div className="col">
                                       <input
+                                        id="yes1"
                                         type="radio"
                                         name="medical_conditions"
                                         value="yes"
                                         required
+                                        defaultChecked={
+                                          formData &&
+                                          formData.medical_conditions === "yes"
+                                        }
                                       />
                                     </div>
 
                                     <div className="col">
-                                      <label for="yes">Oui</label>
+                                      <label htmlFor="yes1">Oui</label>
                                     </div>
                                   </div>
                                 </div>
@@ -89,15 +124,20 @@ export default function Medical() {
                                   <div className="row">
                                     <div className="col">
                                       <input
+                                        id="no1"
                                         type="radio"
                                         name="medical_conditions"
                                         value="no"
                                         required
+                                        defaultChecked={
+                                          formData &&
+                                          formData.medical_conditions === "no"
+                                        }
                                       />
                                     </div>
 
                                     <div className="col">
-                                      <label for="no">Non</label>
+                                      <label htmlFor="no1">Non</label>
                                     </div>
                                   </div>
                                 </div>
@@ -109,22 +149,27 @@ export default function Medical() {
                             <fieldset>
                               <div className="row d-flex justify-content-center">
                                 <div className="col-lg-6 d-flex justify-content-lg-start">
-                                  <label for="allergies">Allergies</label>
+                                  <label htmlFor="allergies">Allergies</label>
                                 </div>
 
                                 <div className="col-lg-2">
                                   <div className="row">
                                     <div className="col">
                                       <input
+                                        id="yes2"
                                         type="radio"
                                         name="allergies"
                                         value="yes"
                                         required
+                                        defaultChecked={
+                                          formData &&
+                                          formData.allergies === "yes"
+                                        }
                                       />
                                     </div>
 
                                     <div className="col">
-                                      <label for="yes">Oui</label>
+                                      <label htmlFor="yes2">Oui</label>
                                     </div>
                                   </div>
                                 </div>
@@ -133,15 +178,20 @@ export default function Medical() {
                                   <div className="row">
                                     <div className="col">
                                       <input
+                                        id="no2"
                                         type="radio"
                                         name="allergies"
                                         value="no"
                                         required
+                                        defaultChecked={
+                                          formData &&
+                                          formData.allergies === "no"
+                                        }
                                       />
                                     </div>
 
                                     <div className="col">
-                                      <label for="no">Non</label>
+                                      <label htmlFor="no2">Non</label>
                                     </div>
                                   </div>
                                 </div>
@@ -153,7 +203,7 @@ export default function Medical() {
                             <fieldset>
                               <div className="row d-flex justify-content-center">
                                 <div className="col-lg-6 d-flex justify-content-lg-start">
-                                  <label for="chirurgies">
+                                  <label htmlFor="chirurgies">
                                     Chirurgies ou hospitalisations antérieures
                                   </label>
                                 </div>
@@ -162,15 +212,20 @@ export default function Medical() {
                                   <div className="row">
                                     <div className="col">
                                       <input
+                                        id="yes3"
                                         type="radio"
                                         name="chirurgies"
                                         value="yes"
                                         required
+                                        defaultChecked={
+                                          formData &&
+                                          formData.chirurgies === "yes"
+                                        }
                                       />
                                     </div>
 
                                     <div className="col">
-                                      <label for="yes">Oui</label>
+                                      <label htmlFor="yes3">Oui</label>
                                     </div>
                                   </div>
                                 </div>
@@ -179,15 +234,20 @@ export default function Medical() {
                                   <div className="row">
                                     <div className="col">
                                       <input
+                                        id="no3"
                                         type="radio"
                                         name="chirurgies"
                                         value="no"
                                         required
+                                        defaultChecked={
+                                          formData &&
+                                          formData.chirurgies === "no"
+                                        }
                                       />
                                     </div>
 
                                     <div className="col">
-                                      <label for="no">Non</label>
+                                      <label htmlFor="no3">Non</label>
                                     </div>
                                   </div>
                                 </div>
@@ -199,7 +259,7 @@ export default function Medical() {
                             <fieldset>
                               <div className="row d-flex justify-content-center">
                                 <div className="col-lg-6 d-flex justify-content-lg-start">
-                                  <label for="histoire">
+                                  <label htmlFor="histoire">
                                     Histoire des maladies
                                   </label>
                                 </div>
@@ -208,15 +268,20 @@ export default function Medical() {
                                   <div className="row">
                                     <div className="col">
                                       <input
+                                        id="yes4"
                                         type="radio"
                                         name="histoire"
                                         value="yes"
                                         required
+                                        defaultChecked={
+                                          formData &&
+                                          formData.histoire === "yes"
+                                        }
                                       />
                                     </div>
 
                                     <div className="col">
-                                      <label for="yes">Oui</label>
+                                      <label htmlFor="yes4">Oui</label>
                                     </div>
                                   </div>
                                 </div>
@@ -225,15 +290,19 @@ export default function Medical() {
                                   <div className="row">
                                     <div className="col">
                                       <input
+                                        id="no4"
                                         type="radio"
                                         name="histoire"
                                         value="no"
                                         required
+                                        defaultChecked={
+                                          formData && formData.histoire === "no"
+                                        }
                                       />
                                     </div>
 
                                     <div className="col">
-                                      <label for="no">Non</label>
+                                      <label htmlFor="no4">Non</label>
                                     </div>
                                   </div>
                                 </div>
@@ -245,15 +314,18 @@ export default function Medical() {
                             <fieldset>
                               <div className="row d-flex justify-content-center">
                                 <div className="col-lg-6 d-flex justify-content-lg-start">
-                                  <label for="physical-symptoms">
+                                  <label htmlFor="physical_symptoms">
                                     Symptômes physiques
                                   </label>
                                 </div>
 
                                 <div className="col-lg-4 d-flex justify-content-lg-start">
                                   <select
-                                    name="physical-symptoms"
-                                    id="physical-symptoms"
+                                    name="physical_symptoms"
+                                    id="physical_symptoms"
+                                    defaultValue={
+                                      formData && formData.physical_symptoms
+                                    }
                                   >
                                     <option value="none">Rien</option>
                                     <option value="pain">Douleur</option>
@@ -271,15 +343,18 @@ export default function Medical() {
                             <fieldset>
                               <div className="row d-flex justify-content-center">
                                 <div className="col-lg-6 d-flex justify-content-lg-start">
-                                  <label for="mental-symptoms">
+                                  <label htmlFor="mental_symptoms">
                                     Symptômes de santé mentale
                                   </label>
                                 </div>
 
                                 <div className="col-lg-4 d-flex justify-content-lg-start">
                                   <select
-                                    name="mental-symptoms"
-                                    id="mental-symptoms"
+                                    name="mental_symptoms"
+                                    id="mental_symptoms"
+                                    defaultValue={
+                                      formData && formData.mental_symptoms
+                                    }
                                   >
                                     <option value="none">Rien</option>
                                     <option value="anxiety">Anxiété</option>
@@ -294,20 +369,9 @@ export default function Medical() {
                                 </div>
                               </div>
                             </fieldset>
-
-                            {formSubmitted && <p>{submissionMessage}</p>}
-                          </div>
-
-                          <div className="col-lg-4">
-                            <fieldset>
-                              <button
-                                type="submit"
-                                id="form-submit"
-                                className="main-button "
-                              >
-                                Sauvegarder
-                              </button>
-                            </fieldset>
+                            {formError && (
+                              <p className="text-danger mt-3">{formError}</p>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -315,6 +379,27 @@ export default function Medical() {
                   </div>
                 </form>
               </div>
+            </div>
+          </div>
+
+          <div className="row justify-content-center">
+            <div className="col-lg-2">
+              <fieldset>
+                <button
+                  className="stylishButton"
+                  onClick={props.handlePrevStep}
+                >
+                  Précédente
+                </button>
+              </fieldset>
+            </div>
+
+            <div className="col-lg-2">
+              <fieldset>
+                <button className="stylishButton" onClick={handleNextClick}>
+                  Suivante
+                </button>
+              </fieldset>
             </div>
           </div>
         </div>

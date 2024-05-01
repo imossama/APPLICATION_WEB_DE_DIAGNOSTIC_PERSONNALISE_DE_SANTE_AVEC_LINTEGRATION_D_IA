@@ -1,7 +1,6 @@
 import React from "react";
 
-export default function Diagnosisdetails(props) {
-  var details = props.details;
+export default function DiagnosisDetails({details}) {
 
   return (
     <div className="main-banner">
@@ -12,7 +11,7 @@ export default function Diagnosisdetails(props) {
               <div className="left-content show-up header-text">
                 <div className="row">
                   <div className="col-lg-12">
-                    <h6>dd/mm/yyyy</h6>
+                    <h6>{details.date}</h6>
                     <h2>{details.title}</h2>
                     <p>
                       Ce diagnostic est unique à l'utilisateur, avec
@@ -32,7 +31,7 @@ export default function Diagnosisdetails(props) {
                 <div className="row">
                   <div className="col-lg-12">
                     <h4>Description</h4>
-                    <p>{details.desc} </p>
+                    <p>{details.description} </p>
                   </div>
                 </div>
               </div>
@@ -43,7 +42,7 @@ export default function Diagnosisdetails(props) {
                 <div className="row">
                   <div className="col-lg-12">
                     <h4>Symptômes</h4>
-                    <p>{details.symp} </p>
+                    <p>{details.symptoms} </p>
                   </div>
                 </div>
               </div>
@@ -54,7 +53,7 @@ export default function Diagnosisdetails(props) {
                 <div className="row">
                   <div className="col-lg-12">
                     <h4>Conseils</h4>
-                    <p>{details.cons} </p>
+                    <p>{details.advice} </p>
                   </div>
                 </div>
               </div>
@@ -66,16 +65,16 @@ export default function Diagnosisdetails(props) {
                   <div className="col-lg-12">
                     <h4>Médicaments</h4>
                     <div className="row mt-2">
-                      {details.medic.map((medication, index) => (
+                      {details.medicines.map((medicine, index) => (
                         <div className="col-lg-3">
                           <div className="medic" key={index}>
                             <div className="icon mt-4">
                               <img
-                                src={medication.image}
-                                alt={medication.name}
+                                src={medicine.image}
+                                alt={medicine.name}
                               />
                               <div class="text-container">
-                                <a href="#">{medication.name}</a>
+                                <a href={medicine.link}>{medicine.name}</a>
                               </div>
                             </div>
                           </div>
@@ -93,7 +92,7 @@ export default function Diagnosisdetails(props) {
               <div className="row">
                 <div className="col-lg-6">
                   <h4>QR Code</h4>
-                  <img src={details.qr_code} alt="" id="qr_code" />
+                  <img src={details.qr_code} alt="" id={details.id} />
                 </div>
               </div>
             </div>

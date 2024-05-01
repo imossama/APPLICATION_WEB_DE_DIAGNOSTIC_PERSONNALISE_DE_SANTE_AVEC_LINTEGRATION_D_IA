@@ -1,19 +1,52 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
-
 import Loading from "../components/Loading/Loading";
 import QcmQuestion from "../components/QcmQuestion/QcmQuestion";
-
 import image_1 from "../assets/images/qcm.png";
 
-export default function Qcm() {
+export default function Qcm(props) {
+  const [qcmData, setQcmData] = useState([
+    { id: "qst-1", question: "Question 1 ?", response: "" },
+    { id: "qst-2", question: "Question 2 ?", response: "" },
+    // Add more questions as needed
+  ]);
+  const [errors, setErrors] = useState(Array(qcmData.length).fill(false));
+
   useEffect(() => {
-    // Update the document title
     document.title = "SANTÉIA - Questionnaire à choix multiples";
-  }, []); // This effect runs only once after the initial render
+  }, []);
+
+  const handleNextClick = () => {
+    const allAnswered = qcmData.every((item) => item.response !== "");
+    if (!allAnswered) {
+      // Set errors for unanswered questions
+      const newErrors = qcmData.map((item) =>
+        item.response === "" ? "Answer required" : ""
+      );
+      setErrors(newErrors);
+      return; // Don't proceed if not all questions are answered
+    }
+
+    // Pass the array of question-response pairs to the next step
+    props.handleNextStep({ Qcm: qcmData });
+  };
+
+  const handleResponseChange = (id, response) => {
+    const updatedQcmData = qcmData.map((item) =>
+      item.id == id ? { ...item, response: response } : item
+    );
+
+    console.log(updatedQcmData);
+
+    setQcmData(updatedQcmData);
+
+    const updatedErrors = [...errors];
+    updatedErrors[qcmData.findIndex((item) => item.id == id)] = false;
+
+    setErrors(updatedErrors);
+  };
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -28,48 +61,53 @@ export default function Qcm() {
                 <div className="col-lg-12">
                   <div className="left-content show-up header-text">
                     <div className="row">
-                    <div className="col-lg-4">
-                          <div className="right-image">
-                            <img src={image_1} alt="" />
-                          </div>
+                      <div className="col-lg-4">
+                        <div className="right-image">
+                          <img src={image_1} alt="" />
                         </div>
+                      </div>
                       <div className="col-lg-8">
-                        <h6>
-                          Répondez à cette question pour initialiser le QCM
-                        </h6>
-                        <h2>Étape 2</h2>
+                        <h6>Répondez à ces questions</h6>
+                        <h2>Dernière étape</h2>
                         <p>
                           Vous devez répondre à chaque question en sélectionnant
                           votre degré d'accord, de désaccord ou de neutralité.{" "}
                         </p>
 
                         <div className="col-lg-12">
-                          <QcmQuestion question="Question 1 ?" id_qst="qst-1" />
-                          <QcmQuestion question="Question 2 ?" id_qst="qst-2" />
-                          <QcmQuestion question="Question 3 ?" id_qst="qst-3" />
-                          <QcmQuestion question="Question 4 ?" id_qst="qst-4" />
-                          <QcmQuestion question="Question 5 ?" id_qst="qst-5" />
-                          <QcmQuestion question="Question 6 ?" id_qst="qst-6" />
+                          {qcmData.map((item, index) => (
+                            <QcmQuestion
+                              key={item.id}
+                              question={item.question}
+                              id_qst={item.id}
+                              response={item.response}
+                              onResponseChange={handleResponseChange}
+                              error={errors[index]}
+                            />
+                          ))}
                         </div>
                       </div>
                     </div>
 
-                    <div className="row mt-5 d-flex justify-content-center">
-                      <div className="col-lg-4">
+                    <div className="row mt-5 justify-content-center">
+                      <div className="col-lg-2">
                         <fieldset>
-                          <button id="go-back" className="main-button">
-                            Retourner
+                          <button
+                            className="stylishButton"
+                            onClick={props.handlePrevStep}
+                          >
+                            Précédente
                           </button>
                         </fieldset>
                       </div>
-                      <div className="col-lg-4">
+
+                      <div className="col-lg-2">
                         <fieldset>
                           <button
-                            type="submit"
-                            id="form-submit"
-                            className="main-button"
+                            className="stylishButton"
+                            onClick={handleNextClick}
                           >
-                            Continuer
+                            Résultat
                           </button>
                         </fieldset>
                       </div>

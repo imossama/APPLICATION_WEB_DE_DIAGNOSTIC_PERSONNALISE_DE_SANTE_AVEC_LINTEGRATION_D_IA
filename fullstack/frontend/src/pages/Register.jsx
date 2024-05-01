@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 
+// Assets
 import image_register from "../assets/images/register.png";
+
+// Services
+import apiRegister from "../services/apiRegister";
 
 export default function Register() {
   useEffect(() => {
     // Update the document title
-    document.title = "SANTÉIA - Page d'inscription'";
+    document.title = "SANTÉIA - Page d'inscription";
   }, []); // This effect runs only once after the initial render
 
   const [formData, setFormData] = useState({
@@ -20,34 +24,54 @@ export default function Register() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const [registrationError, setRegistrationError] = useState(""); // State for registration error
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     // Clear errors when user starts typing
     setErrors({ ...errors, [name]: "" });
+    // Clear registration error when user changes input
+    setRegistrationError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform validation
     const { email, password, confirmPassword } = formData;
     const errors = {};
     if (!email || !email.match(/[^@]+@[^@]+\.[^@]+/)) {
-      errors.email = "Email address is invalid";
+      errors.email = "Adresse email invalide.";
     }
     if (!password || password.length < 6) {
-      errors.password = "Password must be at least 6 characters long";
+      errors.password = "Le mot de passe doit contenir au moins 6 caractères.";
     }
     if (password !== confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
+      errors.confirmPassword = "Les mots de passe ne correspondent pas.";
     }
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       return; // Don't submit if there are errors
     }
-    // Form submission logic here (e.g., send data to server)
-    console.log("Form submitted:", formData);
+    try {
+      // Check if email already exists
+      const emailExists = await apiRegister.checkEmailExists(email);
+      if (emailExists) {
+        setRegistrationError("L'email existe déjà."); // Set error message if email exists
+      } else {
+        // Form submission logic here (e.g., send data to server)
+        console.log("Form submitted:", formData);
+
+        await apiRegister.register({ email, password }); // Use userService to register user
+        // Optionally, you can redirect the user to the login page or show a success message
+        console.log("User registered successfully.");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      setRegistrationError(
+        "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayer plus tard."
+      );
+    }
   };
 
   return (
@@ -61,12 +85,10 @@ export default function Register() {
             <div className="col-lg-12">
               <div className="row">
                 <div className="col-lg-5 align-self-center">
-                  {" "}
-                  {/* Modify here - align-self-center*/}
                   <div className="left-content show-up header-text">
                     <div className="row">
                       <div className="col-lg-12">
-                        <h6>Welcome to our application</h6>
+                        <h6>Bienvenue dans notre application</h6>
                         <h2>S'inscrire</h2>
                         <p>
                           Si vous avez un compte, vous pouvez se connecter.
@@ -150,6 +172,11 @@ export default function Register() {
                                     </div>
                                   )}
                                 </fieldset>
+                                {registrationError && (
+                                  <div className="text-danger mt-3">
+                                    {registrationError}
+                                  </div>
+                                )}
                               </div>
 
                               <div className="col-lg-4">
@@ -159,7 +186,7 @@ export default function Register() {
                                     id="form-submit"
                                     className="btn btn-primary"
                                   >
-                                    Register
+                                    S'inscrire
                                   </button>
                                 </fieldset>
                               </div>

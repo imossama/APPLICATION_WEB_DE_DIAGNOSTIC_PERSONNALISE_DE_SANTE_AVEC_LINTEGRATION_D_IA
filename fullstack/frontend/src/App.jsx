@@ -31,6 +31,11 @@ import History from "./pages/History.jsx";
 import Community from "./pages/Community.jsx";
 import Details from "./pages/Details.jsx";
 import ProfileSettings from "./pages/ProfileSettings.jsx";
+import Logout from "./components/Logout.jsx";
+
+import SequentialFlow from "./pages/SequentialFlow.jsx";
+
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -43,30 +48,61 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/accueil" element={<Home />} />
           <Route path="/index" element={<Home />} />
+
           {/* Login Page Route */}
           <Route path="/login" element={<Login />} />
+
           {/* Register Page Route */}
           <Route path="/register" element={<Register />} />
-          {/* Informations Page Route */}
-          <Route path="/informations" element={<Informations />} />
-          {/* Medical Page Route */}
-          <Route path="/medical" element={<Medical />} />
-          {/* Question Page Route */}
-          <Route path="/question" element={<Question />} />
-          {/* QCM Page Route */}
-          <Route path="/qcm" element={<Qcm />} />
-          {/* Result Page Route */}
-          <Route path="/result" element={<Result />} />
+
           {/* History Page Route */}
           <Route path="/history" element={<History />} />
+
           {/* Community Page Route */}
           <Route path="/community" element={<Community />} />
 
-          {/* Diagnosis Details Page Route */}
-          <Route path="details/:id" element={<Details />} />
+          {/* Private Routes */}
+          <Route
+            path="/history"
+            element={
+              <PrivateRoute>
+                <History />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/details/:id"
+            element={
+              <PrivateRoute>
+                <Details />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <ProfileSettings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <PrivateRoute>
+                <Logout />
+              </PrivateRoute>
+            }
+          />
 
-          {/* Profile Setting Page Route */}
-          <Route path="settings" element={<ProfileSettings />} />
+          <Route
+            path="/steps"
+            element={
+              <PrivateRoute>
+                <SequentialFlow />
+              </PrivateRoute>
+            }
+          />
 
           {/* Fallback route for 404 */}
           <Route path="*" element={<NotFound />} />

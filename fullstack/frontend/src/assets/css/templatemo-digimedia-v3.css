@@ -431,6 +431,8 @@ header
   transition: all 0.3s ease 0s; */
   position: relative;
   z-index: 999;
+
+  background-color: red;
 }
 
 .header-area .main-nav .nav li {
@@ -695,6 +697,17 @@ header
   color: #fff !important;
 }
 
+/* ################### */
+/* ## NEW ADDED CSS ## */
+/* ################### */
+.header-area .main-nav .nav .nav-item-log i {
+  display: block;
+}
+
+.header-area .main-nav .nav .nav-item-log span {
+  display: none;
+}
+
 @media (max-width: 1200px) {
   .header-area .main-nav .nav li {
     padding-left: 12px;
@@ -703,9 +716,21 @@ header
   .header-area .main-nav:before {
     display: none;
   }
+
+  .header-area .main-nav .nav .nav-item-log span {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 }
 
 @media (max-width: 992px) {
+  .header-area .main-nav .nav .nav-item-log span {
+    display: block;
+  }
+  li.nav-item-log {
+    margin: 0 !important;
+  }
+  .header-area .main-nav .nav .nav-item-log i,
   .header-area .main-nav .nav li:last-child,
   .background-header .main-nav .nav li:last-child {
     display: none;
@@ -751,9 +776,6 @@ header
   }
   .header-area .container {
     padding: 0px;
-  }
-  .header-area .logo {
-    /* margin-left: 30px; */
   }
   .header-area .menu-trigger {
     display: block !important;
@@ -1708,7 +1730,7 @@ Blog
   border-bottom-left-radius: 23px; */
   background-color: #fff;
   padding: 30px;
-  min-height: 300px !important;
+  /* min-height: 300px !important; */
 }
 
 .blog-post .down-content span.category {
@@ -1987,6 +2009,7 @@ form#contact textarea::placeholder {
   color: #aaa;
 }
 
+.stylishButton,
 form#contact button,
 form#question button,
 form#medical button {
@@ -2006,6 +2029,7 @@ form#medical button {
   outline: none;
 }
 
+.stylishButton:hover,
 form#contact button:hover,
 form#question button:hover,
 form#medical button:hover {
@@ -2064,8 +2088,18 @@ responsive
 
 form#question .col:has(input[type="radio"]) {
   display: flex;
-  justify-content: flex-end;
-  margin-right: 10px;
+  justify-content: end;
+}
+
+form#question label {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+form#question .row:nth-child(3) {
+  display: flex;
+  justify-content: start;
 }
 
 .pr-checkbox .col-lg-8 {
@@ -2085,6 +2119,53 @@ form#question .col:has(input[type="radio"]) {
   margin: 0 !important;
 }
 
+/* ################### */
+/* ## NEW ADDED CSS ## */
+/* ################### */
+
+input[type="radio"] {
+  /* Increase or decrease the size as needed */
+  width: 15px !important;
+}
+
+.bottom-content .author,
+fieldset .row .col-lg-6,
+form#question .col:has(input[type="radio"]),
+form#question .col:has(label),
+form#medical .col:has(label) {
+  color: #8e8e8e !important;
+}
+
+#qr_code {
+  margin-top: 20px;
+}
+
+li:has(.border-first-button) {
+  padding-left: 0 !important;
+}
+
+li.nav-item-log {
+  padding: 0 !important;
+  margin-right: 20px;
+  margin-left: 50px;
+  margin-top: 14px;
+}
+
+li.nav-item-log a {
+  color: #4da6e7 !important;
+}
+
+li.nav-item-log a:hover {
+  color: #3b566e !important;
+}
+
+.bottom-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; /* Optional: align items vertically */
+}
+
 @media (max-width: 1200px) {
   /* ################### */
   /* ## NEW ADDED CSS ## */
@@ -2098,11 +2179,6 @@ form#question .col:has(input[type="radio"]) {
     display: flex;
     padding-left: 5px;
     padding-top: 5px;
-  }
-
-  form#question .col:has(input[type="radio"]) {
-    margin-top: 5px;
-    margin-right: 20px;
   }
 
   .blog-post {
@@ -2210,7 +2286,7 @@ form#question .col:has(input[type="radio"]) {
   }
 
   form#question .col:has(input[type="radio"]) {
-    margin-right: -5px;
+    margin-right: -2px;
   }
 }
 
@@ -2309,30 +2385,13 @@ form#question .col:has(input[type="radio"]) {
   }
 }
 
-/* ################### */
-/* ## NEW ADDED CSS ## */
-/* ################### */
-
-input[type="radio"] {
-  /* Increase or decrease the size as needed */
-  width: 15px !important;
+.qst .row:has(span) {
+  margin-bottom: 20px;
 }
 
-fieldset .row .col-lg-6,
-form#question .col:has(input[type="radio"]),
-form#question .col:has(label),
-form#medical .col:has(label) {
-  color: #8e8e8e;
-}
-
-.qst .row:has(label) {
-  text-align: center;
+.qst .row span {
   font-size: larger;
-}
-
-.qst .row {
-  display: flex !important;
-  align-items: center;
+  text-align: center;
 }
 
 .qst input[type="radio"]#high-2,
@@ -2350,30 +2409,4 @@ form#medical .col:has(label) {
 .qst input[type="radio"]#nutral {
   width: 15px !important;
   height: 100px;
-}
-
-#qr_code {
-  margin-top: 20px;
-}
-
-li:has(.border-first-button) {
-  padding-left: 0 !important;
-}
-
-li.nav-item-log {
-  padding: 0 !important;
-  margin-right: 20px;
-  margin-left: 50px;
-}
-
-li.nav-item-log:nth-last-child(2) {
-  margin-left: 0 !important;
-}
-
-li.nav-item-log a {
-  color: #4da6e7 !important;
-}
-
-li.nav-item-log a:hover{
-  color: #3b566e !important;
 }

@@ -4,7 +4,7 @@ import image_1 from "../../assets/images/result.png";
 
 export default function DiagnosisResult(props) {
   var result = props.result;
-  
+
   return (
     <div className="main-banner">
       <div className="container">
@@ -34,17 +34,6 @@ export default function DiagnosisResult(props) {
                         <fieldset>
                           <button id="go-back" className="main-button">
                             Enregistrer
-                          </button>
-                        </fieldset>
-                      </div>
-                      <div className="col-lg-4">
-                        <fieldset>
-                          <button
-                            type="submit"
-                            id="form-submit"
-                            className="main-button"
-                          >
-                            Refaire
                           </button>
                         </fieldset>
                       </div>
@@ -104,8 +93,8 @@ export default function DiagnosisResult(props) {
                                   src={medication.image}
                                   alt={medication.name}
                                 />
-                                <div class="text-container">
-                                  <a href="#">{medication.name}</a>
+                                <div className="text-container">
+                                  <a href={medication.link}>{medication.name}</a>
                                 </div>
                               </div>
                             </div>

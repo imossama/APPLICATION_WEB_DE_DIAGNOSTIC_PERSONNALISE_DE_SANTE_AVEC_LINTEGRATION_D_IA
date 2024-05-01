@@ -3,31 +3,54 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
-
 import Loading from "../components/Loading/Loading";
+import { getUserIdFromLocalStorage } from "../services/logged_userId";
 
 import image_pers_data from "../assets/images/pers-data.png";
 
-export default function Informations() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [submissionMessage, setSubmissionMessage] = useState("");
+export default function Informations(props) {
+  const [formData, setFormData] = useState({
+    userId: getUserIdFromLocalStorage(), // You need to replace this with the actual user ID
+    fname: "",
+    lname: "",
+    date: "",
+    gender: "",
+    prof: "",
+    prop: "",
+    ...props.formData,
+  });
+
+  const [formError, setFormError] = useState("");
 
   useEffect(() => {
     // Update the document title
     document.title = "SANTÉIA - Informations";
-  }, []); // This effect runs only once after the initial render
+  }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform form submission logic here
-    // For now, just set formSubmitted to true and update submissionMessage
-    setFormSubmitted(true);
-    setSubmissionMessage("Form submitted successfully!");
+  // Validation function to check if all fields are filled
+  const validateForm = () => {
+    for (const key in formData) {
+      if (formData[key] === "") {
+        return false;
+      }
+    }
+    return true;
+  };
 
-    // Clear the message after 3 seconds
-    setTimeout(() => {
-      setSubmissionMessage("");
-    }, 3000);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleNextClick = () => {
+    if (validateForm()) {
+      props.handleNextStep(formData);
+    } else {
+      setFormError("Veuillez remplir tous les champs du formulaire.");
+      setTimeout(() => {
+        setFormError("");
+      }, 3000);
+    }
   };
 
   return (
@@ -43,20 +66,15 @@ export default function Informations() {
                 <div className="left-content show-up header-text">
                   <div className="row">
                     <div className="col-lg-12">
-                      <h6>Remplissez le formulaire avec votre</h6>
-                      <h2>Informations Personnelles</h2>
+                      <h6>Informations Personnelles</h6>
+                      <h2>Étape 1</h2>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="right-image mt-5">
-                <form
-                  id="contact"
-                  action=""
-                  method="post"
-                  onSubmit={handleSubmit}
-                >
+                <form id="contact" action="" method="post">
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="fill-form">
@@ -71,6 +89,8 @@ export default function Informations() {
                                 name="fname"
                                 id="fname"
                                 placeholder="Nom"
+                                value={formData.fname} // Binding value to formData.fname
+                                onChange={handleChange}
                                 required
                               />
                             </fieldset>
@@ -80,6 +100,8 @@ export default function Informations() {
                                 name="lname"
                                 id="lname"
                                 placeholder="Prénom"
+                                value={formData.lname} // Binding value to formData.lname
+                                onChange={handleChange}
                                 required
                               />
                             </fieldset>
@@ -89,12 +111,20 @@ export default function Informations() {
                                 name="date"
                                 id="date"
                                 placeholder="Date de naissance"
+                                value={formData.date} // Binding value to formData.date
+                                onChange={handleChange}
                                 required
                               />
                             </fieldset>
                             <fieldset>
-                              <select name="gender" id="gender" required>
-                                <option value="" disabled selected>
+                              <select
+                                name="gender"
+                                id="gender"
+                                onChange={handleChange}
+                                required
+                                value={formData.gender} // Binding value to formData.gender
+                              >
+                                <option value="" disabled>
                                   Choisissez votre genre
                                 </option>
                                 <option value="male">Homme</option>
@@ -102,13 +132,14 @@ export default function Informations() {
                                 <option value="other">Autre</option>
                               </select>
                             </fieldset>
-
                             <fieldset>
                               <input
                                 type="text"
                                 name="prof"
                                 id="prof"
+                                onChange={handleChange}
                                 placeholder="Votre profession"
+                                value={formData.prof} // Binding value to formData.prof
                                 required
                               />
                             </fieldset>
@@ -118,31 +149,36 @@ export default function Informations() {
                                 type="text"
                                 className="form-control"
                                 id="prop"
+                                onChange={handleChange}
                                 placeholder="Au propos de vous"
                                 maxLength="300"
+                                value={formData.prop} // Binding value to formData.prop
                                 required
                               ></textarea>
                             </fieldset>
 
-                            {formSubmitted && <p>{submissionMessage}</p>}
-                          </div>
-
-                          <div className="col-lg-4">
-                            <fieldset>
-                              <button
-                                type="submit"
-                                id="form-submit"
-                                className="main-button "
-                              >
-                                Sauvegarder
-                              </button>
-                            </fieldset>
+                            {formError && (
+                              <p className="text-danger mt-3">{formError}</p>
+                            )}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </form>
+
+                <div className="row justify-content-center">
+                  <div className="col-lg-3">
+                    <fieldset>
+                      <button
+                        className="stylishButton"
+                        onClick={handleNextClick}
+                      >
+                        Suivante
+                      </button>
+                    </fieldset>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

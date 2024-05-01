@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
-
 import Loading from "../components/Loading/Loading";
 
 // Image importations
@@ -51,7 +52,7 @@ function Home() {
                       </div>
                       <div className="col-lg-12">
                         <div className="border-first-button scroll-to-section">
-                          <a href="">Au diagnostic</a>
+                          <Link to="/steps">Au diagnostic</Link>
                         </div>
                       </div>
                     </div>
@@ -511,7 +512,7 @@ function Home() {
               </div>
             </div>
             <div className="col-lg-12">
-              <form id="contact" action="" method="post">
+              <form id="contact" action="#" method="post">
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="contact-dec">

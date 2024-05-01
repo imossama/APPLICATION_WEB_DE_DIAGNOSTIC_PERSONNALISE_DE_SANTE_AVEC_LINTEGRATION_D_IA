@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+// Assets
 import logo from "../../assets/images/logo.png";
+
+// Service
+import { getUserIdFromLocalStorage } from "../../services/logged_userId";
 
 function Navbar() {
   const location = useLocation();
@@ -53,76 +57,6 @@ function Navbar() {
   }, [location.pathname]);
 
   return (
-    // <header className="header-area header-sticky">
-    //   <div className="container">
-    //     <div className="row">
-    //       <div className="col-12">
-    //         <nav className="main-nav">
-    //           {/* ***** Logo Start ***** */}
-    //           <Link to="/" className="logo">
-    //             <img src={logo} alt="" />
-    //           </Link>
-    //           {/* ***** Logo End ***** */}
-    //           {/* ***** Menu Start ***** */}
-    //           <ul className="nav">
-    //             <li className="scroll-to-section">
-    //               <Link
-    //                 to="/#top"
-    //                 className={activeSection === "top" ? "active" : ""}
-    //               >
-    //                 Accueil
-    //               </Link>
-    //             </li>
-    //             <li className="scroll-to-section">
-    //               <Link
-    //                 to="/#about"
-    //                 className={activeSection === "about" ? "active" : ""}
-    //               >
-    //                 À propos
-    //               </Link>
-    //             </li>
-    //             <li className="scroll-to-section">
-    //               <Link
-    //                 to="/#services"
-    //                 className={activeSection === "services" ? "active" : ""}
-    //               >
-    //                 Services
-    //               </Link>
-    //             </li>
-    //             <li className="scroll-to-section">
-    //               <Link
-    //                 to="/#tools"
-    //                 className={activeSection === "tools" ? "active" : ""}
-    //               >
-    //                 IA
-    //               </Link>
-    //             </li>
-    //             <li className="scroll-to-section">
-    //               <Link
-    //                 to="/#contact"
-    //                 className={activeSection === "contact" ? "active" : ""}
-    //               >
-    //                 Contact
-    //               </Link>
-    //             </li>
-    //             <li className="scroll-to-section">
-    //               <div className="border-first-button">
-    //                 <Link to="/" className="">
-    //                   Diagnostic
-    //                 </Link>
-    //               </div>
-    //             </li>
-    //           </ul>
-    //           <Link className="menu-trigger">
-    //             <span>Menu</span>
-    //           </Link>
-    //           {/* ***** Menu End ***** */}
-    //         </nav>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </header>
-
     <header className="header-area header-sticky">
       <div className="container">
         <div className="row">
@@ -134,71 +68,52 @@ function Navbar() {
               </Link>
               {/* ***** Logo End ***** */}
               {/* ***** Menu Start ***** */}
+
               <ul className="nav">
-                <li className="scroll-to-section">
-                  <Link
-                    to="/#top"
-                    className={activeSection === "top" ? "active" : ""}
-                  >
-                    Accueil
-                  </Link>
-                </li>
-                <li className="scroll-to-section">
-                  <Link
-                    to="/#about"
-                    className={activeSection === "about" ? "active" : ""}
-                  >
-                    À propos
-                  </Link>
-                </li>
-                <li className="scroll-to-section">
-                  <Link
-                    to="/#services"
-                    className={activeSection === "services" ? "active" : ""}
-                  >
-                    Services
-                  </Link>
-                </li>
-                <li className="scroll-to-section">
-                  <Link
-                    to="/#tools"
-                    className={activeSection === "tools" ? "active" : ""}
-                  >
-                    IA
-                  </Link>
-                </li>
-                <li className="scroll-to-section">
-                  <Link
-                    to="/#contact"
-                    className={activeSection === "contact" ? "active" : ""}
-                  >
-                    Contact
-                  </Link>
+                <li>
+                  <Link to="/home">Accueil</Link>
                 </li>
 
-                {/* Logged */}
-                {/* <li className="nav-item-log" title="Login">
-                  <Link to="/login"> 
-                    <i className="fas fa-key"></i>
-                  </Link>
-                </li> */}
-
-                {/* Unlogged */}
-                <li className="nav-item-log" title="Settings">
-                  <Link to="/settings">
-                    <i className="fas fa-gear"></i>
-                  </Link>
+                <li>
+                  <Link to="/community">Communauté</Link>
                 </li>
 
-                <li className="nav-item-log" title="Logout">
-                  <Link to="/logout">
-                    <i className="fas fa-door-open"></i>
-                  </Link>
+                <li>
+                  <Link to="/login">Se connecter</Link>
                 </li>
+
+                {getUserIdFromLocalStorage() == null && (
+                  <li className="nav-item-log" title="Login">
+                    <Link to="/login">
+                      <i className="fas fa-key"></i>
+                    </Link>
+                  </li>
+                )}
+
+                {getUserIdFromLocalStorage() != null && (
+                  <>
+                    <li className="nav-item-log" title="Settings">
+                      <Link to="/settings">
+                        <span>Settings</span>
+                        <i className="fas fa-gear"></i>
+                      </Link>
+                    </li>
+                    <li
+                      className="nav-item-log"
+                      title="Logout"
+                      style={{ marginLeft: 0 }}
+                    >
+                      <Link to="/logout">
+                        <span>Logout</span>
+                        <i className="fas fa-door-open"></i>
+                      </Link>
+                    </li>
+                  </>
+                )}
 
                 <li className="nav-item float-left">
                   <div className="border-first-button">
-                    <Link to="/" className="nav-link">
+                    <Link to="/steps" className="nav-link">
                       Diagnostic
                     </Link>
                   </div>

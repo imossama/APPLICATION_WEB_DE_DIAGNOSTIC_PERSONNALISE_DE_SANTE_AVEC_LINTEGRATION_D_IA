@@ -1,16 +1,36 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
-
 import Loading from "../components/Loading/Loading";
+
+// Export APIs
+import { fetchData } from "../services/apiDiagnosis";
 
 export default function Community() {
   useEffect(() => {
-    // Update the document title
     document.title = "SANTÉIA - Page de communauté";
-  }, []); // This effect runs only once after the initial render
+  }, []);
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDataFromLocalJson = async () => {
+      try {
+        const jsonData = await fetchData();
+        setData(jsonData);
+        setLoading(false);
+      } catch (error) {
+        // Handle error
+        setLoading(false);
+      }
+    };
+
+    fetchDataFromLocalJson();
+  }, []);
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -36,28 +56,36 @@ export default function Community() {
               </div>
             </div>
 
-            <div className="row">
-              <div className="col-lg-4 show-up">
-                <div className="blog-post">
-                  <div className="down-content">
-                    <span className="category">Type</span>
-                    <span className="date">dd/mm/yyyy</span>
-                    <a href="#">
-                      <h4>Title</h4>
-                    </a>
-                    <p>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Fugit odio ad numquam enim recusandae similique natus?
-                      Minima quam dolor, ab dolores, repudiandae enim placeat
-                      ratione maiores soluta, dolore tenetur fugit.
-                    </p>
-                    <span className="author">userid</span>
-                    <div className="border-first-button">
-                      <a href="#">Vérifier</a>
+            <div className="row show-up">
+              {loading ? (
+                <p>Chargement...</p>
+              ) : data ? (
+                data.map((item) => (
+                  <div className="col-lg-4 mb-4" key={item.id}>
+                    <div className="blog-post">
+                      <div className="down-content">
+                        <span className="category">{item.type}</span>
+                        <span className="date">{item.date}</span>
+
+                        <h4>{item.title}</h4>
+
+                        <p>{item.description}</p>
+
+                        <div className="bottom-content">
+                          <span className="author">
+                            ID de l'utilisateur: {item.userId}
+                          </span>
+                          <div className="border-first-button">
+                            <Link to={`/details/${item.id}`}>Visite</Link>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                ))
+              ) : (
+                <p>Pas de données disponibles</p>
+              )}
             </div>
           </div>
         </div>

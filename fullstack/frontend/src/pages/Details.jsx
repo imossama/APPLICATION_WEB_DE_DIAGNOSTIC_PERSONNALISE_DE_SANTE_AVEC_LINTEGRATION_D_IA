@@ -1,62 +1,51 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
 import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
-
 import DiagnosisDetails from "../components/DiagnosisDetails/DiagnosisDetails";
 
-// Data
-import image_qr_code from "../assets/images/qr_code.png";
-
-var details = {
-  userId: 1,
-  title: "Title",
-  qr_code: image_qr_code,
-  desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus laboriosam eligendi laborum? Omnis unde ad, a nihil voluptates voluptatum cupiditate! Numquam, voluptate mollitia? Facilis, illum quia? Error quas maxime inventore.",
-  symp: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium pariatur tempora iure saepe vero voluptatum, voluptate cupiditate architecto sed, perspiciatis reprehenderit doloremque at hic iste harum, autem animi in? Sequi.",
-  cons: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis iusto iste dicta officia earum quod iure quo facere praesentium voluptatum inventore facilis, ipsam incidunt exercitationem quibusdam odio a obcaecati ea.",
-  medic: [
-    {
-      name: "Medication 11111111111111111111111111111",
-      image: "https://wellify.in/cdn/shop/products/i-Pill-Daily-Pack-of-2.jpg",
-    },
-    {
-      name: "Medication 2",
-      image: "https://wellify.in/cdn/shop/products/i-Pill-Daily-Pack-of-2.jpg",
-    },
-    {
-      name: "Medication 3",
-      image: "https://wellify.in/cdn/shop/products/i-Pill-Daily-Pack-of-2.jpg",
-    },
-    {
-      name: "Medication 3",
-      image: "https://wellify.in/cdn/shop/products/i-Pill-Daily-Pack-of-2.jpg",
-    },
-    {
-      name: "Medication 3",
-      image: "https://wellify.in/cdn/shop/products/i-Pill-Daily-Pack-of-2.jpg",
-    },
-    {
-      name: "Medication 3",
-      image: "https://wellify.in/cdn/shop/products/i-Pill-Daily-Pack-of-2.jpg",
-    },
-    {
-      name: "Medication 3",
-      image: "https://wellify.in/cdn/shop/products/i-Pill-Daily-Pack-of-2.jpg",
-    },
-  ],
-};
+// Export APIs
+import { fetchDataById } from "../services/apiDiagnosis";
 
 export default function Details() {
   let { id } = useParams();
+  const navigate = useNavigate(); // Get the navigate function
 
   useEffect(() => {
     // Update the document title
-    document.title = `SANTÉIA - Détails du diagnostic | User: ${id}`;
-  }, []); // This effect runs only once after the initial render
+    document.title = `SANTÉIA - Détails du diagnostic | Diagnostic: ${id}`;
+  }, [id]); // Update title whenever id changes
+
+  // Fetch Data
+  const [filteredData, setFilteredData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchDataById(id);
+        if (data) {
+          setFilteredData(data);
+        } else {
+          navigate("/community");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Cleanup function
+    return () => {
+      // Any cleanup code if needed
+    };
+  }, [id, navigate]);
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -64,7 +53,14 @@ export default function Details() {
       <UpperContact />
       <Navbar />
 
-      <DiagnosisDetails details={details} />
+      {/* Render filtered data here */}
+      {loading ? (
+        <p>Chargement...</p>
+      ) : filteredData ? (
+        <DiagnosisDetails key={filteredData.id} details={filteredData} />
+      ) : (
+        <p>Aucune donnée disponible pour ID {id}</p>
+      )}
 
       <Footer />
     </div>

@@ -21,6 +21,7 @@ export default function ProfileSettings() {
     receiveEmail: false,
   });
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -36,16 +37,17 @@ export default function ProfileSettings() {
     const { email, oldPassword, newPassword1, newPassword2 } = formData;
     const errors = {};
     if (!email || !email.match(/[^@]+@[^@]+\.[^@]+/)) {
-      errors.email = "Email address is invalid";
+      errors.email = "Adresse email invalide.";
     }
     if (!oldPassword) {
-      errors.oldPassword = "Please enter your old password";
+      errors.oldPassword = "Veuillez saisir votre ancien mot de passe.";
     }
     if (!newPassword1 || newPassword1.length < 6) {
-      errors.newPassword1 = "Password must be at least 6 characters long";
+      errors.newPassword1 =
+        "Le mot de passe doit contenir au moins 6 caractères.";
     }
     if (newPassword1 !== newPassword2) {
-      errors.newPassword2 = "Passwords do not match";
+      errors.newPassword2 = "Les mots de passe ne correspondent pas.";
     }
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
@@ -53,6 +55,12 @@ export default function ProfileSettings() {
     }
     // Form submission logic here (e.g., send data to server)
     console.log("Form submitted:", formData);
+    setSuccessMessage("Votre profil a été mis à jour avec succès.");
+
+    // Clear success message after 3 seconds
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
   };
 
   return (
@@ -102,10 +110,9 @@ export default function ProfileSettings() {
                               placeholder="Your email"
                               value={formData.email}
                               onChange={handleChange}
-                              required
                             />
                             {errors.email && (
-                              <div className="invalid-feedback">
+                              <div className="invalid-feedback mt-3">
                                 {errors.email}
                               </div>
                             )}
@@ -121,10 +128,9 @@ export default function ProfileSettings() {
                               placeholder="Old password"
                               value={formData.oldPassword}
                               onChange={handleChange}
-                              required
                             />
                             {errors.oldPassword && (
-                              <div className="invalid-feedback">
+                              <div className="invalid-feedback mt-3">
                                 {errors.oldPassword}
                               </div>
                             )}
@@ -140,10 +146,9 @@ export default function ProfileSettings() {
                               placeholder="New password"
                               value={formData.newPassword1}
                               onChange={handleChange}
-                              required
                             />
                             {errors.newPassword1 && (
-                              <div className="invalid-feedback">
+                              <div className="invalid-feedback mt-3">
                                 {errors.newPassword1}
                               </div>
                             )}
@@ -159,10 +164,9 @@ export default function ProfileSettings() {
                               placeholder="Repeat new password"
                               value={formData.newPassword2}
                               onChange={handleChange}
-                              required
                             />
                             {errors.newPassword2 && (
-                              <div className="invalid-feedback">
+                              <div className="invalid-feedback mt-3">
                                 {errors.newPassword2}
                               </div>
                             )}
@@ -188,6 +192,11 @@ export default function ProfileSettings() {
                             </div>
                           </fieldset>
                         </div>
+                        {successMessage && (
+                          <div className="text-success mt-3" role="alert">
+                            {successMessage}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
