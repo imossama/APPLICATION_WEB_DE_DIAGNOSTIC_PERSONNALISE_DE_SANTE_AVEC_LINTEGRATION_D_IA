@@ -3,11 +3,11 @@
 from app import app, mongo
 from flask import jsonify, request
 from app.models import User, Diagnosis
-from bson import ObjectId
+from app.tools.format_json import format_data
 
 @app.route('/')
 def index():
-    return 'SanteIA, Backend!'
+    return '<h1>Backend: Flask | SantIA by OSSAMA ETTAQAFI</h1>'
 
 # Users
 @app.route('/api/create_user', methods=['POST'])
@@ -169,11 +169,9 @@ def receive_json():
             return jsonify({'error': 'Request must be JSON.'}), 400
 
         # Extract JSON data from the request
-        json_data = request.json
-
-        # You can now access and use the JSON data as needed
-        # For example, you can print the JSON data
-        print("Received JSON data:", json_data)
+        data = format_data(request.json)
+        
+        print("Received data:", data)
 
         # Process the JSON data here (perform treatments)
 

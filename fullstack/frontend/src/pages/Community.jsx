@@ -59,7 +59,7 @@ export default function Community() {
             <div className="row show-up">
               {loading ? (
                 <p>Chargement...</p>
-              ) : data ? (
+              ) : data != "" ? (
                 data.map((item) => (
                   <div className="col-lg-4 mb-4" key={item.id}>
                     <div className="blog-post">

@@ -5,13 +5,35 @@ import Question from "./Question";
 import Qcm from "./Qcm";
 import Result from "./Result";
 
+// Services
+import { sendDatatoServer } from "../services/apiDataAI";
+
 const SequentialFlow = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [responseData, setResponseData] = useState(null);
+
+  const handleSendDataToServer = async () => {
+    try {
+      setLoading(true);
+      const jsonData = JSON.stringify(formData);
+      const response = await sendDatatoServer(jsonData);
+      setResponseData(response);
+    } catch (error) {
+      console.error("Error:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleNextStep = (data) => {
     setFormData({ ...formData, ...data });
     setStep(step + 1);
+
+    if (step == 3) {
+      handleSendDataToServer();
+    }
   };
 
   const handlePrevStep = () => {
@@ -41,7 +63,7 @@ const SequentialFlow = () => {
         return (
           <Question
             formData={formData}
-            setFormData={setFormData} // Pass setFormData as a prop
+            setFormData={setFormData}
             handleNextStep={handleNextStep}
             handlePrevStep={handlePrevStep}
           />
@@ -49,11 +71,18 @@ const SequentialFlow = () => {
       case 4:
         return (
           <div>
-            <h1>Keep loading...</h1>
-            <p>{JSON.stringify(formData)}</p>
-            <button onClick={handleNextStep}>Skip (test)</button>
+            <h1>{loading ? "Loading..." : "Good!"}</h1>
+            {responseData && (
+              <div>
+                <p>Response message: {responseData.message}</p>
+              </div>
+            )}
+            {!loading && (
+              <button onClick={handleNextStep}>Proceed to Next Step</button>
+            )}
           </div>
         );
+
       case 5:
         return (
           <Qcm
