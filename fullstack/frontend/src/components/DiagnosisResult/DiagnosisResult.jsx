@@ -23,9 +23,9 @@ export default function DiagnosisResult(props) {
                       <h6>dd/mm/yyyy</h6>
                       <h2>{result.title}</h2>
                       <p>
-                        Vous pouvez partager le diagnostic avec votre famille ou
+                        Vous pouvez partager le diagnostique avec votre famille ou
                         amis, enregistrez-le en PDF sur votre ordinateur, ou
-                        refaire le diagnostic.{" "}
+                        refaire le diagnostique.{" "}
                       </p>
                     </div>
 

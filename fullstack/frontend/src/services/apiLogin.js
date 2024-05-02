@@ -5,7 +5,7 @@ const apiLogin = {
     try {
       const response = await fetch(`${apiUrl}/users`);
       if (!response.ok) {
-        throw new Error("Échec de l'emploi des utilisateurs");
+        throw new Error("Failed to fetch users");
       }
       const users = await response.json();
       return users;
@@ -15,11 +15,59 @@ const apiLogin = {
     }
   },
 
+  async getUser(userId) {
+    try {
+      const response = await fetch(`${apiUrl}/user/id/${userId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch user data");
+      }
+      const user = await response.json();
+      return user;
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      throw error;
+    }
+  },
+
+  async updateUser(userId, userData) {
+    try {
+      const response = await fetch(`${apiUrl}/update_user/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update user data");
+      }
+      const updatedUser = await response.json();
+      return updatedUser;
+    } catch (error) {
+      console.error("Error updating user data:", error);
+      throw error;
+    }
+  },
+
+  async validateOldPassword(userId, oldPassword) {
+    try {
+      const user = await this.getUser(userId);
+      if (user && user.password === oldPassword) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error validating old password:", error);
+      throw error;
+    }
+  },
+
   async login(email, password) {
     try {
       const users = await this.getUsers();
       const user = users.find(
-        (user) => user.email == email && user.password == password
+        (user) => user.email === email && user.password === password
       );
       return user;
     } catch (error) {

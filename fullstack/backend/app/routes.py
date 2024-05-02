@@ -3,6 +3,7 @@
 from app import app, mongo
 from flask import jsonify, request
 from app.models import User, Diagnosis
+from bson import ObjectId
 
 @app.route('/')
 def index():
@@ -29,7 +30,9 @@ def create_user():
     try:
         # Save the user to the database
         new_user.save_to_db()
-        return jsonify({'message': 'User created successfully'}), 201
+        
+        # Return success message along with the user ID
+        return jsonify({'message': 'User created successfully', 'user_id': new_user.id}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -47,10 +50,10 @@ def get_users():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/user/<email>', methods=['GET'])
-def get_user(email):
+@app.route('/api/user/email/<email>', methods=['GET'])
+def get_user_by_email(email):
     try:
-        # Query the user with the given email from the 'users' collection in the 'santeia' database
+        # Query the user with the given ID from the 'users' collection in the 'santeia' database
         user = mongo.db.santeia.users.find_one({'email': email}, {'_id': False})
 
         # Check if user exists
@@ -58,6 +61,41 @@ def get_user(email):
             return jsonify(user), 200
         else:
             return jsonify({'error': 'User not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@app.route('/api/user/id/<user_id>', methods=['GET'])
+def get_user(user_id):
+    try:
+        # Query the user with the given ID from the 'users' collection in the 'santeia' database
+        user = mongo.db.santeia.users.find_one({'id': user_id}, {'_id': False})
+
+        # Check if user exists
+        if user:
+            return jsonify(user), 200
+        else:
+            return jsonify({'error': 'User not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@app.route('/api/update_user/<user_id>', methods=['PUT'])
+def update_user(user_id):
+    try:
+        # Check if the request contains JSON data
+        if not request.is_json:
+            return jsonify({'error': 'Request must be JSON.'}), 400
+
+        # Extract JSON data from the request
+        json_data = request.json
+
+        # Update user information in the database
+        updated_count = mongo.db.santeia.users.update_one({'id': user_id}, {'$set': json_data})
+
+        # Check if user exists and has been updated
+        if updated_count.modified_count > 0:
+            return jsonify({'message': 'User updated successfully'}), 200
+        else:
+            return jsonify({'error': 'User not found or no changes were made'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     

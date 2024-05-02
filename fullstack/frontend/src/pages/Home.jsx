@@ -40,19 +40,19 @@ function Home() {
                   <div className="left-content show-up header-text">
                     <div className="row">
                       <div className="col-lg-12">
-                        <h6>Application de diagnostic de santé avec l'IA</h6>
+                        <h6>Application de diagnostique de santé avec l'IA</h6>
                         <h2>Nous veillerons à rester en bonne santé</h2>
                         <p>
                           Vous pouvez facilement vérifier votre santé ou votre
                           santé mentale en nous fournissant des informations
                           personnelles qui seront complètement sécurisées. Cela
                           permettra à notre système de fonctionner efficacement
-                          et de vous fournir un diagnostic dédié.{" "}
+                          et de vous fournir un diagnostique dédié.{" "}
                         </p>
                       </div>
                       <div className="col-lg-12">
                         <div className="border-first-button scroll-to-section">
-                          <Link to="/steps">Au diagnostic</Link>
+                          <Link to="/diagnostic">Au diagnostique</Link>
                         </div>
                       </div>
                     </div>
@@ -90,7 +90,7 @@ function Home() {
                     </div>
                     <p>
                       L'équipe de Santéia, dirigée par ETTAQAFI OSSAMA, a
-                      développé un Application de diagnostic de santé dirigée
+                      développé un Application de diagnostique de santé dirigée
                       AI. Leur objectif est de promouvoir bien-être en
                       permettant aux utilisateurs de surveiller en toute
                       sécurité leur Santé physique et mentale. Ils priorisent la
@@ -321,13 +321,13 @@ function Home() {
                                     <p>
                                       Notre application offre une fonctionnalité
                                       précieuse: la possibilité de partager un
-                                      code QR de votre diagnostic avec votre
+                                      code QR de votre diagnostique avec votre
                                       famille et vos amis.
                                     </p>
                                     <div className="ticks-list">
                                       <span>
                                         <i className="fa fa-check"></i> Partagez
-                                        le diagnostic
+                                        le diagnostique
                                       </span>{" "}
                                       <span>
                                         <i className="fa fa-check"></i>{" "}
@@ -366,14 +366,14 @@ function Home() {
                                       </span>{" "}
                                       <span>
                                         <i className="fa fa-check"></i>{" "}
-                                        Consulter les diagnostics
+                                        Consulter les diagnostiques
                                       </span>
                                     </div>
                                     <p>
                                       Toutes les données de l'utilisateur sont
                                       privées et sécurisées. Vous ne pouvez que
                                       voir de manière anonyme le dernier
-                                      diagnostic.{" "}
+                                      diagnostique.{" "}
                                     </p>
                                   </div>
                                 </div>
@@ -451,7 +451,7 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-5">
-              <div className="section-heading" >
+              <div className="section-heading">
                 <h6>NOS OUTILS IA</h6>
                 <h4>
                   NOUS DÉPENDONS DE NOMBREUX MODÈLES <em>D'IA</em>
@@ -601,14 +601,14 @@ function Home() {
                             ></textarea>
                           </fieldset>
                         </div>
-                        <div className="col-lg-12">
+                        <div className="col-lg-12 d-flex justify-content-center">
                           <fieldset>
                             <button
                               type="submit"
                               id="form-submit"
-                              className="main-button "
+                              className="main-button"
                             >
-                              Envoyer le message
+                              Envoyer
                             </button>
                           </fieldset>
                         </div>

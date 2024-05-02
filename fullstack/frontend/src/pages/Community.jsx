@@ -72,9 +72,9 @@ export default function Community() {
                         <p>{item.description}</p>
 
                         <div className="bottom-content">
-                          <span className="author">
+                          {/* <span className="author">
                             ID de l'utilisateur: {item.userId}
-                          </span>
+                          </span> */}
                           <div className="border-first-button">
                             <Link to={`/details/${item.id}`}>Visite</Link>
                           </div>

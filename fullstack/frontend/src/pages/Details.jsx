@@ -16,7 +16,7 @@ export default function Details() {
 
   useEffect(() => {
     // Update the document title
-    document.title = `SANTÉIA - Détails du diagnostic | Diagnostic: ${id}`;
+    document.title = `SANTÉIA - Détails du diagnostique ${id}`;
   }, [id]); // Update title whenever id changes
 
   // Fetch Data

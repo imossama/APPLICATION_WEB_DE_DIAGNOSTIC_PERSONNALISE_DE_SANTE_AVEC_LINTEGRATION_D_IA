@@ -14,7 +14,7 @@ export default function DiagnosisDetails({details}) {
                     <h6>{details.date}</h6>
                     <h2>{details.title}</h2>
                     <p>
-                      Ce diagnostic est unique à l'utilisateur, avec
+                      Ce diagnostique est unique à l'utilisateur, avec
                       l'identifiant: {details.userId}{" "}
                     </p>
                   </div>

@@ -7,11 +7,17 @@ import Loading from "../components/Loading/Loading";
 
 import image_settings from "../assets/images/settings.png";
 
+// Services
+import apiLogin from "../services/apiLogin";
+import { getUserIdFromLocalStorage } from "../services/logged_userId";
+
 export default function ProfileSettings() {
   useEffect(() => {
     // Update the document title
     document.title = "SANTÉIA - Paramètres de profil";
   }, []); // This effect runs only once after the initial render
+
+  const userId = getUserIdFromLocalStorage();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -23,15 +29,38 @@ export default function ProfileSettings() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const user = await apiLogin.getUser(userId);
+        setFormData({
+          email: user.email || "",
+          oldPassword: "",
+          newPassword1: "",
+          newPassword2: "",
+          receiveEmail: user.receiveEmail || false,
+        });
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    }
+    fetchUser();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
-    setFormData({ ...formData, [name]: newValue });
-    // Clear errors when user starts typing
-    setErrors({ ...errors, [name]: "" });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: newValue,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform validation
     const { email, oldPassword, newPassword1, newPassword2 } = formData;
@@ -53,14 +82,41 @@ export default function ProfileSettings() {
       setErrors(errors);
       return; // Don't submit if there are errors
     }
-    // Form submission logic here (e.g., send data to server)
-    console.log("Form submitted:", formData);
-    setSuccessMessage("Votre profil a été mis à jour avec succès.");
 
-    // Clear success message after 3 seconds
-    setTimeout(() => {
-      setSuccessMessage("");
-    }, 3000);
+    try {
+      // Validate old password
+      const isOldPasswordValid = await apiLogin.validateOldPassword(
+        userId,
+        oldPassword
+      );
+      if (!isOldPasswordValid) {
+        setErrors({ oldPassword: "Ancien mot de passe incorrect." });
+        return;
+      }
+
+      // Update user data on the server
+      await apiLogin.updateUser(userId, { email, password: newPassword1 });
+
+      // Clear form fields
+      setFormData({
+        email: "",
+        oldPassword: "",
+        newPassword1: "",
+        newPassword2: "",
+        receiveEmail: false,
+      });
+
+      // Display success message
+      setSuccessMessage("Votre profil a été mis à jour avec succès.");
+
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000);
+    } catch (error) {
+      console.error("Error updating user data:", error);
+      // Handle error: Display error message or perform appropriate action
+    }
   };
 
   return (
@@ -107,7 +163,7 @@ export default function ProfileSettings() {
                               className={`form-control ${
                                 errors.email && "is-invalid"
                               }`}
-                              placeholder="Your email"
+                              placeholder="Votre e-mail"
                               value={formData.email}
                               onChange={handleChange}
                             />
@@ -125,7 +181,7 @@ export default function ProfileSettings() {
                               className={`form-control ${
                                 errors.oldPassword && "is-invalid"
                               }`}
-                              placeholder="Old password"
+                              placeholder="Ancien mot de passe"
                               value={formData.oldPassword}
                               onChange={handleChange}
                             />
@@ -143,7 +199,7 @@ export default function ProfileSettings() {
                               className={`form-control ${
                                 errors.newPassword1 && "is-invalid"
                               }`}
-                              placeholder="New password"
+                              placeholder="Nouveau mot de passe"
                               value={formData.newPassword1}
                               onChange={handleChange}
                             />
@@ -161,7 +217,7 @@ export default function ProfileSettings() {
                               className={`form-control ${
                                 errors.newPassword2 && "is-invalid"
                               }`}
-                              placeholder="Repeat new password"
+                              placeholder="Répété le nouveau mot de passe"
                               value={formData.newPassword2}
                               onChange={handleChange}
                             />
@@ -175,7 +231,8 @@ export default function ProfileSettings() {
                             <div className="pr-checkbox mt-4 row">
                               <div className="col-lg-8">
                                 <label htmlFor="receiveEmail">
-                                  Receive the diagnostic result in your email
+                                  Recevoir le résultat de diagnostique dans
+                                  votre e-mail
                                 </label>
                               </div>
                               <div className="col">
@@ -215,7 +272,7 @@ export default function ProfileSettings() {
                         id="form-submit"
                         className="btn btn-primary"
                       >
-                        Save
+                        Sauvegarder
                       </button>
                     </fieldset>
                   </div>

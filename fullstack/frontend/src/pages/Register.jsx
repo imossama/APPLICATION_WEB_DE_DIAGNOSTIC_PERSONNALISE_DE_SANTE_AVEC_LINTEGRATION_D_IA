@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 import UpperContact from "../components/UpperContact/UpperContact";
@@ -13,6 +13,8 @@ import image_register from "../assets/images/register.png";
 import apiRegister from "../services/apiRegister";
 
 export default function Register() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Update the document title
     document.title = "SANTÉIA - Page d'inscription";
@@ -56,8 +58,10 @@ export default function Register() {
     try {
       // Check if email already exists
       const emailExists = await apiRegister.checkEmailExists(email);
-      if (emailExists) {
-        setRegistrationError("L'email existe déjà."); // Set error message if email exists
+      if (emailExists != null) {
+        setErrors({
+          email: "L'email existe déjà. Veuillez utiliser un autre email.",
+        }); // Set error message if email exists
       } else {
         // Form submission logic here (e.g., send data to server)
         console.log("Form submitted:", formData);
@@ -65,6 +69,9 @@ export default function Register() {
         await apiRegister.register({ email, password }); // Use userService to register user
         // Optionally, you can redirect the user to the login page or show a success message
         console.log("User registered successfully.");
+
+        // Redirect to the desired route
+        navigate("/community");
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -123,10 +130,10 @@ export default function Register() {
                                     className={`form-control ${
                                       errors.email && "is-invalid"
                                     }`}
-                                    placeholder="Your email"
+                                    placeholder="Votre e-mail"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    required
+                                    // required
                                   />
                                   {errors.email && (
                                     <div className="invalid-feedback">
@@ -142,10 +149,10 @@ export default function Register() {
                                     className={`form-control ${
                                       errors.password && "is-invalid"
                                     }`}
-                                    placeholder="Your password"
+                                    placeholder="Votre mot de passe"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    required
+                                    // required
                                   />
                                   {errors.password && (
                                     <div className="invalid-feedback">
@@ -161,10 +168,10 @@ export default function Register() {
                                     className={`form-control ${
                                       errors.confirmPassword && "is-invalid"
                                     }`}
-                                    placeholder="Confirm your password"
+                                    placeholder="Confirmer votre mot de passe"
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
-                                    required
+                                    // required
                                   />
                                   {errors.confirmPassword && (
                                     <div className="invalid-feedback">

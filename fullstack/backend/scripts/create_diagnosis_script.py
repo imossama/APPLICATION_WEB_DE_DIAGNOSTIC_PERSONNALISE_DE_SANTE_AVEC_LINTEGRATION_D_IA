@@ -5,17 +5,17 @@ url = 'http://localhost:5000/api/create_diagnosis'
 
 # JSON data representing the new user
 data = {
-    "userId": "user456",
-    "title": "Diagnosis 3",
-    "type": "Type C",
+    "userId": "user001",
+    "title": "Diagnosis 1",
+    "type": "Type A",
     "date": "2024-05-03",
     "qr_code": "QR_CODE_STRING_3",
-    "description": "Description of Diagnosis 3",
-    "symptoms": ["Symptom 5", "Symptom 6"],
-    "advice": "Advice for Diagnosis 3",
+    "description": "Description of Diagnosis 1",
+    "symptoms": "Symptom 1",
+    "advice": "Advice for Diagnosis 1",
     "medicines": [
-        {"name": "Medicine E", "link": "https://example.com/medicine-e", "image": "https://example.com/medicine-e.jpg"},
-        {"name": "Medicine F", "link": "https://example.com/medicine-f", "image": "https://example.com/medicine-f.jpg"}
+        {"name": "Medicine A", "link": "https://example.com/medicine-a", "image": "https://example.com/medicine-a.jpg"},
+        {"name": "Medicine B", "link": "https://example.com/medicine-b", "image": "https://example.com/medicine-b.jpg"}
     ]
 }
 

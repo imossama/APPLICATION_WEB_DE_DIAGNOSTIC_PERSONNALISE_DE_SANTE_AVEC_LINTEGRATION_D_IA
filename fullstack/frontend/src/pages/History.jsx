@@ -69,7 +69,7 @@ export default function History() {
                   {loading ? (
                     <p>Chargement...</p>
                   ) : diagnoses.length === 0 ? (
-                    <p>Aucun diagnostic trouvé</p>
+                    <p>Aucun diagnostique trouvé</p>
                   ) : (
                     <table className="table">
                       <thead>

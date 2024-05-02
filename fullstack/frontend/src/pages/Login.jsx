@@ -120,7 +120,7 @@ export default function Login() {
                                     className={`form-control ${
                                       errors.email && "is-invalid"
                                     }`}
-                                    placeholder="Your email"
+                                    placeholder="Votre e-mail"
                                     value={formData.email}
                                     onChange={handleChange}
                                     // required
@@ -139,7 +139,7 @@ export default function Login() {
                                     className={`form-control ${
                                       errors.password && "is-invalid"
                                     }`}
-                                    placeholder="Your password"
+                                    placeholder="Votre mot de passe"
                                     value={formData.password}
                                     onChange={handleChange}
                                     // required

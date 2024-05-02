@@ -1,60 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-
-// Assets
+import React, { useState, useEffect } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-
-// Service
 import { getUserIdFromLocalStorage } from "../../services/logged_userId";
 
 function Navbar() {
+  const [isActive, setIsActive] = useState(false);
   const location = useLocation();
-  if (["/", "/home", "/index"].includes(location.pathname)) {
-    const [activeSection, setActiveSection] = useState("top");
-  }
-  const [activeSection, setActiveSection] = useState("");
+
+  const toggleMenu = () => {
+    setIsActive(!isActive);
+    // Toggling menu display
+    const nav = document.querySelector(".header-area .nav");
+    if (nav) {
+      nav.style.display = isActive ? "none" : "block";
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
-
-      // Get the position of each section
-      const aboutSection = document.getElementById("about").offsetTop;
-      const servicesSection = document.getElementById("services").offsetTop;
-      const toolsSection = document.getElementById("tools").offsetTop;
-      const contactSection = document.getElementById("contact").offsetTop;
-
-      // Determine which section is in view
-      if (scrollPosition < aboutSection) {
-        setActiveSection("top");
-      } else if (
-        scrollPosition >= aboutSection &&
-        scrollPosition < servicesSection
-      ) {
-        setActiveSection("about");
-      } else if (
-        scrollPosition >= servicesSection &&
-        scrollPosition < toolsSection
-      ) {
-        setActiveSection("services");
-      } else if (
-        scrollPosition >= toolsSection &&
-        scrollPosition < contactSection
-      ) {
-        setActiveSection("tools");
-      } else {
-        setActiveSection("contact");
+    const handleResize = () => {
+      // Close the menu if it's open and the window width is greater than 767px
+      if (window.innerWidth > 767 && isActive) {
+        toggleMenu();
       }
     };
 
-    if (["/", "/home", "/index"].includes(location.pathname)) {
-      window.addEventListener("scroll", handleScroll);
-    }
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
 
+    // Cleanup function
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [location.pathname]);
+  }, [isActive]);
 
   return (
     <header className="header-area header-sticky">
@@ -62,67 +39,57 @@ function Navbar() {
         <div className="row">
           <div className="col-12">
             <nav className="main-nav">
-              {/* ***** Logo Start ***** */}
-              <Link to="/" className="logo">
-                <img src={logo} alt="" />
-              </Link>
-              {/* ***** Logo End ***** */}
-              {/* ***** Menu Start ***** */}
-
-              <ul className="nav">
-                <li>
-                  <Link to="/home">Accueil</Link>
+              <div className="outsideLogo">
+                <Link to="/" className="logo">
+                  <img src={logo} alt="" />
+                </Link>
+              </div>
+              <ul className={`nav ${isActive ? "active" : ""}`}>
+                <li className="nav-logo">
+                  <Link to="/" className="logo">
+                    <img src={logo} alt="" />
+                  </Link>
                 </li>
-
-                <li>
-                  <Link to="/community">Communauté</Link>
-                </li>
-
-                <li>
-                  <Link to="/login">Se connecter</Link>
-                </li>
-
-                {getUserIdFromLocalStorage() == null && (
-                  <li className="nav-item-log" title="Login">
-                    <Link to="/login">
-                      <i className="fas fa-key"></i>
-                    </Link>
+                <div className="centered-nav-items">
+                  <li>
+                    <NavLink to="/home" activeclassname="active">Accueil</NavLink>
                   </li>
-                )}
-
-                {getUserIdFromLocalStorage() != null && (
-                  <>
-                    <li className="nav-item-log" title="Settings">
-                      <Link to="/settings">
-                        <span>Settings</span>
-                        <i className="fas fa-gear"></i>
-                      </Link>
+                  <li>
+                    <NavLink to="/community" activeclassname="active">Communauté</NavLink>
+                  </li>
+                  {getUserIdFromLocalStorage() == null && (
+                    <li>
+                      <NavLink to="/login" activeclassname="active">Login</NavLink>
                     </li>
-                    <li
-                      className="nav-item-log"
-                      title="Logout"
-                      style={{ marginLeft: 0 }}
-                    >
-                      <Link to="/logout">
-                        <span>Logout</span>
-                        <i className="fas fa-door-open"></i>
-                      </Link>
-                    </li>
-                  </>
-                )}
-
-                <li className="nav-item float-left">
+                  )}
+                  {getUserIdFromLocalStorage() != null && (
+                    <>
+                      <li>
+                        <NavLink to="/history" activeclassname="active">Historique</NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/settings" activeclassname="active">Settings</NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/logout" activeclassname="active">Logout</NavLink>
+                      </li>
+                    </>
+                  )}
+                </div>
+                <li className="nav-item">
                   <div className="border-first-button">
-                    <Link to="/steps" className="nav-link">
-                      Diagnostic
-                    </Link>
+                    <NavLink to="/diagnostic" className="nav-link" activeclassname="active">
+                    Diagnostique
+                    </NavLink>
                   </div>
                 </li>
               </ul>
-
-              <Link className="menu-trigger">
+              <div
+                className={`menu-trigger ${isActive ? "active" : ""}`}
+                onClick={toggleMenu}
+              >
                 <span>Menu</span>
-              </Link>
+              </div>
               {/* ***** Menu End ***** */}
             </nav>
           </div>

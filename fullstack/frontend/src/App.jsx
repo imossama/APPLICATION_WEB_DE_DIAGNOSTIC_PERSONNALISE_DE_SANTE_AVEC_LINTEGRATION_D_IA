@@ -22,20 +22,15 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import ScrollToElement from "./components/ScrollToElement.jsx";
-import Informations from "./pages/Informations.jsx";
-import Medical from "./pages/Medical.jsx";
-import Question from "./pages/Question.jsx";
-import Qcm from "./pages/Qcm.jsx";
-import Result from "./pages/Result.jsx";
 import History from "./pages/History.jsx";
 import Community from "./pages/Community.jsx";
 import Details from "./pages/Details.jsx";
 import ProfileSettings from "./pages/ProfileSettings.jsx";
 import Logout from "./components/Logout.jsx";
-
 import SequentialFlow from "./pages/SequentialFlow.jsx";
 
 import PrivateRoute from "./components/PrivateRoute";
+import IsUnlogged from "./components/IsUnlogged";
 
 function App() {
   return (
@@ -50,10 +45,10 @@ function App() {
           <Route path="/index" element={<Home />} />
 
           {/* Login Page Route */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={ <IsUnlogged ><Login /></IsUnlogged>} />
 
           {/* Register Page Route */}
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<IsUnlogged><Register /></IsUnlogged>} />
 
           {/* History Page Route */}
           <Route path="/history" element={<History />} />
@@ -96,7 +91,7 @@ function App() {
           />
 
           <Route
-            path="/steps"
+            path="/diagnostic"
             element={
               <PrivateRoute>
                 <SequentialFlow />
