@@ -16,7 +16,7 @@
 
 #### 1. Introduction <a name="1-introduction"></a>
 
-**Objectif du projet** : Développer une application web, SantéInstant, permettant aux utilisateurs de différents domaines d'évaluer leur santé mentale et physique à travers des questionnaires générés par IA, recevoir des conseils personnalisés et, si nécessaire, générer une attestation d'état de santé.
+**Objectif du projet** : Développer une application web, santéia, permettant aux utilisateurs de différents domaines d'évaluer leur santé mentale et physique à travers des questionnaires générés par IA, recevoir des conseils personnalisés et, si nécessaire, générer une attestation d'état de santé.
 
 **Portée du projet** : L'application offrira une interface utilisateur intuitive pour la réalisation des questionnaires, l'analyse des réponses, et la génération de conseils et d'attestations d'état de santé basée sur les résultats.
 
@@ -56,4 +56,4 @@
 
 #### 7. Conclusion <a name="8-conclusion"></a>
 
-Ce cahier des charges établit les fondements nécessaires pour le développement de l'application SantéInstant, en définissant les attentes, les fonctionnalités clés, et les spécifications techniques. Le projet vise à offrir un outil précieux pour l'évaluation et le suivi de la santé mentale et physique des utilisateurs, en utilisant les capacités avancées de l'IA.
+Ce cahier des charges établit les fondements nécessaires pour le développement de l'application santéia, en définissant les attentes, les fonctionnalités clés, et les spécifications techniques. Le projet vise à offrir un outil précieux pour l'évaluation et le suivi de la santé mentale et physique des utilisateurs, en utilisant les capacités avancées de l'IA.
