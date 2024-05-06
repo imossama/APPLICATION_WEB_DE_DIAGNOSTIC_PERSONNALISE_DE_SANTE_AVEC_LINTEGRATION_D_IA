@@ -29,7 +29,7 @@ export default function DiagnosisResult({ diagnosticData }) {
                         Vous pouvez partager le diagnostique avec votre famille
                         ou amis, <a href="#">Enregistrez-le en PDF</a> sur votre
                         ordinateur, ou
-                        <Link to="/step">Refaire le diagnostique.</Link>
+                        <Link to="/diagnostic">Refaire le diagnostique.</Link>
                       </p>
                     </div>
                   </div>
@@ -107,14 +107,15 @@ export default function DiagnosisResult({ diagnosticData }) {
                           /* Render the medicaments data */
                           (diagnostic.medicaments || []).map((medic, index) => (
                             <div className="col-lg-3" key={index}>
-                              <div className="medic">
-                                <div className="icon mt-4">
-                                  <img src={medic.url_image} alt={medic.nom} />
-                                  <div className="text-container">
-                                    <a href={medic.lien}>{medic.nom}</a>
+                              <a href={medic[index].lien}>
+                                <div className="medic">
+                                  <div className="icon mt-4">
+                                    <div className="text-container">
+                                      {medic.nom[index]}
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
+                              </a>
                             </div>
                           ))
                         )}
@@ -130,7 +131,9 @@ export default function DiagnosisResult({ diagnosticData }) {
                 <div className="row">
                   <div className="col-lg-6">
                     <h4>QR Code</h4>
-                    <img src={diagnostic.qr_code} alt="" id="qr_code" />
+                    <img
+                      src={"http://localhost:5000/" + diagnostic.qr_code}
+                    />
                   </div>
                 </div>
               </div>

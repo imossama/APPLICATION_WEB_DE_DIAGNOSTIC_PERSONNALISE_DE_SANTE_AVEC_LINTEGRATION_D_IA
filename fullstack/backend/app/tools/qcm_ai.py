@@ -74,7 +74,7 @@ def generate_json_diag(data):
       "Le JSON doit être sur une seule ligne pour faciliter la conversion de String à JSON."
       " De plus, l'IA doit rechercher sur internet les médicaments nécessaires pour les symptômes spécifiques, récupérer les données pertinentes (nom, lien, url_image) et les inclure dans le JSON généré. Notez que le lien de l'image fourni doit pointer vers un fichier d'image du médicament."
       "Voici le format JSON requis : "
-      '{ "diagnostic": {"titre": "Titre du diagnostic", "description":......, "symptomes":......, "conseils":......, "medicaments": [ {"numéro": {"nom":......, "lien":......, "url_image":......}}]} }'
+      '{ "diagnostic": {"titre": "Titre du diagnostic", "description":......, "symptomes":......, "conseils":......, "medicaments": [ {"nom":......, "lien":......, "url_image":......}, ... ]} }'
   )
 
   # Send the message to the conversation

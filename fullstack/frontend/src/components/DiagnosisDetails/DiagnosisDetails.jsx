@@ -1,7 +1,6 @@
 import React from "react";
 
-export default function DiagnosisDetails({details}) {
-
+export default function DiagnosisDetails({ details }) {
   return (
     <div className="main-banner">
       <div className="container">
@@ -31,7 +30,11 @@ export default function DiagnosisDetails({details}) {
                 <div className="row">
                   <div className="col-lg-12">
                     <h4>Description</h4>
-                    <p>{details.description} </p>
+                    <p>
+                      {details.description
+                        ? details.description
+                        : "Pas de données"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -42,7 +45,21 @@ export default function DiagnosisDetails({details}) {
                 <div className="row">
                   <div className="col-lg-12">
                     <h4>Symptômes</h4>
-                    <p>{details.symptoms} </p>
+                    {details.symptomes ? (
+                      Array.isArray(details.symptomes) ? (
+                        <ul className="list-group mb-4 mt-3">
+                          {details.symptomes.map((symptom, index) => (
+                            <li key={index} className="list-group-item">
+                              {symptom}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>{details.symptomes}</p>
+                      )
+                    ) : (
+                      <p>Pas de données</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -53,7 +70,11 @@ export default function DiagnosisDetails({details}) {
                 <div className="row">
                   <div className="col-lg-12">
                     <h4>Conseils</h4>
-                    <p>{details.advice} </p>
+                    <p>
+                      {details.conseils
+                        ? details.conseils
+                        : "Pas de données"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -65,21 +86,24 @@ export default function DiagnosisDetails({details}) {
                   <div className="col-lg-12">
                     <h4>Médicaments</h4>
                     <div className="row mt-2">
-                      {details.medicines.map((medicine, index) => (
-                        <div className="col-lg-3">
-                          <div className="medic" key={index}>
-                            <div className="icon mt-4">
-                              <img
-                                src={medicine.image}
-                                alt={medicine.name}
-                              />
-                              <div class="text-container">
-                                <a href={medicine.link}>{medicine.name}</a>
+                      {details.medicaments?.length === 0 ? (
+                        <p>Pas de données</p>
+                      ) : (
+                        /* Render the medicaments data */
+                        (details.medicaments || []).map((medic, index) => (
+                          <div className="col-lg-3" key={index}>
+                            <a href={medic[index].lien}>
+                              <div className="medic">
+                                <div className="icon mt-4">
+                                  <div className="text-container">
+                                    {medic.nom[index]}
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            </a>
                           </div>
-                        </div>
-                      ))}
+                        ))
+                      )}
                     </div>
                   </div>
                 </div>
@@ -92,7 +116,7 @@ export default function DiagnosisDetails({details}) {
               <div className="row">
                 <div className="col-lg-6">
                   <h4>QR Code</h4>
-                  <img src={details.qr_code} alt="" id={details.id} />
+                  <img src={"http://localhost:5000/" + details.qr_code} />
                 </div>
               </div>
             </div>

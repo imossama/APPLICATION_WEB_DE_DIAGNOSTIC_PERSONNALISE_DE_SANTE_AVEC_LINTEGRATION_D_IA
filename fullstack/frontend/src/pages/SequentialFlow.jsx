@@ -181,30 +181,12 @@ const SequentialFlow = () => {
             {responseData && responseData.diagnostic && (
               <>
                 {(() => {
-                  const string = responseData.diagnostic;
-
-                  console.log(string);
-
-                  const cleanedString = string
-                    .replace("```json", "")
-                    .replace("```", "");
+                  const data = responseData.diagnostic;
 
                   try {
-                    const jsonData = JSON.parse(cleanedString);
-                    const currentDate = new Date();
-                    const formattedDate = currentDate.toLocaleDateString(
-                      "fr-FR",
-                      {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                      }
-                    );
-
                     setDiagnosticData({
                       diagnostic: {
-                        ...jsonData.diagnostic,
-                        date: formattedDate,
+                        ...data,
                       },
                     });
 

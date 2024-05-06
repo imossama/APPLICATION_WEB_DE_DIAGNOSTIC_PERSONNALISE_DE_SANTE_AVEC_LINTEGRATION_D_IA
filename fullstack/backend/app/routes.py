@@ -1,11 +1,13 @@
 # app/routes.py
 
-import json
 from app import app, mongo
 from flask import jsonify, request
 from app.models import User, Diagnosis
 from app.tools.format_json import format_data, extract_data_and_questions
 from app.tools.qcm_ai import generate_json_qcm, generate_json_diag
+from app.tools.qr_code import generate_qr_code
+import json
+import datetime
 
 @app.route('/')
 def index():
@@ -102,26 +104,6 @@ def update_user(user_id):
         return jsonify({'error': str(e)}), 500
     
 # Diagnosis
-@app.route('/api/create_diagnosis', methods=['POST'])
-def create_diagnosis():
-    try:
-        # Check if the request contains JSON data
-        if not request.is_json:
-            return jsonify({'error': 'Request must be JSON.'}), 400
-
-        # Extract data from the request JSON
-        data = request.json
-
-        # Create a new Diagnosis object
-        new_diagnosis = Diagnosis(**data)
-
-        # Save the diagnosis to the database
-        new_diagnosis.save_to_db()
-
-        return jsonify({'message': 'Diagnosis created successfully'}), 201
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-    
 @app.route('/api/diagnoses', methods=['GET'])
 def get_diagnoses():
     diagnoses = Diagnosis.get_all()
@@ -204,11 +186,50 @@ def render_diagnostic():
         response = generate_json_diag(data)
         
         if response:
-            print("Response from conversation interface:", response)
+            # print("Response from conversation interface:", response)
+            
+            # Parse the string response into a Python dictionary
+            response_data = json.loads(response.replace('```json', '').replace('```', ''))['diagnostic']
+
+            print("response_data\n", response_data)
+
+            # Get the current date
+            current_date = datetime.datetime.now()
+
+            # Extract diagnosis details from the response
+            userId = 'xxxxxxxxx'
+            title = response_data.get('titre')
+            date = current_date.strftime("%m/%d/%Y")
+            description = response_data.get('description')
+            symptoms = response_data.get('symptomes')
+            advice = response_data.get('conseils')
+            medicines = response_data.get('medicaments')
+            
+            # Create a Diagnosis object
+            diagnosis = Diagnosis(userId, title, date, description, symptoms, advice, medicines)
+            
+            # Save the diagnosis to the database
+            if diagnosis.save_to_db():
+                print("Diagnosis saved successfully.")
+            else:
+                print("Failed to save diagnosis.")
+                
+            saved_diagnosis_data = {
+                'titre': diagnosis.title,
+                'date': diagnosis.date,
+                'qr_code': diagnosis.qr_code,
+                'description': diagnosis.description,
+                'symptomes': diagnosis.symptoms,
+                'conseils': diagnosis.advice,
+                'medicaments': diagnosis.medicines
+            }
+
+            # Convert the dictionary to JSON
+            print('saved_diagnosis_json : =======', saved_diagnosis_data)
         else:
             print("No response received within the timeout period")
 
         # Redirect to the route for rendering the processed data
-        return jsonify({'diagnostic': response }), 200
+        return jsonify({'diagnostic': saved_diagnosis_data }), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
