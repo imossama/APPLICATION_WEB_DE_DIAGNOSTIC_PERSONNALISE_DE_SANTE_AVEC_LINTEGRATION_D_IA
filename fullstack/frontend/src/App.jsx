@@ -43,19 +43,28 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/accueil" element={<Home />} />
           <Route path="/index" element={<Home />} />
-
           {/* Login Page Route */}
-          <Route path="/login" element={ <IsUnlogged ><Login /></IsUnlogged>} />
-
+          <Route
+            path="/login"
+            element={
+              <IsUnlogged>
+                <Login />
+              </IsUnlogged>
+            }
+          />
           {/* Register Page Route */}
-          <Route path="/register" element={<IsUnlogged><Register /></IsUnlogged>} />
-
+          <Route
+            path="/register"
+            element={
+              <IsUnlogged>
+                <Register />
+              </IsUnlogged>
+            }
+          />
           {/* History Page Route */}
           <Route path="/history" element={<History />} />
-
           {/* Community Page Route */}
           <Route path="/community" element={<Community />} />
-
           {/* Private Routes */}
           <Route
             path="/history"
@@ -89,7 +98,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
           <Route
             path="/diagnostic"
             element={
@@ -98,7 +106,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
           {/* Fallback route for 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>

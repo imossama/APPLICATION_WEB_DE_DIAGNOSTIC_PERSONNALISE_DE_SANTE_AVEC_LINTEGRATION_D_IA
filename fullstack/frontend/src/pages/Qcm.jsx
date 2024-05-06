@@ -7,45 +7,28 @@ import QcmQuestion from "../components/QcmQuestion/QcmQuestion";
 import image_1 from "../assets/images/qcm.png";
 
 export default function Qcm(props) {
-  const [qcmData, setQcmData] = useState([
-    { id: "qst-1", question: "Question 1 ?", response: "" },
-    { id: "qst-2", question: "Question 2 ?", response: "" },
-    // Add more questions as needed
-  ]);
-  const [errors, setErrors] = useState(Array(qcmData.length).fill(false));
-
   useEffect(() => {
     document.title = "SANTÉIA - Questionnaire à choix multiples";
   }, []);
 
-  const handleNextClick = () => {
-    const allAnswered = qcmData.every((item) => item.response !== "");
-    if (!allAnswered) {
-      // Set errors for unanswered questions
-      const newErrors = qcmData.map((item) =>
-        item.response === "" ? "Answer required" : ""
-      );
-      setErrors(newErrors);
-      return; // Don't proceed if not all questions are answered
-    }
+  const numericKeys = Object.keys(props.formData).filter((key) => !isNaN(key));
+  const data = numericKeys.reduce((acc, key) => {
+    acc[key] = props.formData[key];
+    return acc;
+  }, {});
 
-    // Pass the array of question-response pairs to the next step
-    props.handleNextStep({ Qcm: qcmData });
-  };
+  // Initialize state with data
+  const [qcmData, setQcmData] = useState(data);
 
   const handleResponseChange = (id, response) => {
-    const updatedQcmData = qcmData.map((item) =>
-      item.id == id ? { ...item, response: response } : item
-    );
+    setQcmData((prevQcmData) => ({
+      ...prevQcmData,
+      [id]: { ...prevQcmData[id], answer: response },
+    }));
+  };
 
-    console.log(updatedQcmData);
-
-    setQcmData(updatedQcmData);
-
-    const updatedErrors = [...errors];
-    updatedErrors[qcmData.findIndex((item) => item.id == id)] = false;
-
-    setErrors(updatedErrors);
+  const handleNextClick = () => {
+    props.handleNextStep({ qcm: qcmData });
   };
 
   return (
@@ -75,14 +58,13 @@ export default function Qcm(props) {
                         </p>
 
                         <div className="col-lg-12">
-                          {qcmData.map((item, index) => (
+                          {Object.entries(qcmData).map(([key, data]) => (
                             <QcmQuestion
-                              key={item.id}
-                              question={item.question}
-                              id_qst={item.id}
-                              response={item.response}
+                              key={key}
+                              id_qst={key}
+                              question={data.question}
+                              options={data.options}
                               onResponseChange={handleResponseChange}
-                              error={errors[index]}
                             />
                           ))}
                         </div>

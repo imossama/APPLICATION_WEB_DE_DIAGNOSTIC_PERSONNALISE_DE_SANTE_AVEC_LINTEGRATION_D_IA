@@ -1,9 +1,12 @@
 import React from "react";
 
 import image_1 from "../../assets/images/result.png";
+import { Link } from "react-router-dom";
 
-export default function DiagnosisResult(props) {
-  var result = props.result;
+export default function DiagnosisResult({ diagnosticData }) {
+  var diagnostic = diagnosticData.diagnostic;
+
+  console.log("diagnostic", diagnostic);
 
   return (
     <div className="main-banner">
@@ -20,23 +23,14 @@ export default function DiagnosisResult(props) {
                 <div className="left-content show-up header-text">
                   <div className="row">
                     <div className="col-lg-12">
-                      <h6>dd/mm/yyyy</h6>
-                      <h2>{result.title}</h2>
+                      <h6>{diagnostic.date}</h6>
+                      <h2>{diagnostic.titre}</h2>
                       <p>
-                        Vous pouvez partager le diagnostique avec votre famille ou
-                        amis, enregistrez-le en PDF sur votre ordinateur, ou
-                        refaire le diagnostique.{" "}
+                        Vous pouvez partager le diagnostique avec votre famille
+                        ou amis, <a href="#">Enregistrez-le en PDF</a> sur votre
+                        ordinateur, ou
+                        <Link to="/step">Refaire le diagnostique.</Link>
                       </p>
-                    </div>
-
-                    <div className="row d-flex">
-                      <div className="col-lg-4">
-                        <fieldset>
-                          <button id="go-back" className="main-button">
-                            Enregistrer
-                          </button>
-                        </fieldset>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -51,7 +45,11 @@ export default function DiagnosisResult(props) {
                   <div className="row">
                     <div className="col-lg-12">
                       <h4>Description</h4>
-                      <p>{result.desc} </p>
+                      <p>
+                        {diagnostic.description
+                          ? diagnostic.description
+                          : "Pas de données"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -62,7 +60,21 @@ export default function DiagnosisResult(props) {
                   <div className="row">
                     <div className="col-lg-12">
                       <h4>Symptômes</h4>
-                      <p>{result.symp} </p>
+                      {diagnostic.symptomes ? (
+                        Array.isArray(diagnostic.symptomes) ? (
+                          <ul className="list-group mb-4 mt-3">
+                            {diagnostic.symptomes.map((symptom, index) => (
+                              <li key={index} className="list-group-item">
+                                {symptom}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>{diagnostic.symptomes}</p>
+                        )
+                      ) : (
+                        <p>Pas de données</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -73,7 +85,11 @@ export default function DiagnosisResult(props) {
                   <div className="row">
                     <div className="col-lg-12">
                       <h4>Conseils</h4>
-                      <p>{result.cons} </p>
+                      <p>
+                        {diagnostic.conseils
+                          ? diagnostic.conseils
+                          : "Pas de données"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -85,21 +101,23 @@ export default function DiagnosisResult(props) {
                     <div className="col-lg-12">
                       <h4>Médicaments</h4>
                       <div className="row mt-2">
-                        {result.medic.map((medication, index) => (
-                          <div className="col-lg-3">
-                            <div className="medic" key={index}>
-                              <div className="icon mt-4">
-                                <img
-                                  src={medication.image}
-                                  alt={medication.name}
-                                />
-                                <div className="text-container">
-                                  <a href={medication.link}>{medication.name}</a>
+                        {diagnostic.medicaments?.length === 0 ? (
+                          <p>Pas de données</p>
+                        ) : (
+                          /* Render the medicaments data */
+                          (diagnostic.medicaments || []).map((medic, index) => (
+                            <div className="col-lg-3" key={index}>
+                              <div className="medic">
+                                <div className="icon mt-4">
+                                  <img src={medic.url_image} alt={medic.nom} />
+                                  <div className="text-container">
+                                    <a href={medic.lien}>{medic.nom}</a>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          ))
+                        )}
                       </div>
                     </div>
                   </div>
@@ -112,7 +130,7 @@ export default function DiagnosisResult(props) {
                 <div className="row">
                   <div className="col-lg-6">
                     <h4>QR Code</h4>
-                    <img src={result.qr_code} alt="" id="qr_code" />
+                    <img src={diagnostic.qr_code} alt="" id="qr_code" />
                   </div>
                 </div>
               </div>

@@ -91,7 +91,7 @@ export default function Informations(props) {
                                 placeholder="Nom"
                                 value={formData.fname} // Binding value to formData.fname
                                 onChange={handleChange}
-                                required
+                                // required
                               />
                             </fieldset>
                             <fieldset>
@@ -102,7 +102,7 @@ export default function Informations(props) {
                                 placeholder="Prénom"
                                 value={formData.lname} // Binding value to formData.lname
                                 onChange={handleChange}
-                                required
+                                // required
                               />
                             </fieldset>
                             <fieldset>
@@ -113,7 +113,7 @@ export default function Informations(props) {
                                 placeholder="Date de naissance"
                                 value={formData.date} // Binding value to formData.date
                                 onChange={handleChange}
-                                required
+                                // required
                               />
                             </fieldset>
                             <fieldset>
@@ -121,7 +121,7 @@ export default function Informations(props) {
                                 name="gender"
                                 id="gender"
                                 onChange={handleChange}
-                                required
+                                // required
                                 value={formData.gender} // Binding value to formData.gender
                               >
                                 <option value="" disabled>
@@ -140,7 +140,7 @@ export default function Informations(props) {
                                 onChange={handleChange}
                                 placeholder="Votre profession"
                                 value={formData.prof} // Binding value to formData.prof
-                                required
+                                // required
                               />
                             </fieldset>
                             <fieldset>
@@ -153,7 +153,7 @@ export default function Informations(props) {
                                 placeholder="Au propos de vous"
                                 maxLength="300"
                                 value={formData.prop} // Binding value to formData.prop
-                                required
+                                // required
                               ></textarea>
                             </fieldset>
 

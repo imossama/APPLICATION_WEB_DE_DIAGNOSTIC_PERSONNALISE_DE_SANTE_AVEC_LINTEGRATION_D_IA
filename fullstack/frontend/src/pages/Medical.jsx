@@ -106,7 +106,7 @@ export default function Medical(props) {
                                         type="radio"
                                         name="medical_conditions"
                                         value="yes"
-                                        required
+                                        // required
                                         defaultChecked={
                                           formData &&
                                           formData.medical_conditions === "yes"
@@ -128,7 +128,7 @@ export default function Medical(props) {
                                         type="radio"
                                         name="medical_conditions"
                                         value="no"
-                                        required
+                                        // required
                                         defaultChecked={
                                           formData &&
                                           formData.medical_conditions === "no"
@@ -160,7 +160,7 @@ export default function Medical(props) {
                                         type="radio"
                                         name="allergies"
                                         value="yes"
-                                        required
+                                        // required
                                         defaultChecked={
                                           formData &&
                                           formData.allergies === "yes"
@@ -182,7 +182,7 @@ export default function Medical(props) {
                                         type="radio"
                                         name="allergies"
                                         value="no"
-                                        required
+                                        // required
                                         defaultChecked={
                                           formData &&
                                           formData.allergies === "no"
@@ -216,7 +216,7 @@ export default function Medical(props) {
                                         type="radio"
                                         name="chirurgies"
                                         value="yes"
-                                        required
+                                        // required
                                         defaultChecked={
                                           formData &&
                                           formData.chirurgies === "yes"
@@ -238,7 +238,7 @@ export default function Medical(props) {
                                         type="radio"
                                         name="chirurgies"
                                         value="no"
-                                        required
+                                        // required
                                         defaultChecked={
                                           formData &&
                                           formData.chirurgies === "no"
@@ -272,7 +272,7 @@ export default function Medical(props) {
                                         type="radio"
                                         name="histoire"
                                         value="yes"
-                                        required
+                                        // required
                                         defaultChecked={
                                           formData &&
                                           formData.histoire === "yes"
@@ -294,7 +294,7 @@ export default function Medical(props) {
                                         type="radio"
                                         name="histoire"
                                         value="no"
-                                        required
+                                        // required
                                         defaultChecked={
                                           formData && formData.histoire === "no"
                                         }
@@ -332,7 +332,7 @@ export default function Medical(props) {
                                     <option value="fatigue">Fatigue</option>
                                     <option value="nausea">Nausée</option>
                                     <option value="dizziness">Vertige</option>
-                                    <option value="idk">Je ne sais pas</option>
+                                    <option value="i don't know">Je ne sais pas</option>
                                   </select>
                                 </div>
                               </div>
@@ -364,7 +364,7 @@ export default function Medical(props) {
                                     <option value="mood_swings">
                                       Variations d'humeur
                                     </option>
-                                    <option value="idk">Je ne sais pas</option>
+                                    <option value="i don't know">Je ne sais pas</option>
                                   </select>
                                 </div>
                               </div>

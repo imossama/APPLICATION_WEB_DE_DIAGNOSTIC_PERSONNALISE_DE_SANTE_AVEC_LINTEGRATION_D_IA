@@ -601,7 +601,8 @@ header
   transition: all 0.5s;
 }
 
-.col-lg-12 .border-first-button a, .bottom-content .border-first-button a {
+.col-lg-12 .border-first-button a,
+.bottom-content .border-first-button a {
   padding: 10px 20px !important;
 }
 
@@ -2003,6 +2004,33 @@ li:has(.border-first-button) {
   align-items: center; /* Optional: align items vertically */
 }
 
+.qst .row:has(span) {
+  margin-bottom: 20px;
+}
+
+.qst .row span {
+  text-align: center;
+  font-weight: bolder;
+  font-size: large;
+}
+
+.qst input[type="radio"]#high-2,
+.qst input[type="radio"]#low-2 {
+  width: 80px !important;
+  height: 100px;
+}
+
+.qst input[type="radio"]#high-1,
+.qst input[type="radio"]#low-1 {
+  width: 60px !important;
+  height: 100px;
+}
+
+.qst input[type="radio"]#nutral {
+  width: 40px !important;
+  height: 100px;
+}
+
 @media (max-width: 1200px) {
   /* ################### */
   /* ## NEW ADDED CSS ## */
@@ -2224,30 +2252,27 @@ li:has(.border-first-button) {
   .col-lg-4:has(#qr_code) {
     margin-top: 0px !important;
   }
-}
 
-.qst .row:has(span) {
-  margin-bottom: 20px;
-}
+  .qst .row span {
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+  }
 
-.qst .row span {
-  font-size: larger;
-  text-align: center;
-}
+  .qst input[type="radio"]#high-2,
+  .qst input[type="radio"]#low-2 {
+    width: 50px !important;
+    height: 100px;
+  }
 
-.qst input[type="radio"]#high-2,
-.qst input[type="radio"]#low-2 {
-  width: 50px !important;
-  height: 100px;
-}
+  .qst input[type="radio"]#high-1,
+  .qst input[type="radio"]#low-1 {
+    width: 30px !important;
+    height: 100px;
+  }
 
-.qst input[type="radio"]#high-1,
-.qst input[type="radio"]#low-1 {
-  width: 30px !important;
-  height: 100px;
-}
-
-.qst input[type="radio"]#nutral {
-  width: 15px !important;
-  height: 100px;
+  .qst input[type="radio"]#nutral {
+    width: 20px !important;
+    height: 100px;
+  }
 }

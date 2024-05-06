@@ -9,7 +9,7 @@ function Loading() {
     // Hide loading component after 2 seconds
     const timeout = setTimeout(() => {
       $("#js-preloader").addClass("loaded");
-    }, 1000); // 2 seconds
+    }, 500);
 
     // Clear the timeout when the component unmounts or when 2 seconds elapsed
     return () => clearTimeout(timeout);

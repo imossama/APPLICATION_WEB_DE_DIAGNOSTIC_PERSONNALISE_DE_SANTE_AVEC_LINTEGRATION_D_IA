@@ -1,9 +1,11 @@
 # app/routes.py
 
+import json
 from app import app, mongo
 from flask import jsonify, request
 from app.models import User, Diagnosis
-from app.tools.format_json import format_data
+from app.tools.format_json import format_data, extract_data_and_questions
+from app.tools.qcm_ai import generate_json_qcm, generate_json_diag
 
 @app.route('/')
 def index():
@@ -161,8 +163,8 @@ def delete_diagnosis(diagnosis_id):
     
 # Recieve data from the client to treat it with AI and render it to the user
 # Route to receive JSON data
-@app.route('/api/receive_json', methods=['POST'])
-def receive_json():
+@app.route('/api/render_qcm', methods=['POST'])
+def render_qcm():
     try:
         # Check if the request contains JSON data
         if not request.is_json:
@@ -170,27 +172,43 @@ def receive_json():
 
         # Extract JSON data from the request
         data = format_data(request.json)
-        
+            
         print("Received data:", data)
 
         # Process the JSON data here (perform treatments)
+        response = generate_json_qcm(data) 
+ 
+        if response:
+            print("Response from conversation interface:", response)
+        else:
+            print("No response received within the timeout period")
 
         # Redirect to the route for rendering the processed data
-        return jsonify({'message': 'JSON data received successfully',
-                        'redirect_url': '/api/render_data'}), 200
+        return jsonify({'qcm': response }), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-# Route to render the processed data
-@app.route('/api/render_data', methods=['GET'])
-def render_data():
+    
+@app.route('/api/render_diagnostic', methods=['POST'])
+def render_diagnostic():
     try:
-        # Perform any additional processing or treatments here
+        # Check if the request contains JSON data
+        if not request.is_json:
+            return jsonify({'error': 'Request must be JSON.'}), 400
 
-        # Create data to render (example)
-        processed_data = {'result': 'Some processed data'}
+        # Extract JSON data from the request
+        data = extract_data_and_questions(request.json)
+        
+        print("Received data:", data)
+                    
+        # Process the JSON data here (perform treatments)
+        response = generate_json_diag(data)
+        
+        if response:
+            print("Response from conversation interface:", response)
+        else:
+            print("No response received within the timeout period")
 
-        # Return the processed data as JSON
-        return jsonify(processed_data), 200
+        # Redirect to the route for rendering the processed data
+        return jsonify({'diagnostic': response }), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
