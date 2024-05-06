@@ -1,59 +1,72 @@
-### santéia : Application Web pour l'Évaluation et le Suivi de la Santé avec IA
+# Cahier des charges de l'application web santéia
 
----
+## Introduction
+Ce document décrit les spécifications fonctionnelles et non fonctionnelles de l'application web santéia. Cette application permettra aux utilisateurs de différents domaines d'évaluer leur santé mentale et physique à travers des questionnaires générés par une Intelligence Artificielle (IA), et de recevoir un diagnostic personnalisé en fonction de leurs réponses.
 
-### Table des Matières
+## Spécifications fonctionnelles
 
-1. [Introduction](#1-introduction)
-2. [Besoins Utilisateurs](#2-besoins-utilisateurs)
-3. [Spécifications Techniques](#3-spécifications-techniques)
-4. [Fonctionnalités Clés](#4-fonctionnalités-clés)
-5. [Contraintes et Normes](#5-contraintes-et-normes)
-6. [Livrables](#6-livrables)
-7. [Conclusion](#7-conclusion)
+### Outils utilisés
 
----
+#### React
+React est une bibliothèque JavaScript open-source utilisée pour construire des interfaces utilisateur, en particulier des interfaces utilisateur pour les applications web. Voici quelques points clés sur l'utilisation de React dans notre projet :
+- **Composants réutilisables**: React permet de créer des composants réutilisables, ce qui facilite la construction d'une interface utilisateur modulaire et extensible.
+- **Virtual DOM**: React utilise un Virtual DOM pour améliorer les performances en minimisant les manipulations directes du DOM.
+- **Écosystème robuste**: React est soutenu par un écosystème de bibliothèques et d'outils (comme Redux pour la gestion de l'état) qui facilitent le développement d'applications complexes.
 
-#### 1. Introduction <a name="1-introduction"></a>
+#### Flask
+Flask est un framework web léger écrit en Python. Il est principalement utilisé pour construire des API web. Voici comment nous utiliserons Flask dans notre projet :
+- **API RESTful**: Flask permet de créer facilement des API RESTful, ce qui sera utilisé pour la communication entre le frontend et le backend de notre application.
+- **Extensibilité**: Flask est hautement extensible grâce à son architecture modulaire. Nous pourrons facilement intégrer de nouvelles fonctionnalités ou des extensions tierces selon les besoins du projet.
+- **Facilité d'apprentissage**: Flask est connu pour sa courbe d'apprentissage douce, ce qui le rend idéal pour les petits et moyens projets où la simplicité et la flexibilité sont importantes.
 
-**Objectif du projet** : Développer une application web, santéia, permettant aux utilisateurs de différents domaines d'évaluer leur santé mentale et physique à travers des questionnaires générés par IA, recevoir des conseils personnalisés et, si nécessaire, générer une attestation d'état de santé.
+#### MongoDB
+MongoDB est une base de données NoSQL, orientée document, conçue pour le développement et le déploiement d'applications hautement évolutives. Voici comment nous l'utiliserons dans notre projet :
+- **Stockage flexible des données**: MongoDB stocke les données au format JSON-like, ce qui permet une flexibilité maximale dans la modélisation des données.
+- **Scalabilité horizontale**: MongoDB est conçu pour être hautement évolutif, ce qui signifie que nous pourrons facilement faire évoluer notre application pour gérer un volume croissant de données et de trafic.
+- **Haute disponibilité**: MongoDB offre des fonctionnalités de réplication et de tolérance aux pannes pour assurer une disponibilité élevée de nos données.
 
-**Portée du projet** : L'application offrira une interface utilisateur intuitive pour la réalisation des questionnaires, l'analyse des réponses, et la génération de conseils et d'attestations d'état de santé basée sur les résultats.
+### GeminiAI API
+GeminiAI est une API qui utilise l'intelligence artificielle pour l'analyse de texte. Nous utiliserons cette API pour la génération et l'analyse des réponses des utilisateurs aux questionnaires et la génération de diagnostics personnalisés. Voici quelques points importants :
+- **Analyse sémantique**: GeminiAI utilise des techniques d'analyse sémantique avancées pour comprendre le sens des textes fournis en entrée.
+- **Modèle de langage pré-entraîné**: L'API dispose d'un modèle de langage pré-entraîné qui peut être adapté à nos besoins spécifiques pour une analyse précise des réponses des utilisateurs.
+- **Facilité d'intégration**: GeminiAI offre une API simple et bien documentée, ce qui facilitera son intégration avec notre application.
 
-#### 2. Besoins Utilisateurs <a name="2-besoins-utilisateurs"></a>
+### Authentification
+- Les utilisateurs doivent pouvoir s'inscrire et se connecter à l'application.
 
-- **Inscription et Connexion sécurisée** : Les utilisateurs pourront créer un compte et se connecter à l'application.
-- **Sélection du type de questionnaire** : Les utilisateurs choisiront entre un questionnaire sur la santé mentale ou physique.
-- **Questionnaires personnalisés** : Les questionnaires seront générés par un modèle d'IA en fonction des choix et des besoins des utilisateurs.
-- **Analyse des réponses et conseils** : Après avoir répondu au questionnaire, les utilisateurs recevront une analyse de leurs réponses avec des conseils et astuces.
-- **Génération des attestations** : Si le résultat est inférieur à un seuil défini, l'application proposera de générer une attestation de maladie ou d'un rapport global sur l'état de santé.
+### Questionnaires
+- Les questionnaires doivent être générés dynamiquement en fonction des besoins de l'utilisateur.
+- Les questions seront présentées de manière interactive et conviviale grâce à React.
 
-#### 3. Spécifications Techniques <a name="3-spécifications-techniques"></a>
+### Analyse des réponses
+- Les réponses aux questionnaires seront envoyées au backend Flask pour analyse.
+- L'IA sera intégrée à l'aide de l'API GeminiAI pour analyser les réponses et générer un diagnostic.
 
-- **Front-end** : Développé avec React pour une expérience utilisateur riche et interactive.
-- **Back-end** : API REST développée avec Flask pour gérer la logique métier, l'authentification, et les interactions avec la base de données.
-- **Base de données** : Utilisation de MongoDB pour stocker les informations des utilisateurs, les réponses aux questionnaires, et les résultats.
-- **IA/ML** : Intégration de modèles d'IA pour la génération dynamique des questionnaires et l'analyse des réponses.
+### Diagnostic personnalisé
+- Le diagnostic généré par l'IA sera retourné au frontend et présenté à l'utilisateur de manière claire et compréhensible.
+- Des recommandations spécifiques seront fournies en fonction du diagnostic.
 
-#### 4. Fonctionnalités Clés <a name="4-fonctionnalités-clés"></a>
+### Interface utilisateur
+- L'interface utilisateur sera développée à l'aide de React pour offrir une expérience utilisateur intuitive et interactive.
+- Les questionnaires, le diagnostic et les recommandations seront présentés de manière attrayante et conviviale.
 
-- **Gestion des utilisateurs** : Inscription, connexion, gestion du profil utilisateur.
-- **Génération de questionnaire par IA** : Sélection du type de questionnaire, génération dynamique basée sur l'IA.
-- **Analyse des résultats et conseils** : Analyse des réponses, affichage des résultats avec conseils personnalisés.
-- **Génération d'attestation de maladie** : Formulaire pour la génération et le téléchargement de l'attestation.
+## Spécifications non fonctionnelles
 
-#### 5. Contraintes et Normes <a name="5-contraintes-et-normes"></a>
+### Confidentialité des données
+- Toutes les données des utilisateurs seront stockées de manière sécurisée dans MongoDB.
+- Les données personnelles seront cryptées avant d'être stockées.
 
-- **Sécurité des données** : Chiffrement des données en transit et au repos, conformité GDPR pour la protection des données personnelles.
-- **Performance** : Temps de réponse de l'application inférieur à 3 secondes.
-- **Scalabilité** : Architecture capable de supporter une montée en charge.
+### Sécurité
+- Les communications entre le frontend et le backend seront sécurisées à l'aide de HTTPS.
+- Les données sensibles transmises entre les composants seront chiffrées.
 
-#### 6. Livrables <a name="6-livrables"></a>
+### Performances
+- L'application sera conçue pour gérer un grand nombre d'utilisateurs simultanément grâce à l'évolutivité offerte par React et Flask.
+- Les temps de réponse seront optimisés pour assurer une expérience utilisateur fluide.
 
-- **Code source de l'application** : Front-end React, Back-end Flask, scripts d'intégration de la base de données MongoDB.
-- **Documentation technique** : Guide d'installation, d'utilisation et documentation de l'API.
-- **Rapports de tests** : Couverture de test, résultats des tests unitaires et d'intégration.
+### Extensibilité
+- L'architecture de l'application sera modulaire et extensible pour permettre l'ajout de nouvelles fonctionnalités à l'avenir.
+- Les mises à jour et les corrections de bugs pourront être déployées facilement sans perturber le fonctionnement de l'application.
 
-#### 7. Conclusion <a name="8-conclusion"></a>
-
-Ce cahier des charges établit les fondements nécessaires pour le développement de l'application santéia, en définissant les attentes, les fonctionnalités clés, et les spécifications techniques. Le projet vise à offrir un outil précieux pour l'évaluation et le suivi de la santé mentale et physique des utilisateurs, en utilisant les capacités avancées de l'IA.
+## Conclusion
+En respectant les spécifications fonctionnelles et non fonctionnelles décrites dans ce document, l'application web santéia pourra offrir une expérience utilisateur robuste, sécurisée et efficace. L'utilisation de React, Flask, MongoDB et l'API GeminiAI permettra de développer une application moderne et performante, répondant aux besoins des utilisateurs en matière d'évaluation de leur santé mentale et physique.
