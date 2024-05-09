@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { clearUserIdFromLocalStorage } from "../services/logged_userId";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading/Loading";
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Logout = () => {
   }, [navigate]); // Ensure navigate is added as a dependency to useEffect
 
   // Render nothing, since the navigation happens inside useEffect
-  return null;
+  return <Loading />;
 };
 
 export default Logout;

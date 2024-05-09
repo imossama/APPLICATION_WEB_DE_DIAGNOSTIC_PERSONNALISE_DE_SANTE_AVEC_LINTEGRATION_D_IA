@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 
 import image_1 from "../assets/images/question.png";
@@ -42,8 +39,7 @@ export default function Question(props) {
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
+
       <div className="main-banner">
         <div className="container">
           <form id="question" onSubmit={handleSubmit}>
@@ -113,7 +109,6 @@ export default function Question(props) {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

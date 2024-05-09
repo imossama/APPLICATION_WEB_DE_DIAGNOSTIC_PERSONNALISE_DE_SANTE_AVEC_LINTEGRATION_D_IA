@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 
 // Assets
@@ -84,8 +81,7 @@ export default function Register() {
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
+
       <div className="main-banner">
         <div className="container">
           <div className="row">
@@ -209,7 +205,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

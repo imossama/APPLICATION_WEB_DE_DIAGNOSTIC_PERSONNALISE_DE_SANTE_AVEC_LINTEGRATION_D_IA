@@ -28,6 +28,9 @@ import Details from "./pages/Details.jsx";
 import ProfileSettings from "./pages/ProfileSettings.jsx";
 import Logout from "./components/Logout.jsx";
 import SequentialFlow from "./pages/SequentialFlow.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
+import UpperContact from "./components/UpperContact/UpperContact.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 import PrivateRoute from "./components/PrivateRoute";
 import IsUnlogged from "./components/IsUnlogged";
@@ -36,7 +39,11 @@ function App() {
   return (
     <>
       <Router>
+        <UpperContact />
+        <Navbar />
+
         <ScrollToElement />
+
         <Routes>
           {/* Home Page Routes */}
           <Route path="/" element={<Home />} />
@@ -109,6 +116,7 @@ function App() {
           {/* Fallback route for 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer />
       </Router>
     </>
   );

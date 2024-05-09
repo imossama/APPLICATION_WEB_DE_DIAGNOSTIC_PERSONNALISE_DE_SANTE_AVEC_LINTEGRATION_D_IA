@@ -14,11 +14,18 @@ export const fetchData = async () => {
   }
 };
 
+// apiDiagnosis.js
 export const fetchDataById = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/diagnosis/${id}`);
     if (!response.ok) {
-      throw new Error("Failed to fetch data by ID");
+      if (response.status === 404) {
+        // Handle 404 error
+        throw new Error("Diagnosis not found");
+      } else {
+        // Handle other errors
+        throw new Error("Failed to fetch data by ID");
+      }
     }
     const data = await response.json();
     return data;
@@ -32,7 +39,9 @@ export const fetchDataByUserId = async (userId) => {
   try {
     const response = await fetch(`${apiUrl}/diagnosis/user/${userId}`);
     if (!response.ok) {
-      throw new Error("Échec de la récupération des données par l'ID utilisateur");
+      throw new Error(
+        "Échec de la récupération des données par l'ID utilisateur"
+      );
     }
     const data = await response.json();
     return data;
@@ -78,4 +87,3 @@ export const deleteDataById = async (id) => {
     throw error;
   }
 };
-

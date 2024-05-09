@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
+
 import Loading from "../components/Loading/Loading";
 import QcmQuestion from "../components/QcmQuestion/QcmQuestion";
 import image_1 from "../assets/images/qcm.png";
@@ -19,6 +17,7 @@ export default function Qcm(props) {
 
   // Initialize state with data
   const [qcmData, setQcmData] = useState(data);
+  const [showError, setShowError] = useState(false); // State to track whether to show error
 
   const handleResponseChange = (id, response) => {
     setQcmData((prevQcmData) => ({
@@ -28,14 +27,25 @@ export default function Qcm(props) {
   };
 
   const handleNextClick = () => {
-    props.handleNextStep({ qcm: qcmData });
+    // Check if any option is not selected
+    const anyOptionNotSelected = Object.values(qcmData).some(
+      (data) => !data.answer
+    );
+
+    if (anyOptionNotSelected) {
+      // If any option is not selected, show error
+      setShowError(true);
+    } else {
+      // If all options are selected, proceed to the next step
+      setShowError(false);
+      props.handleNextStep({ qcm: qcmData });
+    }
   };
 
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
+
       <div className="main-banner">
         <div className="container">
           <form id="question" action="" method="post">
@@ -54,7 +64,7 @@ export default function Qcm(props) {
                         <h2>Dernière étape</h2>
                         <p>
                           Vous devez répondre à chaque question en sélectionnant
-                          votre degré d'accord, de désaccord ou de neutralité.{" "}
+                          votre degré d'accord, de désaccord ou de neutralité.
                         </p>
 
                         <div className="col-lg-12">
@@ -70,6 +80,17 @@ export default function Qcm(props) {
                         </div>
                       </div>
                     </div>
+
+                    {showError && (
+                      <div className="row mt-3">
+                        <div className="col-lg-12">
+                          <p className="text-danger">
+                            Veuillez répondre à toutes les questions avant de
+                            continuer.
+                          </p>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="row mt-5 justify-content-center">
                       <div className="col-lg-2">
@@ -101,7 +122,6 @@ export default function Qcm(props) {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

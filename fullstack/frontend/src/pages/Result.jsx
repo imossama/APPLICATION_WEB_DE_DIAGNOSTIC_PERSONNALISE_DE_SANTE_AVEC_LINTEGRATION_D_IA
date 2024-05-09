@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
-
 import Loading from "../components/Loading/Loading";
 
-import DiagnosisResult from "../components/DiagnosisResult/DiagnosisResult";
+import DiagnosisDetails from "../components/DiagnosisDetails/DiagnosisDetails";
 
 export default function Result({ diagnosticData }) {
   useEffect(() => {
@@ -14,17 +10,11 @@ export default function Result({ diagnosticData }) {
     document.title = "SANTÉIA - Résultat QCM";
   }, []); // This effect runs only once after the initial render
 
-  console.log("The Data : \n", diagnosticData);
-
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
 
-      <DiagnosisResult diagnosticData={diagnosticData} />
-
-      <Footer />
+      <DiagnosisDetails type={0} diagnosticData={diagnosticData} />
     </div>
   );
 }

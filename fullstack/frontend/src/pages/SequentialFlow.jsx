@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+
 import Informations from "./Informations";
 import Medical from "./Medical";
 import Question from "./Question";
 import Qcm from "./Qcm";
 import Result from "./Result";
+import DataLoading from "../components/Loading/DataLoading";
 
 // Services
 import { sendDatatoServer } from "../services/apiDataAI";
-import DataLoading from "../components/Loading/DataLoading";
 
 const SequentialFlow = () => {
   const [step, setStep] = useState(1);

@@ -70,12 +70,13 @@ def generate_json_diag(data):
   message = (
       "À partir de ces données :\n"
       + data
-      + "\nGénérer un JSON contenant les informations de diagnostic, structurées comme suit : Description détaillée du diagnostic, symptômes, conseils basés sur le diagnostic, et des médicaments recommandés (nom du médicament, lien vers des informations supplémentaires, et lien vers une image réelle du médicament). Assurez-vous que le JSON est correctement formaté et que toutes les informations nécessaires sont incluses avec précision. "
+      + "\nGénérer un JSON contenant les informations de diagnostic, structurées comme suit : Description détaillée du diagnostic, symptômes, conseils basés sur le diagnostic, et des médicaments recommandés (nom du médicament, lien vers des informations supplémentaires, et lien vers une logo du type de médicament). Assurez-vous que le JSON est correctement formaté et que toutes les informations nécessaires sont incluses avec précision. "
       "Le JSON doit être sur une seule ligne pour faciliter la conversion de String à JSON."
-      " De plus, l'IA doit rechercher sur internet les médicaments nécessaires pour les symptômes spécifiques, récupérer les données pertinentes (nom, lien, url_image) et les inclure dans le JSON généré. Notez que le lien de l'image fourni doit pointer vers un fichier d'image du médicament."
+      " De plus, l'IA doit rechercher sur internet les médicaments nécessaires pour les symptômes spécifiques, récupérer les données pertinentes (name, link, logo) et les inclure dans le JSON généré. Notez que le lien de le logo fourni doit pointer vers un fichier logo du type de médicament."
       "Voici le format JSON requis : "
-      '{ "diagnostic": {"titre": "Titre du diagnostic", "description":......, "symptomes":......, "conseils":......, "medicaments": [ {"nom":......, "lien":......, "url_image":......}, ... ]} }'
+      '{ "diagnostic": {"title": "", "description": "", "symptoms": "", "advice": "", "medicines": []} }'
   )
+
 
   # Send the message to the conversation
   convo.send_message(message)

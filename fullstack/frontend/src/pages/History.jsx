@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 
 // Import fetchDataByUserId function
@@ -44,8 +41,6 @@ export default function History() {
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading visible={loading} />
-      <UpperContact />
-      <Navbar />
 
       <div className="main-banner" id="top">
         <div className="container">
@@ -111,8 +106,6 @@ export default function History() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

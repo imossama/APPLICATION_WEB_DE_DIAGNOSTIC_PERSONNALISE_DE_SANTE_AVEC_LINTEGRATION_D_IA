@@ -179,31 +179,30 @@ def render_diagnostic():
 
         # Extract JSON data from the request
         data = extract_data_and_questions(request.json)
+    
+        # Extract the userId
+        userId = json.loads(request.json)
         
-        print("Received data:", data)
+        # print("Received data:", data)
                     
         # Process the JSON data here (perform treatments)
         response = generate_json_diag(data)
         
-        if response:
-            # print("Response from conversation interface:", response)
-            
+        if response:            
             # Parse the string response into a Python dictionary
             response_data = json.loads(response.replace('```json', '').replace('```', ''))['diagnostic']
-
-            print("response_data\n", response_data)
-
+            
             # Get the current date
             current_date = datetime.datetime.now()
 
             # Extract diagnosis details from the response
-            userId = 'xxxxxxxxx'
-            title = response_data.get('titre')
+            userId = userId.get('userId')
+            title = response_data.get('title')
             date = current_date.strftime("%m/%d/%Y")
             description = response_data.get('description')
-            symptoms = response_data.get('symptomes')
-            advice = response_data.get('conseils')
-            medicines = response_data.get('medicaments')
+            symptoms = response_data.get('symptoms')
+            advice = response_data.get('advice')
+            medicines = response_data.get('medicines')
             
             # Create a Diagnosis object
             diagnosis = Diagnosis(userId, title, date, description, symptoms, advice, medicines)
@@ -215,17 +214,15 @@ def render_diagnostic():
                 print("Failed to save diagnosis.")
                 
             saved_diagnosis_data = {
-                'titre': diagnosis.title,
+                'id' : diagnosis.id,
+                'title': diagnosis.title,
                 'date': diagnosis.date,
                 'qr_code': diagnosis.qr_code,
                 'description': diagnosis.description,
-                'symptomes': diagnosis.symptoms,
-                'conseils': diagnosis.advice,
-                'medicaments': diagnosis.medicines
+                'symptoms': diagnosis.symptoms,
+                'advice': diagnosis.advice,
+                'medicines': diagnosis.medicines
             }
-
-            # Convert the dictionary to JSON
-            print('saved_diagnosis_json : =======', saved_diagnosis_data)
         else:
             print("No response received within the timeout period")
 

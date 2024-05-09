@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 
 // Image importations
@@ -29,8 +26,7 @@ function Home() {
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
+
       <div className="main-banner" id="top">
         <div className="container">
           <div className="row">
@@ -621,8 +617,6 @@ function Home() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

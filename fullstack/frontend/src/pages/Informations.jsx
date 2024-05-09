@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 import { getUserIdFromLocalStorage } from "../services/logged_userId";
 
@@ -56,8 +53,7 @@ export default function Informations(props) {
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
+
       <div className="main-banner">
         <div className="container">
           <div className="row d-flex justify-content-center">
@@ -184,7 +180,6 @@ export default function Informations(props) {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

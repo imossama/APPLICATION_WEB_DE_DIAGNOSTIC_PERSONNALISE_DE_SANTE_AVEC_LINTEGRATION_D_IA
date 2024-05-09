@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 
 // Export APIs
@@ -35,8 +31,6 @@ export default function Community() {
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
 
       <div className="main-banner" id="top">
         <div className="container">
@@ -59,9 +53,9 @@ export default function Community() {
             <div className="row show-up">
               {loading ? (
                 <p>Chargement...</p>
-              ) : data ? (
+              ) : data && data.length > 0 ? (
                 data.map((item) => (
-                  <div className="col-lg-4 mb-4" key={item.id}>
+                  <div className="col-lg-4 mb-4 d-flex" key={item.id}>
                     <div className="blog-post">
                       <div className="down-content">
                         <span className="category">Diagnostic</span>
@@ -90,8 +84,6 @@ export default function Community() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

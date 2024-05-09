@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 
 import image_med_data from "../assets/images/medical-data.png";
@@ -62,8 +59,7 @@ export default function Medical(props) {
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
+
       <div className="main-banner">
         <div className="container">
           <div className="row d-flex justify-content-center">
@@ -332,7 +328,9 @@ export default function Medical(props) {
                                     <option value="fatigue">Fatigue</option>
                                     <option value="nausea">Nausée</option>
                                     <option value="dizziness">Vertige</option>
-                                    <option value="i don't know">Je ne sais pas</option>
+                                    <option value="i don't know">
+                                      Je ne sais pas
+                                    </option>
                                   </select>
                                 </div>
                               </div>
@@ -364,7 +362,9 @@ export default function Medical(props) {
                                     <option value="mood_swings">
                                       Variations d'humeur
                                     </option>
-                                    <option value="i don't know">Je ne sais pas</option>
+                                    <option value="i don't know">
+                                      Je ne sais pas
+                                    </option>
                                   </select>
                                 </div>
                               </div>
@@ -404,7 +404,6 @@ export default function Medical(props) {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

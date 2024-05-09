@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 import DiagnosisDetails from "../components/DiagnosisDetails/DiagnosisDetails";
 
@@ -12,57 +9,56 @@ import { fetchDataById } from "../services/apiDiagnosis";
 
 export default function Details() {
   let { id } = useParams();
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Update the document title
-    document.title = `SANTÉIA - Détails du diagnostique ${id}`;
-  }, [id]); // Update title whenever id changes
-
-  // Fetch Data
   const [filteredData, setFilteredData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = `SANTÉIA - Détails de diagnostic | ID  : ${id}`;
+
     const fetchData = async () => {
       try {
         const data = await fetchDataById(id);
-        if (data) {
-          setFilteredData(data);
-        } else {
-          navigate("/community");
-        }
+        setFilteredData(data);
+        setLoading(false);
       } catch (error) {
-        console.error("Error:", error);
-      } finally {
+        // Handle specific error cases, such as 404 Not Found
+        if (error.message === "Diagnosis not found") {
+          // Navigate back to the previous page
+          navigate(-1);
+        } else {
+          console.error("Error:", error);
+        }
         setLoading(false);
       }
     };
 
     fetchData();
 
-    // Cleanup function
+    // Cleanup function if needed
     return () => {
-      // Any cleanup code if needed
+      // Cleanup logic here
     };
   }, [id, navigate]);
 
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
 
       {/* Render filtered data here */}
       {loading ? (
         <p>Chargement...</p>
       ) : filteredData ? (
-        <DiagnosisDetails key={filteredData.id} details={filteredData} />
+        <DiagnosisDetails
+          key={filteredData.id}
+          type={1}
+          diagnosticData={filteredData}
+          setPdfUrl={setPdfUrl}
+        />
       ) : (
         <p>Aucune donnée disponible pour ID {id}</p>
       )}
-
-      <Footer />
     </div>
   );
 }

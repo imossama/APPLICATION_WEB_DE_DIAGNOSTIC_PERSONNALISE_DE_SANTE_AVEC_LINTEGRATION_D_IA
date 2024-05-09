@@ -1563,6 +1563,7 @@ Blog
   border-radius: 25px;
   position: relative;
   z-index: 2;
+  height: fit-content;
 }
 
 .show-up {
@@ -1576,13 +1577,9 @@ Blog
 }
 
 .blog-post .down-content {
-  /* new css */
   border-radius: 23px;
-  /* border-bottom-right-radius: 23px;
-  border-bottom-left-radius: 23px; */
   background-color: #fff;
   padding: 30px;
-  /* min-height: 300px !important; */
 }
 
 .blog-post .down-content span.category {
@@ -2035,6 +2032,15 @@ li:has(.border-first-button) {
   /* ################### */
   /* ## NEW ADDED CSS ## */
   /* ################### */
+
+  .qr_code {
+    margin-top: 40px !important;
+  }
+
+  .qr_code img {
+    width: 50%;
+  }
+
   .col:has(input[type="radio"]) {
     display: flex;
     align-items: center;

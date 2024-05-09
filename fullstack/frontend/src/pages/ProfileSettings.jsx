@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Navbar from "../components/Navbar/Navbar";
-import UpperContact from "../components/UpperContact/UpperContact";
-import Footer from "../components/Footer/Footer";
 import Loading from "../components/Loading/Loading";
 
 import image_settings from "../assets/images/settings.png";
@@ -122,8 +119,7 @@ export default function ProfileSettings() {
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading />
-      <UpperContact />
-      <Navbar />
+
       <div className="main-banner">
         <div className="container">
           <div className="row mb-4">
@@ -282,7 +278,6 @@ export default function ProfileSettings() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
