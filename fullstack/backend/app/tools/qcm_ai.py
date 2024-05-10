@@ -52,12 +52,7 @@ def wait_for_response(convo, timeout=60):
 
 def generate_json_qcm(data):    
     # Define the message to send
-    message = ("Depuis ces données :\n" + data + "\nCréez un QCM de 3 questions pour évaluer la santé générale et mentale de l'utilisateur. "
-            "Chaque question offre cinq niveaux de réponse, de 'Accord' à 'Désaccord' (de 1 à 5). "
-            "Les questions couvrent divers aspects de la santé, y compris les symptômes physiques, "
-            "les habitudes de vie et le bien-être émotionnel. Les réponses doivent être en JSON, "
-            "comprenant un identifiant de question, la question et les options de réponse." 
-            "Le JSON doit être sur une seule ligne pour faciliter la conversion de String à JSON. Voici le format JSON requis : " 
+    message = ("Depuis ces données :\n" + data + "\nCréez un questionnaire à choix multiples (QCM) de 20 questions pour évaluer la santé physique ou mentale de l'utilisateur, ou les deux, en se basant sur les données fournies. Les questions devraient couvrir divers aspects de la santé, y compris les symptômes physiques, les habitudes de vie et le bien-être émotionnel. Chaque question devrait offrir cinq niveaux de réponse, allant de 'Fortement d'accord' à 'Fortement en désaccord' (de 1 à 5). Les réponses doivent être au format JSON, incluant un ID de question, la question elle-même et les options de réponse. Le JSON doit être formaté sur une seule ligne pour une conversion facile de la chaîne de caractères au JSON. Le format JSON requis est le suivant :" 
             '{ "nombre":{"question":......,"reponses":[réponses]} }')
 
     # Send the message to the conversation
@@ -68,15 +63,11 @@ def generate_json_qcm(data):
 def generate_json_diag(data):    
   # Define the message to send
   message = (
-      "À partir de ces données :\n"
+      "À partir de ces données : "
       + data
-      + "\nGénérer un JSON contenant les informations de diagnostic, structurées comme suit : Description détaillée du diagnostic, symptômes, conseils basés sur le diagnostic, et des médicaments recommandés (nom du médicament, lien vers des informations supplémentaires, et lien vers une logo du type de médicament). Assurez-vous que le JSON est correctement formaté et que toutes les informations nécessaires sont incluses avec précision. "
-      "Le JSON doit être sur une seule ligne pour faciliter la conversion de String à JSON."
-      " De plus, l'IA doit rechercher sur internet les médicaments nécessaires pour les symptômes spécifiques, récupérer les données pertinentes (name, link, logo) et les inclure dans le JSON généré. Notez que le lien de le logo fourni doit pointer vers un fichier logo du type de médicament."
-      "Voici le format JSON requis : "
+      + "\nGénérer un JSON contenant les informations de diagnostic, structurées comme suit : Description détaillée du diagnostic, symptômes, conseils basés sur le diagnostic, et des médicaments recommandés (nom du médicament, et lien vers des informations supplémentaires). Assurez-vous que le JSON est correctement formaté et que toutes les informations nécessaires sont incluses avec précision. Le JSON doit être sur une seule ligne pour faciliter la conversion de String à JSON. De plus, l'IA doit rechercher sur internet les médicaments nécessaires pour les symptômes spécifiques, récupérer les données pertinentes (nom, lien) et les inclure dans le JSON généré. Les données générées doivent être brèves. Le format JSON requis est le suivant : "
       '{ "diagnostic": {"title": "", "description": "", "symptoms": "", "advice": "", "medicines": []} }'
   )
-
 
   # Send the message to the conversation
   convo.send_message(message)

@@ -2,16 +2,15 @@
 
 from app import app, mongo
 from flask import jsonify, request
-from app.models import User, Diagnosis
+from app.models import User, Diagnosis, Personal
 from app.tools.format_json import format_data, extract_data_and_questions
 from app.tools.qcm_ai import generate_json_qcm, generate_json_diag
-from app.tools.qr_code import generate_qr_code
 import json
 import datetime
 
 @app.route('/')
 def index():
-    return '<h1>Backend: Flask | SantIA by OSSAMA ETTAQAFI</h1>'
+    return '<h1>Backend server is online!</h1>'
 
 # Users
 @app.route('/api/create_user', methods=['POST'])
@@ -43,8 +42,8 @@ def create_user():
 @app.route('/api/users', methods=['GET'])
 def get_users():
     try:
-        # Query all users from the 'users' collection in the 'santeia' database
-        users = mongo.db.santeia.users.find({}, {'_id': False})
+        # Query all users from the 'users' collection
+        users = mongo.db.users.find({}, {'_id': False})
 
         # Convert users to a list of dictionaries
         user_list = [user for user in users]
@@ -57,8 +56,8 @@ def get_users():
 @app.route('/api/user/email/<email>', methods=['GET'])
 def get_user_by_email(email):
     try:
-        # Query the user with the given ID from the 'users' collection in the 'santeia' database
-        user = mongo.db.santeia.users.find_one({'email': email}, {'_id': False})
+        # Query the user with the given ID from the 'users' collection
+        user = mongo.db.users.find_one({'email': email}, {'_id': False})
 
         # Check if user exists
         if user:
@@ -71,8 +70,8 @@ def get_user_by_email(email):
 @app.route('/api/user/id/<user_id>', methods=['GET'])
 def get_user(user_id):
     try:
-        # Query the user with the given ID from the 'users' collection in the 'santeia' database
-        user = mongo.db.santeia.users.find_one({'id': user_id}, {'_id': False})
+        # Query the user with the given ID from the 'users' collection
+        user = mongo.db.users.find_one({'id': user_id}, {'_id': False})
 
         # Check if user exists
         if user:
@@ -93,7 +92,7 @@ def update_user(user_id):
         json_data = request.json
 
         # Update user information in the database
-        updated_count = mongo.db.santeia.users.update_one({'id': user_id}, {'$set': json_data})
+        updated_count = mongo.db.users.update_one({'id': user_id}, {'$set': json_data})
 
         # Check if user exists and has been updated
         if updated_count.modified_count > 0:
@@ -102,7 +101,67 @@ def update_user(user_id):
             return jsonify({'error': 'User not found or no changes were made'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+ 
+# Personal
+@app.route('/api/create_personal', methods=['POST'])
+def create_personal():
+    # Check if the request contains JSON data
+    if not request.is_json:
+        return jsonify({'error': 'Request must be JSON.'}), 400
+
+    # Extract personal data from the request JSON
+    personal_data = request.json
+
+    # Check if personal data is provided
+    if not personal_data:
+        return jsonify({'error': 'Personal data is required.'}), 400
+
+    # Extract personal details
+    userId = personal_data.get('userId')
+    first_name = personal_data.get('first_name')
+    last_name = personal_data.get('last_name')
+    date = personal_data.get('date')
+    gender = personal_data.get('gender')
+    profession = personal_data.get('profession')
+    about = personal_data.get('about')
+
+    # Check if required fields are provided
+    if not userId or not first_name or not last_name:
+        return jsonify({'error': 'User ID, first name, and last name are required.'}), 400
+
+    # Create a new personal object
+    new_personal = Personal(
+        userId=userId,
+        first_name=first_name,
+        last_name=last_name,
+        date=date,
+        gender=gender,
+        profession=profession,
+        about=about
+    )
+
+    try:
+        # Save personal data to the database
+        new_personal.save_to_db()
+
+        # Return success message
+        return jsonify({'message': 'Personal data created successfully', 'userId': userId}), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+   
+@app.route('/api/get_personal/<userId>', methods=['GET'])
+def get_personal(userId):
+    # Retrieve personal data from the database based on userId
+    personal_data = mongo.db.personal.find_one({'userId': userId})
+
+    if personal_data:
+        # Convert ObjectId to string for JSON serialization
+        personal_data['_id'] = str(personal_data['_id'])
+        return jsonify(personal_data), 200
+    else:
+        # If personal data is not found, return an error message
+        return jsonify({'error': 'Personal data not found for userId: {}'.format(userId)}), 404
+
 # Diagnosis
 @app.route('/api/diagnoses', methods=['GET'])
 def get_diagnoses():
@@ -130,7 +189,7 @@ def get_diagnoses_by_user(user_id):
     else:
         return jsonify({'error': 'No diagnoses found for this user'}), 404
     
-@app.route('/api/diagnosis/<diagnosis_id>', methods=['DELETE'])
+@app.route('/api/delete/diagnosis/<diagnosis_id>', methods=['DELETE'])
 def delete_diagnosis(diagnosis_id):
     try:
         # Attempt to delete the diagnosis by ID

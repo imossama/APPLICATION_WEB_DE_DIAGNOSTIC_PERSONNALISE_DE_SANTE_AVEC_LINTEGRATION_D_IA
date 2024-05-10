@@ -17,7 +17,38 @@ class User:
             'password': self.password
         }
         # Save the user data into the 'users' collection in the 'santeia' database
-        mongo.db.santeia.users.insert_one(user_data)
+        mongo.db.users.insert_one(user_data)
+
+class Personal:
+    def __init__(self, userId, first_name, last_name, date, gender, profession, about):
+        self.id = userId
+        self.first_name = first_name
+        self.last_name = last_name
+        self.date = date
+        self.gender = gender
+        self.profession = profession
+        self.about = about
+
+    def save_to_db(self):
+        personal_data = {
+            'userId': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'date': self.date,
+            'gender': self.gender,
+            'profession': self.profession,
+            'about': self.about
+        }
+
+        # Check if the userId already exists in the database
+        existing_data = mongo.db.personal.find_one({'userId': self.id})
+
+        if existing_data:
+            # Update the existing record
+            mongo.db.personal.update_one({'userId': self.id}, {'$set': personal_data})
+        else:
+            # Insert a new record
+            mongo.db.personal.insert_one(personal_data)
 
 class Diagnosis:
     def __init__(self, userId, title, date, description, symptoms, advice, medicines):
@@ -75,7 +106,7 @@ class Diagnosis:
     def delete_by_id(diagnosis_id):
         try:
             # Attempt to delete the diagnosis by its ID
-            result = mongo.db.diagnoses.delete_one({'_id': diagnosis_id})
+            result = mongo.db.diagnoses.delete_one({'id': diagnosis_id})
 
             # Check if the deletion was successful
             if result.deleted_count > 0:

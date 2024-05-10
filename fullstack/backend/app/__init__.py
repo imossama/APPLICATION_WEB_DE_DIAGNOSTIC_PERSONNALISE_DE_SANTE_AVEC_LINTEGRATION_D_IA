@@ -6,6 +6,7 @@ from flask_cors import CORS
 
 app = Flask(__name__, static_folder='../public', static_url_path='/public')
 CORS(app)
+CORS(app, origins=["http://localhost:5173"])
 app.config.from_object('app.config')
 
 mongo = PyMongo(app)

@@ -61,11 +61,11 @@ export default function Register() {
         }); // Set error message if email exists
       } else {
         // Form submission logic here (e.g., send data to server)
-        console.log("Form submitted:", formData);
+        // console.log("Form submitted:", formData);
 
         await apiRegister.register({ email, password }); // Use userService to register user
         // Optionally, you can redirect the user to the login page or show a success message
-        console.log("User registered successfully.");
+        // console.log("User registered successfully.");
 
         // Redirect to the desired route
         navigate("/community");

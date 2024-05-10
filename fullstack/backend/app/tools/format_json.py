@@ -1,16 +1,16 @@
 import json
 
 key_descriptions = {
-    "fname": "Prénom",
-    "lname": "Nom de famille",
+    "first_name": "Prénom",
+    "last_name": "Nom de famille",
     "date": "Date de naissance",
     "gender": "Genre",
-    "prof": "Profession",
-    "prop": "Biographie personnelle",
+    "profession": "Profession",
+    "about": "Biographie personnelle",
     "medical_conditions": "Conditions médicales",
     "allergies": "Allergies",
     "chirurgies": "Chirurgies ou hospitalisations antérieures",
-    "histoire": "Antécédents médicaux",
+    "history": "Antécédents médicaux",
     "physical_symptoms": "Symptômes physiques",
     "mental_symptoms": "Symptômes mentaux",
     "question": "Réponse à 'Comment vous sentez-vous aujourd'hui ?'"

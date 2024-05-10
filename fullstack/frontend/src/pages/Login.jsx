@@ -49,7 +49,7 @@ export default function Login() {
       const user = await apiLogin.login(email, password); // Use apiLogin to check credentials
       if (user) {
         // Login successful, handle further actions (e.g., redirect to dashboard)
-        console.log("Login successful:", user);
+        // console.log("Login successful:", user);
         setUserIdToLocalStorage(user.id);
 
         // Redirect to the desired route

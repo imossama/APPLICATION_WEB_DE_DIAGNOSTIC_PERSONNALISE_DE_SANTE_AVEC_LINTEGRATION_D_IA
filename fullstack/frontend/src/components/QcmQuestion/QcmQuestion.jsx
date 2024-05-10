@@ -15,10 +15,12 @@ export default function QcmQuestion({
     <div className="qst row mb-4">
       <fieldset>
         <div className="row">
-          <span>{question}</span>
+          <span>
+            {id_qst}. {question}
+          </span>
         </div>
         <div className="row">
-          <div className="col d-flex align-items-center justify-content-center">
+          <div className="col d-flex align-items-center justify-content-center small text-center">
             {options[0]}
           </div>
           <div className="col">
@@ -28,7 +30,8 @@ export default function QcmQuestion({
               id="high-2"
               value={options[0]}
               onChange={handleResponseChange}
-              required
+              title={options[0]}
+              // required
             />
           </div>
           <div className="col">
@@ -38,7 +41,8 @@ export default function QcmQuestion({
               id="high-1"
               value={options[1]}
               onChange={handleResponseChange}
-              required
+              title={options[1]}
+              // required
             />
           </div>
           <div className="col">
@@ -47,8 +51,9 @@ export default function QcmQuestion({
               name={id_qst}
               id="nutral"
               value={options[2]}
+              title={options[2]}
               onChange={handleResponseChange}
-              required
+              // required
             />
           </div>
           <div className="col">
@@ -57,8 +62,9 @@ export default function QcmQuestion({
               name={id_qst}
               id="low-1"
               value={options[3]}
+              title={options[3]}
               onChange={handleResponseChange}
-              required
+              // required
             />
           </div>
           <div className="col">
@@ -67,12 +73,13 @@ export default function QcmQuestion({
               name={id_qst}
               id="low-2"
               value={options[4]}
+              title={options[4]}
               onChange={handleResponseChange}
-              required
+              // required
             />
           </div>
 
-          <div className="col d-flex align-items-center justify-content-center">
+          <div className="col d-flex align-items-center justify-content-center small text-center">
             {options[4]}
           </div>
         </div>

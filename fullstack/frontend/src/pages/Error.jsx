@@ -6,7 +6,7 @@ function Error({ error }) {
     // Update the document title
     document.title = "SANTÉIA - Erreur";
 
-    console.log("SanteIA : 428 Error\n", error);
+    // console.log("SanteIA : 428 Error\n", error);
   }, []); // This effect runs only once after the initial render
 
   return (

@@ -54,7 +54,6 @@ export default function Details() {
           key={filteredData.id}
           type={1}
           diagnosticData={filteredData}
-          setPdfUrl={setPdfUrl}
         />
       ) : (
         <p>Aucune donnée disponible pour ID {id}</p>

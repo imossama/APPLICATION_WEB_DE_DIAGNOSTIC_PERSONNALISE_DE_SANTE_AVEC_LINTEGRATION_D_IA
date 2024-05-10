@@ -37,7 +37,7 @@ export const fetchDataById = async (id) => {
 
 export const fetchDataByUserId = async (userId) => {
   try {
-    const response = await fetch(`${apiUrl}/diagnosis/user/${userId}`);
+    const response = await fetch(`${apiUrl}/diagnoses/user/${userId}`);
     if (!response.ok) {
       throw new Error(
         "Échec de la récupération des données par l'ID utilisateur"
@@ -51,36 +51,16 @@ export const fetchDataByUserId = async (userId) => {
   }
 };
 
-export const addData = async (newItem) => {
-  try {
-    const response = await fetch(`${apiUrl}/create_diagnosis`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newItem),
-    });
-    if (!response.ok) {
-      throw new Error("Échec de l'ajout de données");
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error adding data:", error);
-    throw error;
-  }
-};
-
 export const deleteDataById = async (id) => {
   try {
-    const response = await fetch(`${apiUrl}/diagnosis/${id}`, {
+    const response = await fetch(`${apiUrl}/delete/diagnosis/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {
-      throw new Error("Échec de la suppression des données");
+      throw new Error("Failed to delete data");
     }
     const data = await response.json();
-    console.log("Item deleted:", data);
+    // console.log("Item deleted:", data);
     return data;
   } catch (error) {
     console.error("Error deleting data:", error);

@@ -20,7 +20,7 @@ export default function Medical(props) {
       "medical_conditions",
       "allergies",
       "chirurgies",
-      "histoire",
+      "history",
     ];
 
     for (const group of radioGroups) {
@@ -255,7 +255,7 @@ export default function Medical(props) {
                             <fieldset>
                               <div className="row d-flex justify-content-center">
                                 <div className="col-lg-6 d-flex justify-content-lg-start">
-                                  <label htmlFor="histoire">
+                                  <label htmlFor="history">
                                     Histoire des maladies
                                   </label>
                                 </div>
@@ -266,12 +266,12 @@ export default function Medical(props) {
                                       <input
                                         id="yes4"
                                         type="radio"
-                                        name="histoire"
+                                        name="history"
                                         value="yes"
                                         // required
                                         defaultChecked={
                                           formData &&
-                                          formData.histoire === "yes"
+                                          formData.history === "yes"
                                         }
                                       />
                                     </div>
@@ -288,11 +288,11 @@ export default function Medical(props) {
                                       <input
                                         id="no4"
                                         type="radio"
-                                        name="histoire"
+                                        name="history"
                                         value="no"
                                         // required
                                         defaultChecked={
-                                          formData && formData.histoire === "no"
+                                          formData && formData.history === "no"
                                         }
                                       />
                                     </div>

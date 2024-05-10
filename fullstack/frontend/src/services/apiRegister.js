@@ -34,7 +34,7 @@ const apiRegister = {
       const registeredUserData = await response.json();
       const userId = registeredUserData.user_id; // Assuming the response includes the user_id field
 
-      console.log(userId);
+      // console.log(userId);
 
       setUserIdToLocalStorage(userId); // Store the user ID in local storage
 

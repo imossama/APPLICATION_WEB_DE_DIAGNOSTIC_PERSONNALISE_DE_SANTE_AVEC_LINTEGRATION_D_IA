@@ -26,7 +26,7 @@ export default function Qcm(props) {
     }));
   };
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     // Check if any option is not selected
     const anyOptionNotSelected = Object.values(qcmData).some(
       (data) => !data.answer
@@ -35,10 +35,14 @@ export default function Qcm(props) {
     if (anyOptionNotSelected) {
       // If any option is not selected, show error
       setShowError(true);
+
+      setTimeout(() => {
+        setShowError(false);
+      }, 3000);
     } else {
       // If all options are selected, proceed to the next step
       setShowError(false);
-      props.handleNextStep({ qcm: qcmData });
+      await props.handleNextStep({ qcm: qcmData });
     }
   };
 
@@ -78,19 +82,19 @@ export default function Qcm(props) {
                             />
                           ))}
                         </div>
+
+                        {showError && (
+                          <div className="row mt-3">
+                            <div className="col-lg-12 d-flex justify-content-center">
+                              <p className="text-danger">
+                                Veuillez répondre à toutes les questions avant
+                                de continuer.
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
-
-                    {showError && (
-                      <div className="row mt-3">
-                        <div className="col-lg-12">
-                          <p className="text-danger">
-                            Veuillez répondre à toutes les questions avant de
-                            continuer.
-                          </p>
-                        </div>
-                      </div>
-                    )}
 
                     <div className="row mt-5 justify-content-center">
                       <div className="col-lg-2">

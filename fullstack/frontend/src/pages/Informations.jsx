@@ -1,28 +1,69 @@
 import React, { useEffect, useState } from "react";
-
 import Loading from "../components/Loading/Loading";
 import { getUserIdFromLocalStorage } from "../services/logged_userId";
+import { savePersonalData, getPersonalDataById } from "../services/apiPersonal"; // Import the service functions
 
 import image_pers_data from "../assets/images/pers-data.png";
 
 export default function Informations(props) {
   const [formData, setFormData] = useState({
-    userId: getUserIdFromLocalStorage(), // You need to replace this with the actual user ID
-    fname: "",
-    lname: "",
+    userId: getUserIdFromLocalStorage(), // Retrieve the user ID from localStorage
+    first_name: "",
+    last_name: "",
     date: "",
     gender: "",
-    prof: "",
-    prop: "",
+    profession: "",
+    about: "",
     ...props.formData,
   });
 
   const [formError, setFormError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Update the document title
     document.title = "SANTÉIA - Informations";
-  }, []);
+
+    // Fetch personal data if userId exists
+    async function fetchData() {
+      try {
+        const data = await getPersonalDataById(formData.userId);
+        setFormData((prevState) => ({
+          ...prevState,
+          ...data,
+        }));
+      } catch (error) {
+        console.error("Error fetching personal data:", error);
+      }
+    }
+
+    // Call the async function
+    fetchData();
+  }, [formData.userId]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleNextClick = async () => {
+    if (validateForm()) {
+      // setLoading(true);
+      try {
+        await savePersonalData(formData);
+        props.handleNextStep(formData);
+      } catch (error) {
+        console.error("Error saving personal data:", error);
+        setFormError(
+          "Une erreur s'est produite lors de la sauvegarde des données personnelles."
+        );
+      }
+    } else {
+      setFormError("Veuillez remplir tous les champs du formulaire.");
+      setTimeout(() => {
+        setFormError("");
+      }, 3000);
+    }
+  };
 
   // Validation function to check if all fields are filled
   const validateForm = () => {
@@ -34,25 +75,9 @@ export default function Informations(props) {
     return true;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleNextClick = () => {
-    if (validateForm()) {
-      props.handleNextStep(formData);
-    } else {
-      setFormError("Veuillez remplir tous les champs du formulaire.");
-      setTimeout(() => {
-        setFormError("");
-      }, 3000);
-    }
-  };
-
   return (
     <div style={{ overflow: "hidden" }}>
-      <Loading />
+      {loading && <Loading />}
 
       <div className="main-banner">
         <div className="container">
@@ -82,23 +107,21 @@ export default function Informations(props) {
                             <fieldset>
                               <input
                                 type="text"
-                                name="fname"
-                                id="fname"
+                                name="first_name"
+                                id="first_name"
                                 placeholder="Nom"
-                                value={formData.fname} // Binding value to formData.fname
+                                value={formData.first_name}
                                 onChange={handleChange}
-                                // required
                               />
                             </fieldset>
                             <fieldset>
                               <input
                                 type="text"
-                                name="lname"
-                                id="lname"
+                                name="last_name"
+                                id="last_name"
                                 placeholder="Prénom"
-                                value={formData.lname} // Binding value to formData.lname
+                                value={formData.last_name}
                                 onChange={handleChange}
-                                // required
                               />
                             </fieldset>
                             <fieldset>
@@ -107,9 +130,8 @@ export default function Informations(props) {
                                 name="date"
                                 id="date"
                                 placeholder="Date de naissance"
-                                value={formData.date} // Binding value to formData.date
+                                value={formData.date}
                                 onChange={handleChange}
-                                // required
                               />
                             </fieldset>
                             <fieldset>
@@ -117,8 +139,7 @@ export default function Informations(props) {
                                 name="gender"
                                 id="gender"
                                 onChange={handleChange}
-                                // required
-                                value={formData.gender} // Binding value to formData.gender
+                                value={formData.gender}
                               >
                                 <option value="" disabled>
                                   Choisissez votre genre
@@ -131,25 +152,23 @@ export default function Informations(props) {
                             <fieldset>
                               <input
                                 type="text"
-                                name="prof"
-                                id="prof"
+                                name="profession"
+                                id="profession"
                                 onChange={handleChange}
                                 placeholder="Votre profession"
-                                value={formData.prof} // Binding value to formData.prof
-                                // required
+                                value={formData.profession}
                               />
                             </fieldset>
                             <fieldset>
                               <textarea
-                                name="prop"
+                                name="about"
                                 type="text"
                                 className="form-control"
-                                id="prop"
+                                id="about"
                                 onChange={handleChange}
                                 placeholder="Au propos de vous"
                                 maxLength="300"
-                                value={formData.prop} // Binding value to formData.prop
-                                // required
+                                value={formData.about}
                               ></textarea>
                             </fieldset>
 

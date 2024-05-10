@@ -1,41 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Loading from "../components/Loading/Loading";
-
-// Import fetchDataByUserId function
 import { fetchDataByUserId, deleteDataById } from "../services/apiDiagnosis";
 import { getUserIdFromLocalStorage } from "../services/logged_userId";
 
 export default function History() {
   const [diagnoses, setDiagnoses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "SANTÉIA - Page d'historique";
 
-    // Fetch diagnosis data by userId
-    fetchDataByUserId(getUserIdFromLocalStorage())
-      .then((data) => {
+    const fetchDiagnoses = async () => {
+      try {
+        const userId = getUserIdFromLocalStorage();
+        const data = await fetchDataByUserId(userId);
         setDiagnoses(data);
         setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching diagnosis data:", error);
         setLoading(false);
-      });
-  }, []); // This effect runs only once after the initial render
+      }
+    };
 
-  // Function to handle delete button click
+    fetchDiagnoses();
+  }, []);
+
   const handleDelete = async (id) => {
     try {
       await deleteDataById(id);
-      // Update diagnoses state after deletion
       setDiagnoses(diagnoses.filter((diagnosis) => diagnosis.id !== id));
-      console.log("Diagnosis deleted successfully");
+      // console.log("Diagnosis deleted successfully");
     } catch (error) {
       console.error("Error deleting diagnosis:", error);
     }
+  };
+
+  const navigateToDiagnosis = (id) => {
+    navigate(`/details/${id}`);
   };
 
   return (
@@ -83,9 +87,14 @@ export default function History() {
                             <td>{diagnosis.title}</td>
                             <td>{diagnosis.date}</td>
                             <td>
-                              <Link to={`/diagnosis/${diagnosis.id}`}>
+                              <button
+                                onClick={() =>
+                                  navigateToDiagnosis(diagnosis.id)
+                                }
+                                className="btn btn-primary"
+                              >
                                 Visite
-                              </Link>
+                              </button>
                             </td>
                             <td>
                               <button

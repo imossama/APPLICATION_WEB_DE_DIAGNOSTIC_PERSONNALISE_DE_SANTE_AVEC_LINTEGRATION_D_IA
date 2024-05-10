@@ -8,6 +8,7 @@ import stamp from "../../assets/images/stamp.png";
 import signature from "../../assets/images/signature.png";
 
 import { getUserIdFromLocalStorage } from "../../services/logged_userId";
+import { getPersonalDataById } from "../../services/apiPersonal";
 
 export default function DiagnosisDetails({ type, diagnosticData }) {
   const diagnostic = type === 0 ? diagnosticData.diagnostic : diagnosticData;
@@ -21,7 +22,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
     const formattedTime = currentDate.toLocaleTimeString("fr-FR");
 
     const doc = new jsPDF({
-      orientation: "portrait", // or "landscape"
+      orientation: "portrait",
       unit: "mm",
       format: "a4",
     });
@@ -36,14 +37,13 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
     doc.text(formattedDate + " " + formattedTime, 160, 20);
 
     // Add diagnostic title
-    const maxTitleWidth = 100; // Maximum width for the title
+    const maxTitleWidth = 100;
     const titleText = doc.splitTextToSize(diagnostic.title, maxTitleWidth);
-    const titleHeight = titleText.length * 5; // Maximum height for the title
+    const titleHeight = titleText.length * 5;
     doc.setFontSize(20);
     doc.setTextColor("#333");
     doc.setLineWidth(80);
     if (titleHeight > 25) {
-      // Adjust title position if it exceeds maximum height
       doc.text(titleText, 15, 50, { maxWidth: maxTitleWidth });
     } else {
       doc.text(diagnostic.title, 15, 50);
@@ -53,36 +53,67 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
     const qrCodeData = "http://localhost:5000/" + diagnostic.qr_code;
     doc.addImage(qrCodeData, "PNG", 15, 55, 50, 50);
 
+    // Add Personal Data
+    try {
+      const personalData = await getPersonalDataById(userId);
+      doc.setFontSize(12);
+      doc.setTextColor("#555");
+      doc.text(70, 70, "Données personnelles");
+      doc.setTextColor("#333");
+      doc.text(70, 80, `Prénom: ${personalData.first_name}`);
+      doc.text(70, 85, `Nom de famille: ${personalData.last_name}`);
+      doc.text(70, 90, `Date de naissance: ${personalData.date}`);
+    } catch (error) {
+      console.error("Error fetching personal data:", error);
+    }
+
     // Add description
-    const maxTextWidth = 120; // Maximum width for description
-    const maxTextHeight = 80; // Maximum height for description
+    const maxTextWidth = 120;
+    const maxTextHeight = 100;
     const descriptionText = doc.splitTextToSize(
-      diagnostic.description || "Pas de données",
+      diagnostic.description || "Aucune donnée n'est fournie.",
       maxTextWidth
     );
-    const descriptionHeight = descriptionText.length * 5; // Calculate height based on text lines
+    const descriptionHeight = descriptionText.length * 5;
     if (descriptionHeight > maxTextHeight) {
-      // Truncate text if it exceeds maximum height
       descriptionText.length = Math.floor(maxTextHeight / 5);
-      descriptionText.push("..."); // Add ellipsis to indicate truncation
+      descriptionText.push("...");
     }
     doc.setFontSize(12);
     doc.setTextColor("#555");
     doc.text(15, 120, "Description");
     doc.setTextColor("#333");
-    doc.text(15, 130, descriptionText, { maxWidth: maxTextWidth + 200 });
+    doc.text(15, 130, descriptionText, {
+      maxWidth: maxTextWidth - 40,
+      align: "left",
+    });
+
+    // Add Conseils
+    const conseilsText = diagnostic.advice || "Aucune donnée n'est fournie.";
+    const conseilsLines = doc.splitTextToSize(conseilsText, maxTextWidth);
+    const conseilsHeight = conseilsLines.length * 5;
+    if (conseilsHeight > maxTextHeight) {
+      conseilsLines.length = Math.floor(maxTextHeight / 5);
+      conseilsLines.push("...");
+    }
+    doc.setTextColor("#555");
+    doc.text(50, 130 + descriptionHeight + 40, "Conseils");
+    doc.setTextColor("#333");
+    doc.text(50, 130 + descriptionHeight + 50, conseilsLines, {
+      maxWidth: maxTextWidth,
+      align: "left",
+    });
 
     // Add symptoms
     const symptomsText = Array.isArray(diagnostic.symptoms)
-      ? diagnostic.symptoms.join("\n- ")
-      : diagnostic.symptoms || "Pas de données";
-    const maxSymptomsWidth = 85; // Maximum width for symptoms
+      ? diagnostic.symptoms.join("\n, ")
+      : diagnostic.symptoms || "Aucune donnée n'est fournie.";
+    const maxSymptomsWidth = 85;
     const symptomsLines = doc.splitTextToSize(symptomsText, maxSymptomsWidth);
-    const symptomsHeight = symptomsLines.length * 5; // Calculate height based on text lines
+    const symptomsHeight = symptomsLines.length * 5;
     if (symptomsHeight > maxTextHeight) {
-      // Truncate text if it exceeds maximum height
       symptomsLines.length = Math.floor(maxTextHeight / 5);
-      symptomsLines.push("..."); // Add ellipsis to indicate truncation
+      symptomsLines.push("...");
     }
     doc.setFontSize(12);
     doc.setTextColor("#555");
@@ -90,39 +121,22 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
     doc.setTextColor("#333");
     doc.text(105, 130, symptomsLines, { maxWidth: maxTextWidth });
 
-    // Add Conseils
-    const conseilsText = diagnostic.advice || "Pas de données";
-    const conseilsLines = doc.splitTextToSize(conseilsText, maxTextWidth);
-    const conseilsHeight = conseilsLines.length * 5; // Calculate height based on text lines
-    if (conseilsHeight > maxTextHeight) {
-      // Truncate text if it exceeds maximum height
-      conseilsLines.length = Math.floor(maxTextHeight / 5);
-      conseilsLines.push("..."); // Add ellipsis to indicate truncation
-    }
-    doc.setTextColor("#555");
-    doc.text(50, 130 + descriptionHeight + 5, "Conseils");
-    doc.setTextColor("#333");
-    doc.text(50, 130 + descriptionHeight + 15, conseilsLines, {
-      maxWidth: maxTextWidth,
-    });
-
     // Add Médicaments
     const medicamentsText =
       Array.isArray(diagnostic.medicines) && diagnostic.medicines.length > 0
-        ? diagnostic.medicines.map((medic) => medic.name).join("\n- ")
-        : "Pas de données";
-    const medicamentsLines = doc.splitTextToSize(medicamentsText, maxTextWidth);
-    const medicamentsHeight = medicamentsLines.length * 5; // Calculate height based on text lines
+        ? diagnostic.medicines.map((medic) => medic.name).join(", ")
+        : "Aucune donnée n'est fournie.";
+    const medicamentsLines = doc.splitTextToSize(medicamentsText, maxSymptomsWidth);
+    const medicamentsHeight = medicamentsLines.length * 5;
     if (medicamentsHeight > maxTextHeight) {
-      // Truncate text if it exceeds maximum height
       medicamentsLines.length = Math.floor(maxTextHeight / 5);
-      medicamentsLines.push("..."); // Add ellipsis to indicate truncation
+      medicamentsLines.push("...");
     }
     doc.setTextColor("#555");
     doc.text(105, 130 + symptomsHeight + 5, "Médicaments");
     doc.setTextColor("#333");
     doc.text(105, 130 + symptomsHeight + 15, medicamentsLines, {
-      maxWidth: maxTextWidth,
+      maxWidth: maxSymptomsWidth,
     });
 
     doc.addImage(stamp, "PNG", 160, 250, 40, 40);
@@ -199,7 +213,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
                       <p>
                         {diagnostic.description
                           ? diagnostic.description
-                          : "Pas de données"}
+                          : "Aucune donnée n'est fournie."}
                       </p>
                     </div>
                   </div>
@@ -224,7 +238,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
                           <p>{diagnostic.symptoms}</p>
                         )
                       ) : (
-                        <p>Pas de données</p>
+                        <p>Aucune donnée n'est fournie.</p>
                       )}
                     </div>
                   </div>
@@ -239,7 +253,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
                       <p>
                         {diagnostic.advice
                           ? diagnostic.advice
-                          : "Pas de données"}
+                          : "Aucune donnée n'est fournie."}
                       </p>
                     </div>
                   </div>
@@ -253,7 +267,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
                       <h4>Médicaments</h4>
                       <div className="row mt-2">
                         {diagnostic.medicines?.length === 0 ? (
-                          <p>Pas de données</p>
+                          <p>Aucune donnée n'est fournie.</p>
                         ) : (
                           (diagnostic.medicines || []).map((medic, index) => (
                             <div className="col-4 mt-4" key={index}>
