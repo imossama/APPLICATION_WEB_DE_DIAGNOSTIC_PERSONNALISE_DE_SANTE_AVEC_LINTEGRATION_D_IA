@@ -192,7 +192,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
 
                       {type === 1 && userId !== diagnostic.userId && (
                         <p>
-                          Ce diagnostique est unique à l'utilisateur, avec
+                          Ce diagnostic est unique à l'utilisateur, avec
                           l'identifiant: {diagnostic.userId}
                         </p>
                       )}

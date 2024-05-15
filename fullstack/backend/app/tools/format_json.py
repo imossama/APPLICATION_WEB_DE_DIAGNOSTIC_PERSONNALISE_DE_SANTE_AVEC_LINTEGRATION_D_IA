@@ -20,9 +20,9 @@ def format_data(data_string):
     data_dict = json.loads(data_string)
     formatted_data = ""
     for key, value in data_dict.items():
-        key_stripped = key.strip('\"')
+        key_stripped = key.strip('"')
         if key_stripped in key_descriptions:
-            formatted_data += f"{key_descriptions[key_stripped]} : {value.strip('\"')}\n"
+            formatted_data += f"{key_descriptions[key_stripped]} : {value}\n"
     return formatted_data
 
 def extract_data_and_questions(json_string):

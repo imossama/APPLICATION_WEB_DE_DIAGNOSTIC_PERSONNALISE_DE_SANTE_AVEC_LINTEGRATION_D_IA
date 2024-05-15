@@ -36,19 +36,19 @@ function Home() {
                   <div className="left-content show-up header-text">
                     <div className="row">
                       <div className="col-lg-12">
-                        <h6>Application de diagnostique de santé avec l'IA</h6>
+                        <h6>Application de diagnostic de santé avec l'IA</h6>
                         <h2>Nous veillerons à rester en bonne santé</h2>
                         <p>
                           Vous pouvez facilement vérifier votre santé ou votre
                           santé mentale en nous fournissant des informations
                           personnelles qui seront complètement sécurisées. Cela
                           permettra à notre système de fonctionner efficacement
-                          et de vous fournir un diagnostique dédié.{" "}
+                          et de vous fournir un diagnostic dédié.{" "}
                         </p>
                       </div>
                       <div className="col-lg-12">
                         <div className="border-first-button scroll-to-section">
-                          <Link to="/diagnostic">Au diagnostique</Link>
+                          <Link to="/diagnostic">Au diagnostic</Link>
                         </div>
                       </div>
                     </div>
@@ -86,7 +86,7 @@ function Home() {
                     </div>
                     <p>
                       L'équipe de Santéia, dirigée par ETTAQAFI OSSAMA, a
-                      développé un Application de diagnostique de santé dirigée
+                      développé un Application de diagnostic de santé dirigée
                       AI. Leur objectif est de promouvoir bien-être en
                       permettant aux utilisateurs de surveiller en toute
                       sécurité leur Santé physique et mentale. Ils priorisent la
@@ -270,7 +270,7 @@ function Home() {
                                     <h4>Santé mentale</h4>
                                     <p>
                                       Vous pouvez sélectionner l'option de santé
-                                      mentale pour diagnostiquer votre état
+                                      mentale pour diagnosticr votre état
                                       mental et recevoir résultats appropriés
                                       pour vous aider.
                                     </p>
@@ -317,13 +317,13 @@ function Home() {
                                     <p>
                                       Notre application offre une fonctionnalité
                                       précieuse: la possibilité de partager un
-                                      code QR de votre diagnostique avec votre
+                                      code QR de votre diagnostic avec votre
                                       famille et vos amis.
                                     </p>
                                     <div className="ticks-list">
                                       <span>
                                         <i className="fa fa-check"></i> Partagez
-                                        le diagnostique
+                                        le diagnostic
                                       </span>{" "}
                                       <span>
                                         <i className="fa fa-check"></i>{" "}
@@ -362,14 +362,14 @@ function Home() {
                                       </span>{" "}
                                       <span>
                                         <i className="fa fa-check"></i>{" "}
-                                        Consulter les diagnostiques
+                                        Consulter les diagnostics
                                       </span>
                                     </div>
                                     <p>
                                       Toutes les données de l'utilisateur sont
                                       privées et sécurisées. Vous ne pouvez que
                                       voir de manière anonyme le dernier
-                                      diagnostique.{" "}
+                                      diagnostic.{" "}
                                     </p>
                                   </div>
                                 </div>

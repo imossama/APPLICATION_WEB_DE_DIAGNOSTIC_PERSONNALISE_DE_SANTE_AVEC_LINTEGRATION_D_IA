@@ -1,0 +1,38 @@
+# Deployment YAML
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-sante-ia
+  labels:
+    app: backend-sante-ia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-sante-ia
+  template:
+    metadata:
+      labels:
+        app: backend-sante-ia
+    spec:
+      containers:
+      - name: sante-ia
+        image: imossama/sante-ia:latest
+        ports:
+        - containerPort: 8080
+
+---
+
+# Service YAML
+apiVersion: v1
+kind: Service
+metadata:
+  name: sante-ia-service
+spec:
+  selector:
+    app: backend-sante-ia
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

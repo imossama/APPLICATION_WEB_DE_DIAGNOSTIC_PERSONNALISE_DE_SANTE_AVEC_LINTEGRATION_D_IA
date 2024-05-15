@@ -227,7 +227,7 @@ export default function ProfileSettings() {
                             <div className="pr-checkbox mt-4 row">
                               <div className="col-lg-8">
                                 <label htmlFor="receiveEmail">
-                                  Recevoir le résultat de diagnostique dans
+                                  Recevoir le résultat de diagnostic dans
                                   votre e-mail
                                 </label>
                               </div>

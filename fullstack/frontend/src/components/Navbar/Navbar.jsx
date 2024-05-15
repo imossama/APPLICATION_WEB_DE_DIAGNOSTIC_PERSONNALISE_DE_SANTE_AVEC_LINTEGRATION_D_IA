@@ -79,7 +79,7 @@ function Navbar() {
                 <li className="nav-item">
                   <div className="border-first-button">
                     <NavLink to="/diagnostic" className="nav-link" activeclassname="active">
-                    Diagnostique
+                    Diagnostic
                     </NavLink>
                   </div>
                 </li>

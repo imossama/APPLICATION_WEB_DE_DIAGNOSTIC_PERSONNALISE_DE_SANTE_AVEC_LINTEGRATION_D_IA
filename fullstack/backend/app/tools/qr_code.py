@@ -1,5 +1,4 @@
 import qrcode
-import os
 
 def generate_qr_code(diagnosis_data):
     try:

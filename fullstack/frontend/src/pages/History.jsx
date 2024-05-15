@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import Loading from "../components/Loading/Loading";
 import { fetchDataByUserId, deleteDataById } from "../services/apiDiagnosis";
 import { getUserIdFromLocalStorage } from "../services/logged_userId";
@@ -8,6 +7,7 @@ import { getUserIdFromLocalStorage } from "../services/logged_userId";
 export default function History() {
   const [diagnoses, setDiagnoses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +42,14 @@ export default function History() {
     navigate(`/details/${id}`);
   };
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredDiagnoses = diagnoses.filter((diagnosis) =>
+    diagnosis.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div style={{ overflow: "hidden" }}>
       <Loading visible={loading} />
@@ -56,19 +64,34 @@ export default function History() {
                     <div className="row">
                       <div className="col-lg-12">
                         <h6>Historique des</h6>
-                        <h2>Diagnostiques</h2>
+                        <h2>Diagnostics</h2>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
+              {/* Search Bar */}
+              <div className="row show-up d-flex justify-content-center">
+                <div className="col-lg-6 mb-5">
+                  <div className="search-bar">
+                    <input
+                      type="text"
+                      placeholder="Rechercher..."
+                      value={searchTerm}
+                      onChange={handleSearch}
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* End of Search Bar */}
+
               <div className="row">
                 <div className="col-lg-12 align-self-center show-up">
                   {loading ? (
                     <p>Chargement...</p>
-                  ) : diagnoses.length === 0 ? (
-                    <p>Aucun diagnostique trouvé</p>
+                  ) : filteredDiagnoses.length === 0 ? (
+                    <p>Aucun diagnostic trouvé</p>
                   ) : (
                     <table className="table">
                       <thead>
@@ -81,7 +104,7 @@ export default function History() {
                         </tr>
                       </thead>
                       <tbody>
-                        {diagnoses.map((diagnosis, index) => (
+                        {filteredDiagnoses.map((diagnosis, index) => (
                           <tr key={index}>
                             <th scope="row">{index + 1}</th>
                             <td>{diagnosis.title}</td>
