@@ -1,4 +1,4 @@
-# Cahier des charges de l'application web santéia
+# Cahier des charges - Application web santéia
 
 ### Introduction
 Ce document décrit les spécifications fonctionnelles et non fonctionnelles de l'application web santéia. Cette application permettra aux utilisateurs de différents domaines d'évaluer leur santé mentale et physique à travers des questionnaires générés par une Intelligence Artificielle (IA), et de recevoir un diagnostic personnalisé en fonction de leurs réponses.
