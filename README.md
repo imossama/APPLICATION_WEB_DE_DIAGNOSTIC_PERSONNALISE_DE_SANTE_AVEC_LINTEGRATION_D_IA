@@ -6,17 +6,7 @@ Ce document décrit les spécifications fonctionnelles et non fonctionnelles de 
 
 1. [Introduction](#introduction)
 2. [Spécifications fonctionnelles](#spécifications-fonctionnelles)
-   - [Outils utilisés](#outils-utilisés)
-   - [Authentification](#authentification)
-   - [Questionnaires](#questionnaires)
-   - [Analyse des réponses](#analyse-des-réponses)
-   - [Diagnostic personnalisé](#diagnostic-personnalisé)
-   - [Interface utilisateur](#interface-utilisateur)
 3. [Spécifications non fonctionnelles](#spécifications-non-fonctionnelles)
-   - [Confidentialité des données](#confidentialité-des-données)
-   - [Sécurité](#sécurité)
-   - [Performances](#performances)
-   - [Extensibilité](#extensibilité)
 4. [Conclusion](#conclusion)
 
 ## Introduction <a name="introduction"></a>
