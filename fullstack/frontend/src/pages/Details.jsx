@@ -28,7 +28,7 @@ export default function Details() {
           // Navigate back to the previous page
           navigate(-1);
         } else {
-          console.error("Error:", error);
+          // console.error("Error:", error);
         }
         setLoading(false);
       }

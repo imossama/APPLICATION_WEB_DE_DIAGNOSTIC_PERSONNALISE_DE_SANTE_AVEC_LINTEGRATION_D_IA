@@ -1625,7 +1625,7 @@ Blog
 
 .blog-post .down-content .border-first-button {
   display: inline-block;
-  float: right;
+  /* float: right; */
 }
 
 .blog-posts {
@@ -1642,7 +1642,7 @@ Blog
 
 .post-item .thumb {
   display: inline-block;
-  float: left;
+  /* float: left; */
   margin-right: 30px;
 }
 
@@ -1949,23 +1949,6 @@ form#question label {
 form#question .row:nth-child(3) {
   display: flex;
   justify-content: start;
-}
-
-.pr-checkbox .col-lg-8 {
-  color: #8e8e8e;
-  display: flex;
-  align-items: center;
-  justify-content: end;
-}
-
-.pr-checkbox .left-content {
-  display: flex;
-  align-items: flex-start !important;
-}
-
-.pr-checkbox .left-content input[type="checkbox"] {
-  width: 15px !important;
-  margin: 0 !important;
 }
 
 /* ################### */
@@ -2297,4 +2280,63 @@ li:has(.border-first-button) {
 .search-bar input:focus {
   outline: none;
   border-color: #777;
+}
+
+/* Add this to your CSS file */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1040;
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center; /* vertically center */
+  z-index: 1050;
+}
+
+.modal-dialog {
+  width: 50%; /* You can adjust this width as needed */
+  background-color: white; /* Set modal background color */
+  border-radius: 10px; /* Optional: Add some border radius for a nicer look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
+}
+
+.dialog-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1030;
+
+  backdrop-filter: blur(8px); /* Apply a blur effect */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* White background with opacity */
+}
+.delete-account-text-wrapper {
+  display: flex;
+  align-items: center; /* Center vertically */
+}
+
+.delete-account-text-wrapper span {
+  margin-right: 10px; /* Add space between the texts */
+}
+
+.delete-account-text {
+  color: red;
+  cursor: pointer;
+  /* Add hover effect */
+}
+
+.delete-account-text:hover {
+  text-decoration: underline; /* Example hover effect */
 }

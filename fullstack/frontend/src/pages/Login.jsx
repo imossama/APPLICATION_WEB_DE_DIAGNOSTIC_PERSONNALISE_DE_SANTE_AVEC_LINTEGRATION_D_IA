@@ -59,7 +59,7 @@ export default function Login() {
         setLoginError("Email ou mot de passe invalide.");
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      // console.error("Error during login:", error);
       // Handle error if login service fails
       setLoginError(
         "Une erreur s'est produite pendant la connexion. Veuillez réessayer plus tard."

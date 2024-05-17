@@ -32,7 +32,7 @@ export default function Informations(props) {
           ...data,
         }));
       } catch (error) {
-        console.error("Error fetching personal data:", error);
+        // console.error("Error fetching personal data:", error);
       }
     }
 
@@ -52,7 +52,7 @@ export default function Informations(props) {
         await savePersonalData(formData);
         props.handleNextStep(formData);
       } catch (error) {
-        console.error("Error saving personal data:", error);
+        // console.error("Error saving personal data:", error);
         setFormError(
           "Une erreur s'est produite lors de la sauvegarde des données personnelles."
         );

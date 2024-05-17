@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Loading from "../components/Loading/Loading";
-
 import image_settings from "../assets/images/settings.png";
 
 // Services
@@ -9,6 +9,8 @@ import apiLogin from "../services/apiLogin";
 import { getUserIdFromLocalStorage } from "../services/logged_userId";
 
 export default function ProfileSettings() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Update the document title
     document.title = "SANTÉIA - Paramètres de profil";
@@ -25,6 +27,9 @@ export default function ProfileSettings() {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState("");
+  const [deleteError, setDeleteError] = useState("");
 
   useEffect(() => {
     async function fetchUser() {
@@ -38,7 +43,7 @@ export default function ProfileSettings() {
           receiveEmail: user.receiveEmail || false,
         });
       } catch (error) {
-        console.error("Error fetching user:", error);
+        // console.error("Error fetching user:", error);
       }
     }
     fetchUser();
@@ -111,8 +116,26 @@ export default function ProfileSettings() {
         setSuccessMessage("");
       }, 3000);
     } catch (error) {
-      console.error("Error updating user data:", error);
+      // console.error("Error updating user data:", error);
       // Handle error: Display error message or perform appropriate action
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (deleteConfirmation !== "Oui") {
+      setDeleteError('Vous devez taper "Oui" pour confirmer.');
+      return;
+    }
+
+    try {
+      await apiLogin.deleteUser(userId);
+      // Log out the user and redirect to the login page or home page
+      // Assuming there is a logout function
+      navigate("/logout");
+    } catch (error) {
+      setDeleteError(
+        "Une erreur s'est produite lors de la suppression de votre compte."
+      );
     }
   };
 
@@ -120,7 +143,9 @@ export default function ProfileSettings() {
     <div style={{ overflow: "hidden" }}>
       <Loading />
 
-      <div className="main-banner">
+      <div
+        className={`main-banner ${showDeleteModal ? "blur-background" : ""}`}
+      >
         <div className="container">
           <div className="row mb-4">
             <div className="col-lg-10">
@@ -133,7 +158,7 @@ export default function ProfileSettings() {
                         <h2>Paramètres</h2>
                         <p>
                           Vous pouvez modifier vos paramètres de profil chaque
-                          fois que vous désir.{" "}
+                          fois que vous désir.
                         </p>
                       </div>
                     </div>
@@ -223,30 +248,27 @@ export default function ProfileSettings() {
                               </div>
                             )}
                           </fieldset>
-                          <fieldset>
-                            <div className="pr-checkbox mt-4 row">
-                              <div className="col-lg-8">
-                                <label htmlFor="receiveEmail">
-                                  Recevoir le résultat de diagnostic dans
-                                  votre e-mail
-                                </label>
-                              </div>
-                              <div className="col">
-                                <div className="left-content">
-                                  <input
-                                    type="checkbox"
-                                    id="receiveEmail"
-                                    name="receiveEmail"
-                                    checked={formData.receiveEmail}
-                                    onChange={handleChange}
-                                  />
+
+                          <div className="row mt-4 d-flex justify-content-center">
+                            <div className="col-lg-10">
+                              <fieldset>
+                                <div className="delete-account-text-wrapper">
+                                  <span>
+                                    Vous souhaitez supprimer votre compte ?
+                                  </span>
+                                  <div
+                                    className="delete-account-text"
+                                    onClick={() => setShowDeleteModal(true)}
+                                  >
+                                    Supprimer Compte
+                                  </div>
                                 </div>
-                              </div>
+                              </fieldset>
                             </div>
-                          </fieldset>
+                          </div>
                         </div>
                         {successMessage && (
-                          <div className="text-success mt-3" role="alert">
+                          <div className="text-success" role="alert">
                             {successMessage}
                           </div>
                         )}
@@ -257,10 +279,7 @@ export default function ProfileSettings() {
                     <img src={image_settings} alt="" />
                   </div>
                 </div>
-                <div
-                  className="row d-flex justify-content-center"
-                  style={{ marginTop: "-20px" }}
-                >
+                <div className="row d-flex justify-content-center">
                   <div className="col-lg-4 mb-5">
                     <fieldset>
                       <button
@@ -278,6 +297,52 @@ export default function ProfileSettings() {
           </div>
         </div>
       </div>
+
+      {showDeleteModal && (
+        <>
+          <div className="dialog-background"></div>
+          <div className="modal show">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Confirmer la suppression</h5>
+                </div>
+                <div className="modal-body">
+                  <p>
+                    Veuillez taper "Oui" pour confirmer la
+                    suppression de votre compte.
+                  </p>
+                  <input
+                    type="text"
+                    className={`form-control ${deleteError && "is-invalid"}`}
+                    value={deleteConfirmation}
+                    onChange={(e) => setDeleteConfirmation(e.target.value)}
+                  />
+                  {deleteError && (
+                    <div className="invalid-feedback mt-3">{deleteError}</div>
+                  )}
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => setShowDeleteModal(false)}
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={handleDeleteAccount}
+                  >
+                    Supprimer le compte
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

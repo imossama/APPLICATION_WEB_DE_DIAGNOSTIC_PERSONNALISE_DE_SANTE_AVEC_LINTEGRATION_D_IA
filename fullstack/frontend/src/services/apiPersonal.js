@@ -19,7 +19,7 @@ export async function savePersonalData(data) {
     // console.log("Personal data saved successfully:", responseData);
     return responseData; // Return the data if needed
   } catch (error) {
-    console.error("Error saving personal data:", error);
+    // console.error("Error saving personal data:", error);
     throw error; // Rethrow the error to propagate it further
   }
 }
@@ -34,7 +34,7 @@ export async function getPersonalDataById(userId) {
       throw new Error("Failed to fetch personal data. User ID may not exist.");
     }
   } catch (error) {
-    console.error("Error fetching personal data:", error);
+    // console.error("Error fetching personal data:", error);
     throw error; // Re-throw the error to be caught by the caller
   }
 }

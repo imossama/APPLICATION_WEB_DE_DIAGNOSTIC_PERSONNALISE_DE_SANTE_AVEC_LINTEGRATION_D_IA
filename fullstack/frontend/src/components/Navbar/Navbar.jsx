@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import { getUserIdFromLocalStorage } from "../../services/logged_userId";
 
 function Navbar() {
   const [isActive, setIsActive] = useState(false);
-  const location = useLocation();
 
   const toggleMenu = () => {
     setIsActive(!isActive);

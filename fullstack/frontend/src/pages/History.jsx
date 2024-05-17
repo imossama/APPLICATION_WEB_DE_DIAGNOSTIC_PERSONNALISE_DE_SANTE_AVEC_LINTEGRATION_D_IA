@@ -20,7 +20,7 @@ export default function History() {
         setDiagnoses(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching diagnosis data:", error);
+        // console.error("Error fetching diagnosis data:", error);
         setLoading(false);
       }
     };
@@ -34,7 +34,7 @@ export default function History() {
       setDiagnoses(diagnoses.filter((diagnosis) => diagnosis.id !== id));
       // console.log("Diagnosis deleted successfully");
     } catch (error) {
-      console.error("Error deleting diagnosis:", error);
+      // console.error("Error deleting diagnosis:", error);
     }
   };
 

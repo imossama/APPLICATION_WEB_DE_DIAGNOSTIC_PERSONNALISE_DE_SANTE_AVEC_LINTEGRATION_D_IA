@@ -64,7 +64,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
       doc.text(70, 85, `Nom de famille: ${personalData.last_name}`);
       doc.text(70, 90, `Date de naissance: ${personalData.date}`);
     } catch (error) {
-      console.error("Error fetching personal data:", error);
+      // console.error("Error fetching personal data:", error);
     }
 
     // Add description

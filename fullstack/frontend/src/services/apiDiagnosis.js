@@ -9,7 +9,7 @@ export const fetchData = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    // console.error("Error fetching data:", error);
     throw error;
   }
 };
@@ -30,7 +30,7 @@ export const fetchDataById = async (id) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching data by ID:", error);
+    // console.error("Error fetching data by ID:", error);
     throw error;
   }
 };
@@ -46,7 +46,7 @@ export const fetchDataByUserId = async (userId) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching data by user ID:", error);
+    // console.error("Error fetching data by user ID:", error);
     throw error;
   }
 };
@@ -63,7 +63,7 @@ export const deleteDataById = async (id) => {
     // console.log("Item deleted:", data);
     return data;
   } catch (error) {
-    console.error("Error deleting data:", error);
+    // console.error("Error deleting data:", error);
     throw error;
   }
 };

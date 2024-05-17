@@ -71,7 +71,7 @@ export default function Register() {
         navigate("/community");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      // console.error("Error during registration:", error);
       setRegistrationError(
         "Une erreur s'est produite lors de l'enregistrement. Veuillez réessayer plus tard."
       );

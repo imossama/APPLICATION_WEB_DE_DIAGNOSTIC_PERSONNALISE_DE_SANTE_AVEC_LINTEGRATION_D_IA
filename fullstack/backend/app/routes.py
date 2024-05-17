@@ -102,6 +102,20 @@ def update_user(user_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
  
+@app.route('/api/delete_user/<user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    try:
+        # Delete the user with the given ID from the 'users' collection
+        deletion_result = mongo.db.users.delete_one({'id': user_id})
+
+        # Check if user exists and has been deleted
+        if deletion_result.deleted_count > 0:
+            return jsonify({'message': 'User deleted successfully'}), 200
+        else:
+            return jsonify({'error': 'User not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 # Personal
 @app.route('/api/create_personal', methods=['POST'])
 def create_personal():

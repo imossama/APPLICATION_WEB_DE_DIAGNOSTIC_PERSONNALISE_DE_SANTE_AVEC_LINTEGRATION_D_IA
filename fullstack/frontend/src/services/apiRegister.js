@@ -12,7 +12,7 @@ const apiRegister = {
       const data = await response.json();
       return data; // If email exists, data will contain information related to it, otherwise it will be empty
     } catch (error) {
-      console.error("Error checking email existence:", error);
+      // console.error("Error checking email existence:", error);
       throw new Error("An error occurred while checking email existence");
     }
   },
@@ -40,7 +40,7 @@ const apiRegister = {
 
       return registeredUserData;
     } catch (error) {
-      console.error("Error registering user:", error);
+      // console.error("Error registering user:", error);
       throw new Error(
         "Une erreur s'est produite lors de l'enregistrement de l'utilisateur"
       );

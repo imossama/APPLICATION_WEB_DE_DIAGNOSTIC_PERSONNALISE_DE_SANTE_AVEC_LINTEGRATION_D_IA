@@ -64,7 +64,7 @@ const SequentialFlow = () => {
       const response = await sendDatatoServer(jsonData, step);
       setResponseData(response);
     } catch (error) {
-      console.error("Error:", error.message);
+      // console.error("Error:", error.message);
     } finally {
       setLoading(false);
     }
