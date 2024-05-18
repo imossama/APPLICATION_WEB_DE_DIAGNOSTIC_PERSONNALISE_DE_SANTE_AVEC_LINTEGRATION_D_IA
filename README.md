@@ -4,10 +4,10 @@ Ce document décrit les spécifications fonctionnelles et non fonctionnelles de 
 
 ## Table des Matières
 
-1. [Introduction](#introduction)
-2. [Spécifications fonctionnelles](#spécifications-fonctionnelles)
-3. [Spécifications non fonctionnelles](#spécifications-non-fonctionnelles)
-4. [Conclusion](#conclusion)
+- [Introduction](#introduction)
+- [Spécifications fonctionnelles](#spécifications-fonctionnelles)
+- [Spécifications non fonctionnelles](#spécifications-non-fonctionnelles)
+- [Conclusion](#conclusion)
 
 ## Introduction <a name="introduction"></a>
 
