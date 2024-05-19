@@ -1,4 +1,4 @@
-### Cahier des charges de l'application web santéia
+### Cahier des charges :
 
 ---
 
