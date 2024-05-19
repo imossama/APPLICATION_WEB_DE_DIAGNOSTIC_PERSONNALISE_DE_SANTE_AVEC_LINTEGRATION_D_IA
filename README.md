@@ -13,6 +13,10 @@
     <td>OSSAMA ETTAQAFI</td>
   </tr>
   <tr>
+    <td>Langage</td>
+    <td>Français</td>
+  </tr>
+  <tr>
     <td>Capture d'écran de l'application</td>
     <td align="center">
       <a href="https://drive.google.com/drive/folders/1aLBFt5UoC0-DMdON78erqGXDo01XEbpL?usp=sharing" target="_blank">
