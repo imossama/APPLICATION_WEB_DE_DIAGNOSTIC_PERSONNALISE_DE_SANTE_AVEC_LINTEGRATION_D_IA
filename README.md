@@ -49,10 +49,10 @@
 - [Spécifications non fonctionnelles](#spécifications-non-fonctionnelles)
 - [Conclusion](#conclusion)
 
-#### Introduction:
+#### Introduction
 Ce document présente les spécifications fonctionnelles et non fonctionnelles de l'application web Santéia. Santéia permet aux utilisateurs d'évaluer leur santé mentale et physique via des questionnaires IA pour obtenir un diagnostic personnalisé.
 
-#### Spécifications fonctionnelles:
+#### Spécifications fonctionnelles
 - **Outils Utilisés:** React, Flask, MongoDB, Gemini API.
 - **Authentification:** Inscription et connexion des utilisateurs.
 - **Questionnaires:** Générés dynamiquement, présentés convivialement via React.
@@ -60,11 +60,11 @@ Ce document présente les spécifications fonctionnelles et non fonctionnelles d
 - **Diagnostic Personnalisé:** Retourné au frontend de manière claire avec des recommandations spécifiques.
 - **Interface Utilisateur:** Développée avec React pour une expérience intuitive.
 
-#### Spécifications non fonctionnelles:
+#### Spécifications non fonctionnelles
 - **Confidentialité des Données:** Stockage sécurisé dans MongoDB, cryptage des données personnelles.
 - **Sécurité:** Communications HTTPS, chiffrement des données sensibles.
 - **Performances:** Évolutivité assurée par React et Flask, optimisation des temps de réponse.
 - **Extensibilité:** Architecture modulaire pour ajouter de nouvelles fonctionnalités, déploiement facile des mises à jour.
 
-#### Conclusion:
+#### Conclusion
 En suivant ces spécifications, Santéia offrira une expérience utilisateur robuste, sécurisée et efficace, répondant aux besoins d'évaluation de santé mentale et physique grâce à React, Flask, MongoDB et l'API Gemini.
