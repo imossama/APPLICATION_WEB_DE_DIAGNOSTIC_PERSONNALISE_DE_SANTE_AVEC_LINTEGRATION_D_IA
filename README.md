@@ -1,82 +1,63 @@
-# Cahier des charges de l'application web santéia
+### Cahier des charges de l'application web santéia
 
-Ce document décrit les spécifications fonctionnelles et non fonctionnelles de l'application web santéia. Cette application permettra aux utilisateurs de différents domaines d'évaluer leur santé mentale et physique à travers des questionnaires générés par une Intelligence Artificielle (IA), et de recevoir un diagnostic personnalisé en fonction de leurs réponses.
+---
 
-## Table des Matières
+<h4 align="center">Détails du projet</h4>
+<table align="center">
+  <tr>
+    <th>Description</th>
+    <th>Détails</th>
+  </tr>
+  <tr>
+    <td>Developpeur</td>
+    <td>OSSAMA ETTAQAFI</td>
+  </tr>
+  <tr>
+    <td>Capture d'écran de l'application</td>
+    <td align="center">
+      <a href="https://drive.google.com/drive/folders/1aLBFt5UoC0-DMdON78erqGXDo01XEbpL?usp=sharing" target="_blank">
+        <img src="https://www.gstatic.com/images/icons/material/product/2x/drive_48dp.png" alt="Google Drive d'Ossama" width="30" title="Voir les captures d'écran de l'interface">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>Outils</td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=react,flask,mongodb" alt="React, Flask, MongoDB" height="30"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" height="30" alt="Google Gemini" />
+    </td>
+  </tr>
+  <tr>
+    <td>Date de développement</td>
+    <td>11/04/2024 - 19/05/2024</td>
+  </tr>
+</table>
+
+---
+
+#### Table des Matières
 
 - [Introduction](#introduction)
 - [Spécifications fonctionnelles](#spécifications-fonctionnelles)
 - [Spécifications non fonctionnelles](#spécifications-non-fonctionnelles)
 - [Conclusion](#conclusion)
 
-## Introduction <a name="introduction"></a>
+#### Introduction:
+Ce document présente les spécifications fonctionnelles et non fonctionnelles de l'application web Santéia. Santéia permet aux utilisateurs d'évaluer leur santé mentale et physique via des questionnaires IA pour obtenir un diagnostic personnalisé.
 
-Ce document décrit les spécifications fonctionnelles et non fonctionnelles de l'application web santéia. Cette application permettra aux utilisateurs de différents domaines d'évaluer leur santé mentale et physique à travers des questionnaires générés par une Intelligence Artificielle (IA), et de recevoir un diagnostic personnalisé en fonction de leurs réponses.
+#### Spécifications fonctionnelles:
+- **Outils Utilisés:** React, Flask, MongoDB, Gemini API.
+- **Authentification:** Inscription et connexion des utilisateurs.
+- **Questionnaires:** Générés dynamiquement, présentés convivialement via React.
+- **Analyse des Réponses:** Envoyées au backend Flask pour analyse par l'IA via Gemini.
+- **Diagnostic Personnalisé:** Retourné au frontend de manière claire avec des recommandations spécifiques.
+- **Interface Utilisateur:** Développée avec React pour une expérience intuitive.
 
-## Spécifications fonctionnelles <a name="spécifications-fonctionnelles"></a>
+#### Spécifications non fonctionnelles:
+- **Confidentialité des Données:** Stockage sécurisé dans MongoDB, cryptage des données personnelles.
+- **Sécurité:** Communications HTTPS, chiffrement des données sensibles.
+- **Performances:** Évolutivité assurée par React et Flask, optimisation des temps de réponse.
+- **Extensibilité:** Architecture modulaire pour ajouter de nouvelles fonctionnalités, déploiement facile des mises à jour.
 
-### Outils utilisés <a name="outils-utilisés"></a>
-
-#### React
-React est une bibliothèque JavaScript open-source utilisée pour construire des interfaces utilisateur, en particulier des interfaces utilisateur pour les applications web. Voici quelques points clés sur l'utilisation de React dans notre projet :
-- **Composants réutilisables**: React permet de créer des composants réutilisables, ce qui facilite la construction d'une interface utilisateur modulaire et extensible.
-- **Virtual DOM**: React utilise un Virtual DOM pour améliorer les performances en minimisant les manipulations directes du DOM.
-- **Écosystème robuste**: React est soutenu par un écosystème de bibliothèques et d'outils (comme Redux pour la gestion de l'état) qui facilitent le développement d'applications complexes.
-
-#### Flask
-Flask est un framework web léger écrit en Python. Il est principalement utilisé pour construire des API web. Voici comment nous utiliserons Flask dans notre projet :
-- **API RESTful**: Flask permet de créer facilement des API RESTful, ce qui sera utilisé pour la communication entre le frontend et le backend de notre application.
-- **Extensibilité**: Flask est hautement extensible grâce à son architecture modulaire. Nous pourrons facilement intégrer de nouvelles fonctionnalités ou des extensions tierces selon les besoins du projet.
-- **Facilité d'apprentissage**: Flask est connu pour sa courbe d'apprentissage douce, ce qui le rend idéal pour les petits et moyens projets où la simplicité et la flexibilité sont importantes.
-
-#### MongoDB
-MongoDB est une base de données NoSQL, orientée document, conçue pour le développement et le déploiement d'applications hautement évolutives. Voici comment nous l'utiliserons dans notre projet :
-- **Stockage flexible des données**: MongoDB stocke les données au format JSON-like, ce qui permet une flexibilité maximale dans la modélisation des données.
-- **Scalabilité horizontale**: MongoDB est conçu pour être hautement évolutif, ce qui signifie que nous pourrons facilement faire évoluer notre application pour gérer un volume croissant de données et de trafic.
-- **Haute disponibilité**: MongoDB offre des fonctionnalités de réplication et de tolérance aux pannes pour assurer une disponibilité élevée de nos données.
-
-#### GeminiAI API
-GeminiAI est une API qui utilise l'intelligence artificielle pour l'analyse de texte. Nous utiliserons cette API pour la génération et l'analyse des réponses des utilisateurs aux questionnaires et la génération de diagnostics personnalisés. Voici quelques points importants :
-- **Analyse sémantique**: GeminiAI utilise des techniques d'analyse sémantique avancées pour comprendre le sens des textes fournis en entrée.
-- **Modèle de langage pré-entraîné**: L'API dispose d'un modèle de langage pré-entraîné qui peut être adapté à nos besoins spécifiques pour une analyse précise des réponses des utilisateurs.
-- **Facilité d'intégration**: GeminiAI offre une API simple et bien documentée, ce qui facilitera son intégration avec notre application.
-
-### Authentification <a name="authentification"></a>
-- Les utilisateurs doivent pouvoir s'inscrire et se connecter à l'application.
-
-### Questionnaires <a name="questionnaires"></a>
-- Les questionnaires doivent être générés dynamiquement en fonction des besoins de l'utilisateur.
-- Les questions seront présentées de manière interactive et conviviale grâce à React.
-
-### Analyse des réponses <a name="analyse-des-réponses"></a>
-- Les réponses aux questionnaires seront envoyées au backend Flask pour analyse.
-- L'IA sera intégrée à l'aide de l'API GeminiAI pour analyser les réponses et générer un diagnostic.
-
-### Diagnostic personnalisé <a name="diagnostic-personnalisé"></a>
-- Le diagnostic généré par l'IA sera retourné au frontend et présenté à l'utilisateur de manière claire et compréhensible.
-- Des recommandations spécifiques seront fournies en fonction du diagnostic.
-
-### Interface utilisateur <a name="interface-utilisateur"></a>
-- L'interface utilisateur sera développée à l'aide de React pour offrir une expérience utilisateur intuitive et interactive.
-- Les questionnaires, le diagnostic et les recommandations seront présentés de manière attrayante et conviviale.
-
-## Spécifications non fonctionnelles <a name="spécifications-non-fonctionnelles"></a>
-
-### Confidentialité des données <a name="confidentialité-des-données"></a>
-- Toutes les données des utilisateurs seront stockées de manière sécurisée dans MongoDB.
-- Les données personnelles seront cryptées avant d'être stockées.
-
-### Sécurité <a name="sécurité"></a>
-- Les communications entre le frontend et le backend seront sécurisées à l'aide de HTTPS.
-- Les données sensibles transmises entre les composants seront chiffrées.
-
-### Performances <a name="performances"></a>
-- L'application sera conçue pour gérer un grand nombre d'utilisateurs simultanément grâce à l'évolutivité offerte par React et Flask.
-- Les temps de réponse seront optimisés pour assurer une expérience utilisateur fluide.
-
-### Extensibilité <a name="extensibilité"></a>
-- L'architecture de l'application sera modulaire et extensible pour permettre l'ajout de nouvelles fonctionnalités à l'avenir.
-- Les mises à jour et les corrections de bugs pourront être déployées facilement sans perturber le fonctionnement de l'application.
-
-## Conclusion <a name="conclusion"></a>
-En respectant les spécifications fonctionnelles et non fonctionnelles décrites dans ce document, l'application web santéia pourra offrir une expérience utilisateur robuste, sécurisée et efficace. L'utilisation de React, Flask, MongoDB et l'API GeminiAI permettra de développer une application moderne et performante, répondant aux besoins des utilisateurs en matière d'évaluation de leur santé mentale et physique.
+#### Conclusion:
+En suivant ces spécifications, Santéia offrira une expérience utilisateur robuste, sécurisée et efficace, répondant aux besoins d'évaluation de santé mentale et physique grâce à React, Flask, MongoDB et l'API Gemini.
