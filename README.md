@@ -1,4 +1,7 @@
 <h3 align="center">CAHIER DES CHARGES</h3>
+<h6 align="center">
+  Ce document décrit les spécifications fonctionnelles et non fonctionnelles de l'application web Santéia. Il détaille comment Santéia permet aux utilisateurs d'évaluer leur santé mentale et physique à travers des questionnaires générés par une intelligence artificielle. En respectant ces spécifications, l'application offrira une expérience utilisateur moderne, sécurisée et efficace, répondant aux besoins croissants dans le domaine de la santé.
+</h6>
 
 ---
 
