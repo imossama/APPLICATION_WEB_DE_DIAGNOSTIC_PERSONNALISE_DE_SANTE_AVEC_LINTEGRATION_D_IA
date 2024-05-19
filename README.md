@@ -1,4 +1,4 @@
-### Cahier des charges :
+<h3 align="center">CAHIER DES CHARGES</h3>
 
 ---
 
