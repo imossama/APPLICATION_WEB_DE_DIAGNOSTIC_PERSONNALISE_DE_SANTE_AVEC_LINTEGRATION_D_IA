@@ -1,6 +1,6 @@
 <h3 align="center">CAHIER DES CHARGES</h3>
 <h6 align="center">
-Ce document présente les spécifications de l'application web Santéia, qui évalue la santé mentale et physique des utilisateurs grâce à des questionnaires générés par IA. L'application offrira une expérience utilisateur moderne, sécurisée et efficace, répondant aux besoins croissants en matière de santé.
+Ce document présente les spécifications de l'application web SantéIA, qui évalue la santé mentale et physique des utilisateurs grâce à des questionnaires générés par IA. L'application offrira une expérience utilisateur moderne, sécurisée et efficace, répondant aux besoins croissants en matière de santé.
 </h6>
 
 ---
@@ -50,7 +50,7 @@ Ce document présente les spécifications de l'application web Santéia, qui év
 - [Conclusion](#conclusion)
 
 #### Introduction
-Ce document présente les spécifications fonctionnelles et non fonctionnelles de l'application web Santéia. Santéia permet aux utilisateurs d'évaluer leur santé mentale et physique via des questionnaires IA pour obtenir un diagnostic personnalisé.
+Ce document présente les spécifications fonctionnelles et non fonctionnelles de l'application web SantéIA. SantéIA permet aux utilisateurs d'évaluer leur santé mentale et physique via des questionnaires IA pour obtenir un diagnostic personnalisé.
 
 #### Spécifications fonctionnelles
 - **Outils Utilisés:** React, Flask, MongoDB, Gemini API.
@@ -67,4 +67,4 @@ Ce document présente les spécifications fonctionnelles et non fonctionnelles d
 - **Extensibilité:** Architecture modulaire pour ajouter de nouvelles fonctionnalités, déploiement facile des mises à jour.
 
 #### Conclusion
-En suivant ces spécifications, Santéia offrira une expérience utilisateur robuste, sécurisée et efficace, répondant aux besoins d'évaluation de santé mentale et physique grâce à React, Flask, MongoDB et l'API Gemini.
+En suivant ces spécifications, SantéIA offrira une expérience utilisateur robuste, sécurisée et efficace, répondant aux besoins d'évaluation de santé mentale et physique grâce à React, Flask, MongoDB et l'API Gemini.
