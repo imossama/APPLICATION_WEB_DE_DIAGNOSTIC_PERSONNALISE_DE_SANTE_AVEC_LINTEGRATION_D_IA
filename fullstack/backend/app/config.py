@@ -1,6 +1,10 @@
 # app/config.py
 
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from a .env file
+load_dotenv()
 
 # MongoDB configuration
-MONGO_URI = os.environ.get('MONGO_URI') or 'mongodb://localhost:27017/santeia'
+MONGO_URI = os.getenv('MONGO_URI')
