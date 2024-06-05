@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:5000/api";
+const apiUrl = "https://oussama-backend-2r2lfrmw2a-uc.a.run.app/api";
 
 const sendDatatoServer = async (formData, step) => {
   try {
