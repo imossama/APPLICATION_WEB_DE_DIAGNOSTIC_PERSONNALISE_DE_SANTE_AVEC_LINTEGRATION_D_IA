@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // Import Local JS functions
 import $ from "jquery";
 import customScript from "./assets/js/custom.js";
+import owlScript from "./assets/js/owl-carousel.js";
 
 $(document).ready(function () {
   customScript();
+  owlScript();
 });
 
 // Import the Font Awesome CSS file
