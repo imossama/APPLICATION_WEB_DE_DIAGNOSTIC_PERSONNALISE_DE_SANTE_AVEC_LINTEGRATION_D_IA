@@ -4,11 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // Import Local JS functions
 import $ from "jquery";
 import customScript from "./assets/js/custom.js";
-import owlScript from "./assets/js/owl-carousel.js";
 
 $(document).ready(function () {
   customScript();
-  owlScript();
 });
 
 // Import the Font Awesome CSS file
@@ -33,7 +31,6 @@ import SequentialFlow from "./pages/SequentialFlow.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import UpperContact from "./components/UpperContact/UpperContact.jsx";
 import Footer from "./components/Footer/Footer.jsx";
-
 import PrivateRoute from "./components/PrivateRoute";
 import IsUnlogged from "./components/IsUnlogged";
 

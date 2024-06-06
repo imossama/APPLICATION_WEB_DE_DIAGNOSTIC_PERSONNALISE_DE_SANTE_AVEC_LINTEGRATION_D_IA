@@ -1,8 +1,15 @@
 # app/models.py
 
-from app import mongo
+# from app import mongo
+import os
 import shortuuid
+from pymongo import MongoClient
 from app.tools.qr_code import generate_qr_code
+
+mongo_uri = os.getenv('MONGO_URI')
+client = MongoClient(mongo_uri)
+db = client['test']
+mongo = db  # Set the `mongo` object to the database instance
 
 class User:
     def __init__(self, email, password):
