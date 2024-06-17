@@ -1,4 +1,4 @@
-const apiUrl = "http://127.0.0.1:8080/api"; // Replace this with your API URL
+const apiUrl = "https://oussama-backend-2r2lfrmw2a-uc.a.run.app/api"; // Replace this with your API URL
 
 export const fetchData = async () => {
   try {
