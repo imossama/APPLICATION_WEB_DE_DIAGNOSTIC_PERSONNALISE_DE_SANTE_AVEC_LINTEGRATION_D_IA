@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { setUserIdToLocalStorage } from "../services/logged_userId";
+import { AuthContext } from "../components/AuthContext"; // Importing AuthContext
 
 import Loading from "../components/Loading/Loading";
 
@@ -11,6 +13,7 @@ import apiRegister from "../services/apiRegister";
 
 export default function Register() {
   const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext); // Using AuthContext
 
   useEffect(() => {
     // Update the document title
@@ -43,7 +46,8 @@ export default function Register() {
       errors.email = "Adresse email invalide.";
     }
     if (!password || password.length < 6) {
-      errors.password = "Le mot de passe doit contenir au moins 6 caractères.";
+      errors.password =
+        "Le mot de passe doit contenir au moins 6 caractères.";
     }
     if (password !== confirmPassword) {
       errors.confirmPassword = "Les mots de passe ne correspondent pas.";
@@ -57,15 +61,20 @@ export default function Register() {
       const emailExists = await apiRegister.checkEmailExists(email);
       if (emailExists != null) {
         setErrors({
-          email: "L'email existe déjà. Veuillez utiliser un autre email.",
+          email:
+            "L'email existe déjà. Veuillez utiliser un autre email.",
         }); // Set error message if email exists
       } else {
         // Form submission logic here (e.g., send data to server)
-        // console.log("Form submitted:", formData);
-
-        await apiRegister.register({ email, password }); // Use userService to register user
+        const registeredUserData = await apiRegister.register({
+          email,
+          password,
+        });
         // Optionally, you can redirect the user to the login page or show a success message
-        // console.log("User registered successfully.");
+        setUserIdToLocalStorage(registeredUserData.user_id);
+
+        // Update isLoggedIn state in AuthContext
+        setIsLoggedIn(true);
 
         // Redirect to the desired route
         navigate("/community");
@@ -77,6 +86,13 @@ export default function Register() {
       );
     }
   };
+
+  // If user is already logged in, redirect them
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/community");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -94,12 +110,12 @@ export default function Register() {
                         <h6>Bienvenue dans notre application</h6>
                         <h2>S'inscrire</h2>
                         <p>
-                          Si vous avez un compte, vous pouvez se connecter.
-                          Cliquez simplement sur le bouton ci-dessous.{" "}
+                          Si vous avez un compte, vous pouvez vous connecter.
+                          Cliquez simplement sur le bouton ci-dessous.
                         </p>
                       </div>
                       <div className="col-lg-12">
-                        <div className="border-first-button scroll-to-section">
+                        <div className="border-first-button">
                           <Link to="/login">Se connecter</Link>
                         </div>
                       </div>
@@ -183,15 +199,13 @@ export default function Register() {
                               </div>
 
                               <div className="col-lg-4">
-                                <fieldset>
-                                  <button
-                                    type="submit"
-                                    id="form-submit"
-                                    className="btn btn-primary"
-                                  >
-                                    S'inscrire
-                                  </button>
-                                </fieldset>
+                                <button
+                                  type="submit"
+                                  id="form-submit"
+                                  className="btn btn-primary show-up"
+                                >
+                                  S'inscrire
+                                </button>
                               </div>
                             </div>
                           </div>

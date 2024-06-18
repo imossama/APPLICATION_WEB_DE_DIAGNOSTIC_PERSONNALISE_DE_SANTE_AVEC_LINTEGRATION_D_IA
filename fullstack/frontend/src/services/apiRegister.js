@@ -1,6 +1,4 @@
-import { setUserIdToLocalStorage } from "./logged_userId";
-
-const apiUrl = "https://oussama-backend-2r2lfrmw2a-uc.a.run.app/api";
+const apiUrl = "http://127.0.0.1:8080/api";
 
 const apiRegister = {
   async checkEmailExists(email) {
@@ -32,11 +30,6 @@ const apiRegister = {
       }
 
       const registeredUserData = await response.json();
-      const userId = registeredUserData.user_id; // Assuming the response includes the user_id field
-
-      // console.log(userId);
-
-      setUserIdToLocalStorage(userId); // Store the user ID in local storage
 
       return registeredUserData;
     } catch (error) {

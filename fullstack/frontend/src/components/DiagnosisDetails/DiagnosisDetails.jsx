@@ -50,7 +50,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
     }
 
     // Add QR code image
-    const qrCodeData = "http://localhost:5000/" + diagnostic.qr_code;
+    const qrCodeData = "http://127.0.0.1:8080/" + diagnostic.qr_code;
     doc.addImage(qrCodeData, "PNG", 15, 55, 50, 50);
 
     // Add Personal Data
@@ -296,7 +296,7 @@ export default function DiagnosisDetails({ type, diagnosticData }) {
                 <div className="row">
                   <div className="col-lg-6">
                     <h4>QR Code</h4>
-                    <img src={"http://localhost:5000/" + diagnostic.qr_code} />
+                    <img src={"http://127.0.0.1:8080/" + diagnostic.qr_code} />
                   </div>
                 </div>
               </div>

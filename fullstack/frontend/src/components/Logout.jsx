@@ -1,24 +1,28 @@
-import React, { useEffect } from "react";
+// Logout.jsx
+
+import React, { useEffect, useContext } from "react";
 import { clearUserIdFromLocalStorage } from "../services/logged_userId";
 import { useNavigate } from "react-router-dom";
-import Loading from "./Loading/Loading";
+import { AuthContext } from "../components/AuthContext"; // Make sure this path is correct
 
 const Logout = () => {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(AuthContext); // Assuming you are using useContext to access AuthContext
 
   useEffect(() => {
-    // Function to clear user ID from local storage and navigate to login page
-    const logoutAndNavigate = () => {
-      clearUserIdFromLocalStorage();
-      navigate("/login");
+    const handleLogout = async () => {
+      try {
+        await clearUserIdFromLocalStorage();
+        setIsLoggedIn(false); // Example usage of setIsLoggedIn from AuthContext
+        navigate("/login");
+      } catch (error) {
+        console.error("Error during logout:", error);
+        // Handle any error condition, maybe show an error message or retry logic
+      }
     };
 
-    // Call the logout function when the component mounts
-    logoutAndNavigate();
-  }, [navigate]); // Ensure navigate is added as a dependency to useEffect
-
-  // Render nothing, since the navigation happens inside useEffect
-  return <Loading />;
+    handleLogout();
+  }, [navigate, setIsLoggedIn]);
 };
 
 export default Logout;

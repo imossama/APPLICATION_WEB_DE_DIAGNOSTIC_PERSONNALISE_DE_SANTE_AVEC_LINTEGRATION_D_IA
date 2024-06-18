@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../components/AuthContext"; // Importing AuthContext
 
 import Loading from "../components/Loading/Loading";
 
@@ -12,6 +13,7 @@ import { setUserIdToLocalStorage } from "../services/logged_userId";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext); // Using AuthContext
 
   useEffect(() => {
     // Update the document title
@@ -20,7 +22,7 @@ export default function Login() {
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const [loginError, setLoginError] = useState(""); // New state for login error
+  const [loginError, setLoginError] = useState(""); // State for login error
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +32,6 @@ export default function Login() {
   };
 
   const handleSubmit = async (e) => {
-    // Make handleSubmit asynchronous
     e.preventDefault();
     // Perform validation
     const { email, password } = formData;
@@ -39,7 +40,8 @@ export default function Login() {
       errors.email = "Adresse email invalide";
     }
     if (!password || password.length < 6) {
-      errors.password = "Le mot de passe doit contenir au moins 6 caractères.";
+      errors.password =
+        "Le mot de passe doit contenir au moins 6 caractères.";
     }
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
@@ -49,23 +51,32 @@ export default function Login() {
       const user = await apiLogin.login(email, password); // Use apiLogin to check credentials
       if (user) {
         // Login successful, handle further actions (e.g., redirect to dashboard)
-        // console.log("Login successful:", user);
         setUserIdToLocalStorage(user.id);
+
+        // Update isLoggedIn state in AuthContext
+        setIsLoggedIn(true);
 
         // Redirect to the desired route
         navigate("/community");
+
       } else {
         // Login failed, set login error message
         setLoginError("Email ou mot de passe invalide.");
       }
     } catch (error) {
-      // console.error("Error during login:", error);
       // Handle error if login service fails
       setLoginError(
         "Une erreur s'est produite pendant la connexion. Veuillez réessayer plus tard."
       );
     }
   };
+
+  // If user is already logged in, redirect them
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/community");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -89,7 +100,7 @@ export default function Login() {
                         </p>
                       </div>
                       <div className="col-lg-12">
-                        <div className="border-first-button scroll-to-section">
+                        <div className="border-first-button">
                           <Link to="/register">S'inscrire</Link>
                         </div>
                       </div>
@@ -119,7 +130,6 @@ export default function Login() {
                                     placeholder="Votre e-mail"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    // required
                                   />
                                   {errors.email && (
                                     <div className="invalid-feedback">
@@ -138,7 +148,6 @@ export default function Login() {
                                     placeholder="Votre mot de passe"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    // required
                                   />
                                   {errors.password && (
                                     <div className="invalid-feedback">
@@ -154,15 +163,13 @@ export default function Login() {
                               </div>
 
                               <div className="col-lg-4">
-                                <fieldset>
-                                  <button
-                                    type="submit"
-                                    id="form-submit"
-                                    className="btn btn-primary"
-                                  >
-                                    Se connecter
-                                  </button>
-                                </fieldset>
+                                <button
+                                  type="submit"
+                                  id="form-submit"
+                                  className="btn btn-primary show-up"
+                                >
+                                  Se connecter
+                                </button>
                               </div>
                             </div>
                           </div>

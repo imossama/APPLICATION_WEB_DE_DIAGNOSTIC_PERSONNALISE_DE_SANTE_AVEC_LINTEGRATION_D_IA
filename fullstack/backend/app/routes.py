@@ -2,12 +2,15 @@
 
 import os
 import logging
+import json
+import datetime
 from app import app, mongo
 from pymongo import MongoClient
 from flask import jsonify, request
 from app.models import User, Diagnosis, Personal
 from app.tools.format_json import format_data, extract_data_and_questions
 from app.tools.qcm_ai import generate_json_qcm, generate_json_diag
+import re
 
 # Set up logging
 logging.basicConfig(level=logging.ERROR)
@@ -209,34 +212,51 @@ def render_qcm():
             return jsonify({'error': 'No response received within the timeout period'}), 500
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+
+def extract_user_id(json_string):
+    try:
+        # Use a regular expression to find the userId value
+        match = re.search(r'"userId"\s*:\s*"([^"]+)"', json_string)
+        if match:
+            return match.group(1)
+        else:
+            return None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
 @app.route('/api/render_diagnostic', methods=['POST'])
 def render_diagnostic():
     try:
         if not request.is_json:
             return jsonify({'error': 'Request must be JSON.'}), 400
 
-        data = extract_data_and_questions(request.json)
-        userId = request.json.get('userId')
-                    
+        request_data = request.get_json()
+
+        # Extract the userId
+        user_id = extract_user_id(request_data)
+        data = extract_data_and_questions(request_data)         
         response = generate_json_diag(data)
-        
+
         if response:
-            response_data = json.loads(response.replace('```json', '').replace('```', ''))['diagnostic']
-            current_date = datetime.datetime.now()
-            userId = userId
+            # Clean up the response if it contains Markdown-style JSON
+            json_data = response.replace('```json', '').replace('```', '')
+            response_data = json.loads(json_data)['diagnostic']
+
+            current_date = datetime.datetime.now().strftime("%m/%d/%Y")
             title = response_data.get('title')
-            date = current_date.strftime("%m/%d/%Y")
             description = response_data.get('description')
             symptoms = response_data.get('symptoms')
             advice = response_data.get('advice')
             medicines = response_data.get('medicines')
-            
-            diagnosis = Diagnosis(userId, title, date, description, symptoms, advice, medicines)
-            
+
+            # Create a Diagnosis object
+            diagnosis = Diagnosis(user_id, title, current_date, description, symptoms, advice, medicines)
+
+            # Save diagnosis to database
             if diagnosis.save_to_db():
                 saved_diagnosis_data = {
-                    'id' : diagnosis.id,
+                    'id': diagnosis.id,
                     'title': diagnosis.title,
                     'date': diagnosis.date,
                     'qr_code': diagnosis.qr_code,
@@ -245,10 +265,23 @@ def render_diagnostic():
                     'advice': diagnosis.advice,
                     'medicines': diagnosis.medicines
                 }
-                return jsonify({'diagnostic': saved_diagnosis_data }), 200
+
+                print(saved_diagnosis_data)
+
+                return jsonify({'diagnostic': saved_diagnosis_data}), 200
             else:
-                return jsonify({'error': 'Failed to save diagnosis'}), 500
+                error_message = 'Failed to save diagnosis to the database'
+                print(error_message)
+                return jsonify({'error': error_message}), 500
         else:
-            return jsonify({'error': 'No response received within the timeout period'}), 500
+            error_message = 'No response received within the timeout period'
+            print(error_message)
+            return jsonify({'error': error_message}), 500
+    except json.JSONDecodeError as e:
+        error_message = f'JSON decoding error: {str(e)}'
+        print(error_message)
+        return jsonify({'error': error_message}), 500
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        error_message = f'Unexpected error: {str(e)}'
+        print(error_message)
+        return jsonify({'error': error_message}), 500

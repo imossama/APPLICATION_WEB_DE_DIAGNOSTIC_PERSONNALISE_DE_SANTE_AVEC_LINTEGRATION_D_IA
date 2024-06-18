@@ -61,15 +61,22 @@ def generate_json_qcm(data):
     return wait_for_response(convo)
   
 def generate_json_diag(data):    
-  # Define the message to send
-  message = (
-      "À partir de ces données : "
-      + data
-      + "\nGénérer un JSON contenant les informations de diagnostic, structurées comme suit : Description détaillée du diagnostic, symptômes, conseils basés sur le diagnostic, et des médicaments recommandés (nom du médicament, et lien vers des informations supplémentaires). Assurez-vous que le JSON est correctement formaté et que toutes les informations nécessaires sont incluses avec précision. Le JSON doit être sur une seule ligne pour faciliter la conversion de String à JSON. De plus, l'IA doit rechercher sur internet les médicaments nécessaires pour les symptômes spécifiques, récupérer les données pertinentes (nom, lien) et les inclure dans le JSON généré. Les données générées doivent être brèves. Le format JSON requis est le suivant : "
-      '{ "diagnostic": {"title": "", "description": "", "symptoms": "", "advice": "", "medicines": []} }'
-  )
+    # Define the message to send
+    message = (
+        "À partir de ces données : "
+        + data
+        + "\nGénérer un JSON contenant les informations de diagnostic, structurées comme suit : "
+        + "Description détaillée du diagnostic, symptômes, conseils basés sur le diagnostic, "
+        + "et des médicaments recommandés (nom du médicament, et lien vers des informations supplémentaires). "
+        + "Assurez-vous que le JSON est correctement formaté et que toutes les informations nécessaires sont incluses avec précision. "
+        + "Le JSON doit être sur une seule ligne pour faciliter la conversion de String à JSON. "
+        + "De plus, l'IA doit rechercher sur internet les médicaments nécessaires pour les symptômes spécifiques, "
+        + "récupérer les données pertinentes (nom, lien) et les inclure dans le JSON généré. "
+        + "Les données générées doivent être brèves. Le format JSON requis est le suivant : "
+        + '{ "diagnostic": {"title": "", "description": "", "symptoms": "", "advice": "", "medicines": []} }'
+    )
 
-  # Send the message to the conversation
-  convo.send_message(message)
+    # Send the message to the conversation
+    convo.send_message(message)
 
-  return wait_for_response(convo)
+    return wait_for_response(convo)

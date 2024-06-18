@@ -591,24 +591,9 @@ header
   color: #4da6e7;
 }
 
-.border-first-button a {
-  display: inline-block !important;
-  color: #4da6e7 !important;
-  border: 1px solid #4da6e7 !important;
-  border-radius: 23px;
-  font-weight: 500 !important;
-  letter-spacing: 0.3px !important;
-  transition: all 0.5s;
-}
-
 .col-lg-12 .border-first-button a,
 .bottom-content .border-first-button a {
   padding: 10px 20px !important;
-}
-
-.border-first-button a:hover {
-  background-color: #4da6e7 !important;
-  color: #fff !important;
 }
 
 @media (max-width: 1200px) {
@@ -2339,4 +2324,19 @@ li:has(.border-first-button) {
 
 .delete-account-text:hover {
   text-decoration: underline; /* Example hover effect */
+}
+
+.border-first-button a {
+  display: inline-block !important;
+  color: #4da6e7 !important;
+  border: 1px solid #4da6e7 !important;
+  border-radius: 23px;
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.5s;
+}
+
+.border-first-button a:hover {
+  background-color: #4da6e7 !important;
+  color: #fff !important;
 }

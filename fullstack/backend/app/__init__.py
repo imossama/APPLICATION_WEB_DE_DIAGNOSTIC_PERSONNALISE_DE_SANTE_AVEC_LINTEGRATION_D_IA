@@ -9,7 +9,7 @@ load_dotenv()
 
 app = Flask(__name__, static_folder='../public', static_url_path='/public')
 CORS(app)
-CORS(app, origins=["https://santeia.vercel.app/"])
+CORS(app, origins=["http://localhost:5173/"])
 
 # Load configuration from config.py
 app.config.from_object('app.config')

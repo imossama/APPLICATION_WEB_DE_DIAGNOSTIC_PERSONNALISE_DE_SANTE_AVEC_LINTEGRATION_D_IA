@@ -252,12 +252,33 @@ export default function ProfileSettings() {
                           <div className="row mt-4 d-flex justify-content-center">
                             <div className="col-lg-10">
                               <fieldset>
-                                <div className="delete-account-text-wrapper">
-                                  <span>
+                                <div
+                                  className="delete-account-text-wrapper"
+                                  style={{
+                                    padding: "12px",
+                                    borderRadius: "8px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    border: "1px solid rgba(0, 0, 0, 0.1)",
+                                    transition: "background-color 0.3s ease",
+                                  }}
+                                >
+                                  <span
+                                    style={{
+                                      color: "#212529",
+                                      fontSize: "16px",
+                                    }}
+                                  >
                                     Vous souhaitez supprimer votre compte ?
                                   </span>
                                   <div
-                                    className="delete-account-text"
+                                    className="btn btn-outline-danger btn-sm"
+                                    style={{
+                                      marginLeft: "10px",
+                                      padding: "6px 12px",
+                                      lineHeight: "1.5",
+                                    }}
                                     onClick={() => setShowDeleteModal(true)}
                                   >
                                     Supprimer Compte
@@ -309,8 +330,8 @@ export default function ProfileSettings() {
                 </div>
                 <div className="modal-body">
                   <p>
-                    Veuillez taper "Oui" pour confirmer la
-                    suppression de votre compte.
+                    Veuillez taper "Oui" pour confirmer la suppression de votre
+                    compte.
                   </p>
                   <input
                     type="text"

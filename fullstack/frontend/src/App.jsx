@@ -1,3 +1,4 @@
+// App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -6,7 +7,7 @@ import $ from "jquery";
 import customScript from "./assets/js/custom.js";
 
 $(document).ready(function () {
-  customScript();
+customScript();
 });
 
 // Import the Font Awesome CSS file
@@ -16,33 +17,29 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/css/templatemo-digimedia-v3.css";
 import "./assets/css/owl.css";
 
-// Import Components
+import { AuthProvider } from "./components/AuthContext";
+import Navbar from "./components/Navbar/Navbar";
+import UpperContact from "./components/UpperContact/UpperContact";
+import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import ScrollToElement from "./components/ScrollToElement.jsx";
-import History from "./pages/History.jsx";
-import Community from "./pages/Community.jsx";
-import Details from "./pages/Details.jsx";
-import ProfileSettings from "./pages/ProfileSettings.jsx";
-import Logout from "./components/Logout.jsx";
-import SequentialFlow from "./pages/SequentialFlow.jsx";
-import Navbar from "./components/Navbar/Navbar.jsx";
-import UpperContact from "./components/UpperContact/UpperContact.jsx";
-import Footer from "./components/Footer/Footer.jsx";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import History from "./pages/History";
+import Community from "./pages/Community";
+import Details from "./pages/Details";
+import ProfileSettings from "./pages/ProfileSettings";
+import Logout from "./components/Logout";
 import PrivateRoute from "./components/PrivateRoute";
 import IsUnlogged from "./components/IsUnlogged";
+import SequentialFlow from "./pages/SequentialFlow";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Router>
         <UpperContact />
         <Navbar />
-
-        <ScrollToElement />
-
         <Routes>
           {/* Home Page Routes */}
           <Route path="/" element={<Home />} />
@@ -68,10 +65,6 @@ function App() {
             }
           />
           {/* History Page Route */}
-          <Route path="/history" element={<History />} />
-          {/* Community Page Route */}
-          <Route path="/community" element={<Community />} />
-          {/* Private Routes */}
           <Route
             path="/history"
             element={
@@ -80,6 +73,9 @@ function App() {
               </PrivateRoute>
             }
           />
+          {/* Community Page Route */}
+          <Route path="/community" element={<Community />} />
+          {/* Private Routes */}
           <Route
             path="/details/:id"
             element={
@@ -117,7 +113,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </>
+    </AuthProvider>
   );
 }
 

@@ -47,7 +47,7 @@ function Home() {
                         </p>
                       </div>
                       <div className="col-lg-12">
-                        <div className="border-first-button scroll-to-section">
+                        <div className="border-first-button">
                           <Link to="/diagnostic">Au diagnostic</Link>
                         </div>
                       </div>

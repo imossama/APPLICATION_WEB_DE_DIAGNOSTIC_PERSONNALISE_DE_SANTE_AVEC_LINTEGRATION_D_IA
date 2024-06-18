@@ -1,36 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import { getUserIdFromLocalStorage } from "../../services/logged_userId";
+import { useAuth } from "../AuthContext";
 
 function Navbar() {
-  const [isActive, setIsActive] = useState(false);
-
-  const toggleMenu = () => {
-    setIsActive(!isActive);
-    // Toggling menu display
-    const nav = document.querySelector(".header-area .nav");
-    if (nav) {
-      nav.style.display = isActive ? "none" : "block";
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      // Close the menu if it's open and the window width is greater than 767px
-      if (window.innerWidth > 767 && isActive) {
-        toggleMenu();
-      }
-    };
-
-    // Add event listener for window resize
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup function
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isActive]);
+  const { isLoggedIn } = useAuth();
 
   return (
     <header className="header-area header-sticky">
@@ -43,7 +17,7 @@ function Navbar() {
                   <img src={logo} alt="" />
                 </Link>
               </div>
-              <ul className={`nav ${isActive ? "active" : ""}`}>
+              <ul className="nav">
                 <li className="nav-logo">
                   <Link to="/" className="logo">
                     <img src={logo} alt="" />
@@ -51,44 +25,52 @@ function Navbar() {
                 </li>
                 <div className="centered-nav-items">
                   <li>
-                    <NavLink to="/home" activeclassname="active">Accueil</NavLink>
+                    <NavLink to="/home" activeClassName="active">
+                      Accueil
+                    </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/community" activeclassname="active">Communauté</NavLink>
+                    <NavLink to="/community" activeClassName="active">
+                      Communauté
+                    </NavLink>
                   </li>
-                  {getUserIdFromLocalStorage() == null && (
+                  {!isLoggedIn && (
                     <li>
-                      <NavLink to="/login" activeclassname="active">Login</NavLink>
+                      <NavLink to="/login" activeClassName="active">
+                        Login
+                      </NavLink>
                     </li>
                   )}
-                  {getUserIdFromLocalStorage() != null && (
+                  {isLoggedIn && (
                     <>
                       <li>
-                        <NavLink to="/history" activeclassname="active">Historique</NavLink>
+                        <NavLink to="/history" activeClassName="active">
+                          Historique
+                        </NavLink>
                       </li>
                       <li>
-                        <NavLink to="/settings" activeclassname="active">Settings</NavLink>
+                        <NavLink to="/settings" activeClassName="active">
+                          Settings
+                        </NavLink>
                       </li>
                       <li>
-                        <NavLink to="/logout" activeclassname="active">Logout</NavLink>
+                        <NavLink to="/logout" activeClassName="active">
+                          Logout
+                        </NavLink>
                       </li>
                     </>
                   )}
                 </div>
-                <li className="nav-item">
-                  <div className="border-first-button">
-                    <NavLink to="/diagnostic" className="nav-link" activeclassname="active">
+                <div className="border-first-button">
+                  <NavLink
+                    to="/diagnostic"
+                    className="nav-link"
+                    activeClassName="active"
+                  >
                     Diagnostic
-                    </NavLink>
-                  </div>
-                </li>
+                  </NavLink>
+                </div>
               </ul>
-              <div
-                className={`menu-trigger ${isActive ? "active" : ""}`}
-                onClick={toggleMenu}
-              >
-                <span>Menu</span>
-              </div>
               {/* ***** Menu End ***** */}
             </nav>
           </div>

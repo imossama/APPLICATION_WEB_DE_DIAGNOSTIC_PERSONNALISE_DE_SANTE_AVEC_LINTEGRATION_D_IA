@@ -31,7 +31,7 @@ export default function QcmQuestion({
               value={options[0]}
               onChange={handleResponseChange}
               title={options[0]}
-              // required
+              required
             />
           </div>
           <div className="col">
@@ -42,7 +42,7 @@ export default function QcmQuestion({
               value={options[1]}
               onChange={handleResponseChange}
               title={options[1]}
-              // required
+              required
             />
           </div>
           <div className="col">
@@ -53,7 +53,7 @@ export default function QcmQuestion({
               value={options[2]}
               title={options[2]}
               onChange={handleResponseChange}
-              // required
+              required
             />
           </div>
           <div className="col">
@@ -64,7 +64,7 @@ export default function QcmQuestion({
               value={options[3]}
               title={options[3]}
               onChange={handleResponseChange}
-              // required
+              required
             />
           </div>
           <div className="col">
@@ -75,7 +75,7 @@ export default function QcmQuestion({
               value={options[4]}
               title={options[4]}
               onChange={handleResponseChange}
-              // required
+              required
             />
           </div>
 

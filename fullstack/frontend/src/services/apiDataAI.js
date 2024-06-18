@@ -1,4 +1,4 @@
-const apiUrl = "https://oussama-backend-2r2lfrmw2a-uc.a.run.app/api";
+const apiUrl = "http://127.0.0.1:8080/api";
 
 const sendDatatoServer = async (formData, step) => {
   try {
@@ -11,13 +11,18 @@ const sendDatatoServer = async (formData, step) => {
       body: JSON.stringify(formData),
     };
 
-    // Send the POST request to the server
-    let response;
+    // Determine the endpoint based on the step
+    let endpoint;
     if (step === 4) {
-      response = await fetch(`${apiUrl}/render_qcm`, payload);
+      endpoint = `${apiUrl}/render_qcm`;
     } else if (step === 6) {
-      response = await fetch(`${apiUrl}/render_diagnostic`, payload);
+      endpoint = `${apiUrl}/render_diagnostic`;
+    } else {
+      throw new Error("Invalid step value.");
     }
+
+    // Send the POST request to the server
+    const response = await fetch(endpoint, payload);
 
     // Check if the request was successful
     if (response.ok) {
@@ -27,7 +32,7 @@ const sendDatatoServer = async (formData, step) => {
     } else {
       // Handle the error if the request was not successful
       const errorData = await response.json();
-      throw new Error(errorData.error);
+      throw new Error(errorData.error || "Unknown error occurred");
     }
   } catch (error) {
     // Handle any unexpected errors
