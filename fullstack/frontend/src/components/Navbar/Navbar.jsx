@@ -25,18 +25,18 @@ function Navbar() {
                 </li>
                 <div className="centered-nav-items">
                   <li>
-                    <NavLink to="/home" activeClassName="active">
+                    <NavLink to="/home" activeclassname="active">
                       Accueil
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/community" activeClassName="active">
+                    <NavLink to="/community" activeclassname="active">
                       Communauté
                     </NavLink>
                   </li>
                   {!isLoggedIn && (
                     <li>
-                      <NavLink to="/login" activeClassName="active">
+                      <NavLink to="/login" activeclassname="active">
                         Login
                       </NavLink>
                     </li>
@@ -44,17 +44,17 @@ function Navbar() {
                   {isLoggedIn && (
                     <>
                       <li>
-                        <NavLink to="/history" activeClassName="active">
+                        <NavLink to="/history" activeclassname="active">
                           Historique
                         </NavLink>
                       </li>
                       <li>
-                        <NavLink to="/settings" activeClassName="active">
+                        <NavLink to="/settings" activeclassname="active">
                           Settings
                         </NavLink>
                       </li>
                       <li>
-                        <NavLink to="/logout" activeClassName="active">
+                        <NavLink to="/logout" activeclassname="active">
                           Logout
                         </NavLink>
                       </li>
@@ -65,7 +65,7 @@ function Navbar() {
                   <NavLink
                     to="/diagnostic"
                     className="nav-link"
-                    activeClassName="active"
+                    activeclassname="active"
                   >
                     Diagnostic
                   </NavLink>

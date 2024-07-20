@@ -1,5 +1,4 @@
-// const apiUrl = "http://127.0.0.1:8080/api";
-const apiUrl = "https://oussama-backend-2r2lfrmw2a-uc.a.run.app/api";
+const apiUrl = "http://127.0.0.1:8080/api";
 
 const sendDatatoServer = async (formData, step) => {
   try {
